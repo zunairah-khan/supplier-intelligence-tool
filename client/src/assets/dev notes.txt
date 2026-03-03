@@ -1,0 +1,51 @@
+change the layout component in app file to conditionally render the layou tbased on user existence
+change the user const in UserAvatar to use destructuring brackets
+
+useradmin dependenceies:
+sidebar nav links - team and trash tabs  (const sidebarLinks)
+
+taskcard:
+taskdialogue showing in taskcard component and Add subtask button
+
+task/table:
+open dialogue and add subtask button
+
+REFACTOR SELF CLOSING DIV TO SEPARATE COMPONENT:
+className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])} (IN TASK TABLE and elsewhere)
+task and supplier sub components to be the same components instead of having  very similar components. allows for risk module to be added
+
+DEV TODO:
+supplier risk gallery
+supplier tier page filtering 
+add supplier form / edit supplier form
+supplier dashboard
+
+logic:
+add suppliers
+make supplier dashboard real 
+make task dashboard real
+make taskdetails and supplierdetails pages navigate to correct item
+form logic for editing and adding suppliers
+form logic for adding subtask
+form logic on login
+action commenting logic
+admin role logic
+
+big logic:
+email summary
+dependency mapping
+-----------------------------------------------------------------------
+NON-DEV TODO:
+low fidelity wireframes
+interviews feedback
+high fidelity wireframes
+frontend dev process - sdks used and justification
+database model for backend to be developed
+user access matrix
+test plans
+-------------------------------------------------------------------------
+NOT TODO:
+notifications
+risks module
+backend
+

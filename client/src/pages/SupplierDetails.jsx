@@ -38,7 +38,7 @@ const SupplierDetails = () => {
       
       <div className="w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow rounded-md px-8 py-8 overflow-y-auto">
         {/* LEFT SECTION */}
-        <div className="w-full md:w-1/2 space-y-8">
+        <div className="w-full md:w-1/2 space-y-5 bg-white shadow rounded-lg p-6">
           {/* Supplier Name with Risk Level & Tier */}
           <div className="flex items-center gap-5 flex-wrap">
             <h2 className="text-3xl font-bold text-gray-600">{supplier?.name}</h2>
@@ -53,6 +53,20 @@ const SupplierDetails = () => {
             </div>
             <div className="flex items-center gap-2 bg-blue-100 px-3 py-1 rounded-full">
               <span className="text-blue-600 font-semibold">Tier {supplier?.tier}</span>
+            </div>
+          </div>
+
+          {/* Capacity */}
+          <div className="space-y-1 bg-blue-50 p-2 rounded-lg">
+            <p className=" font-semibold text-sm">PRODUCTION CAPACITY</p>
+            <div className="flex items-center gap-2">
+              <div className="w-full bg-blue-200 rounded-full h-2.5">
+                <div
+                  className="bg-blue-600 h-2.5 rounded-full"
+                  style={{ width: `${supplier?.capacity * 100}%` }}
+                ></div>
+              </div>
+              <span className="text-blue-700 font-semibold">{(supplier?.capacity * 100).toFixed(0)}%</span>
             </div>
           </div>
 
@@ -84,19 +98,7 @@ const SupplierDetails = () => {
             </div>
           </div>
 
-          {/* Capacity */}
-          <div className="space-y-3 bg-blue-50 p-4 rounded-lg">
-            <p className="text-blue-600 font-semibold text-sm">PRODUCTION CAPACITY</p>
-            <div className="flex items-center gap-4">
-              <div className="w-full bg-blue-200 rounded-full h-2.5">
-                <div
-                  className="bg-blue-600 h-2.5 rounded-full"
-                  style={{ width: `${supplier?.capacity * 100}%` }}
-                ></div>
-              </div>
-              <span className="text-blue-700 font-semibold">{(supplier?.capacity * 100).toFixed(0)}%</span>
-            </div>
-          </div>
+          
 
           {/* Legal & Date Information */}
           <div className="space-y-4">

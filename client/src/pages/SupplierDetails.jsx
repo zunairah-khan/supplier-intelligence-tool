@@ -156,10 +156,10 @@ const SupplierDetails = () => {
         {/* RIGHT SECTION - ASSETS */}
         <div className="w-full md:w-1/2 space-y-8">
           <div>
-            <p className="text-lg font-semibold text-orange-600 mb-6">FACILITY ASSETS</p>
+            <p className=" font-semibold  mb-6">ASSETS</p>
 
             {supplier?.assets && supplier?.assets?.length > 0 ? (
-              <div className="w-full grid grid-cols-2 gap-4">
+              <div className="w-full grid grid-cols-4 gap-4">
                 {supplier?.assets?.map((asset, index) => (
                   <div
                     key={index}

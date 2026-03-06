@@ -1,37 +1,36 @@
 import React from "react";
 import clsx from "clsx";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 
-const IMPACT_STYLES = {
-  High: "border-l-4 border-red-600",
-  Medium: "border-l-4 border-yellow-600",
-  Low: "border-l-4 border-green-600",
-};
 
 const SupplierRiskCard = ({ risk }) => {
   return (
-    <div className="w-full bg-white shadow-md hover:shadow-lg rounded-lg p-4 transition-all duration-200 ">
+    <div className="w-full bg-gray-100 shadow rounded-md p-2 border border-gray-200 text-sm text-gray-700">
+<div className="space-y-1 mb-2">
+
       {/* Risk Name */}
-      <div className="flex items-start justify-between mb-3">
-        <h3 className="text-base font-bold text-gray-900">
-          {risk.riskName}
-        </h3>
+      <div className="flex gap-2">
+      <span className="font-semibold text-gray-800">
+            Risk:
+          </span>
+          <span className="text-gray-800 font-semibold">
+            {risk.riskName}
+          </span>
       </div>
 
       {/* Risk Info */}
-      <div className="space-y-2 text-sm text-gray-700 mb-4">
-
-        <div className="flex justify-between">
+        <div className="flex gap-2">
           <span className="font-semibold text-gray-800">
-            Risk Tolerance
+            Risk Tolerance:
           </span>
           <span className="text-gray-600">
             {risk.riskTolerance} / 10
           </span>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex gap-2">
           <span className="font-semibold text-gray-800">
-            Control Confidence
+            Control Confidence:
           </span>
           <span className="text-gray-600">
             {risk.controlConfidence} / 10
@@ -41,13 +40,13 @@ const SupplierRiskCard = ({ risk }) => {
       </div>
 
       {/* Button */}
-      <div className="flex justify-end">
-        <button
-          className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md transition"
-        >
+        <button className="flex justify-center text-sm bg-white hover:bg-gray-300  px-3 py-1.5 rounded-md transition gap-1 border border-gray-300">
+        <span>
+          <MdOutlineRemoveRedEye size={18} className="text-gray-600" />
+        </span>
           View
         </button>
-      </div>
+      
     </div>
   );
 };

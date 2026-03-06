@@ -101,7 +101,7 @@ const Sidebar = () => {
       <Link 
       onClick={closeSidebar} 
       to={el.link} 
-      className={clsx("w-full lg:w-3/4 flex gap-2 px-3 py-2 rounded-full items-center text-gray-800  text-base hover:bg-[#2564ed2d]", path===el.link.split("/")[0] ? "bg-blue-600 text-white" : "" 
+      className={clsx("w-full lg:w-3/4 flex gap-2 px-3 py-2 rounded-full items-center text-gray-800  text-sm hover:bg-[#2564ed2d]", path===el.link.split("/")[0] ? "bg-blue-600 text-white" : "" 
       )}> {/*the className is set based on whether the link is active (current path matches link path) or not*/}
       
         {el.icon} {/* Render the icon for the link */}
@@ -122,14 +122,14 @@ const Sidebar = () => {
         </span>
       </h1>
 
-      <div className='flex-1 flex flex-col gap-y-5 py-8'>
+      <div className='flex-1 flex flex-col gap-y-5 py-6'>
         {sidebarLinks.map((link) => (
           <NavLink el={link} key={link.label} />
         ))}
       </div>
 
       <div className=''>
-        <button className='w-full flex gap-2 p-2 items-center text-lg text-gray-800'>
+        <button className='w-full flex gap-2 p-2 items-center text-md text-gray-800'>
           <MdSettings />
           <span>Settings</span>
         </button>

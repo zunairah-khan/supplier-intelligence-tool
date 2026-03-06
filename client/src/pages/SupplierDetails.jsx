@@ -28,7 +28,7 @@ const RISK_LEVEL_BG = {
 
 const SupplierDetails = () => {
   const { id } = useParams();
-  const supplier = suppliers[0]; // Using first supplier as default
+  const supplier = suppliers[1]; // Using first supplier as default
 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
@@ -159,8 +159,10 @@ const SupplierDetails = () => {
 
         {/* RIGHT SECTION - ASSETS */}
         <div className="w-full md:w-1/2 space-y-8">
-        <div> {/*Risk gallery section*/}
-          <p className=" font-semibold  text-lg mb-6">Risks</p>
+        <div className="shadow rounded-lg p-3">
+        <p className=" font-semibold  text-lg mb-2 ">Risks</p>
+        <div className="h-1/3 overflow-y-scroll"> {/*Risk gallery section*/}
+        {supplier?.risks && supplier?.risks?.length > 0 ? (
           <div className="w-full grid grid-cols-2 gap-4">
             {supplier?.risks?.map((risk, index) => (
               <div key={index} className="relative group overflow-hidden">
@@ -168,6 +170,10 @@ const SupplierDetails = () => {
               </div>
             ))}
           </div>
+        ) :(
+          <p className="text-gray-500 italic">There are no risks associated with {supplier?.name}</p>
+        )}
+        </div>
         </div>
           <div>
             <p className=" font-semibold  text-lg mb-6">Assets</p>

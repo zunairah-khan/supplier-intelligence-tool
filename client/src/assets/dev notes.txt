@@ -53,6 +53,6 @@ using git:
 
 git status
 git add .
-git commit -m "Clear feature-based message"
+git commit -m "message"
 git push
 

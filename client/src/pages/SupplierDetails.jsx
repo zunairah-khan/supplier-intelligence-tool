@@ -11,6 +11,7 @@ import {
   MdGavel
 } from "react-icons/md";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+import Breadcrumb from "../components/Breadcrumb";
 
 const RISK_LEVEL_STYLES = {
   High: "text-red-600",
@@ -33,7 +34,9 @@ const SupplierDetails = () => {
   }
 
   return (
+
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
+      <Breadcrumb/>
       <h1 className="text-2xl text-gray-600 font-bold">Supplier Overview</h1>
       
       <div className="w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow rounded-md px-8 py-8 overflow-y-auto">

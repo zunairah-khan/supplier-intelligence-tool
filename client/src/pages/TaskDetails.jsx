@@ -25,6 +25,7 @@ const ICONS = {
   medium: <MdKeyboardArrowUp />,
   low: <MdKeyboardArrowDown />,
 };
+import Breadcrumb from "../components/Breadcrumb";
 
 const bgColor = {
   high: "bg-red-200",
@@ -86,6 +87,7 @@ const TaskDetails = () => {
 
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
+      <Breadcrumb/>
       <h1 className="text-2xl text-gray-600 font-bold">{task?.title}</h1>
       <Tabs tabs={TABS} setSelected={setSelected}>
         {selected === 0 ? (

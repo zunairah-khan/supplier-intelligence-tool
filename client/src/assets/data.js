@@ -579,7 +579,7 @@ export const chartData = [
     name: "Low",
     total: 2290,
   },
-];
+];  
 
 export const suppliers = [
   {

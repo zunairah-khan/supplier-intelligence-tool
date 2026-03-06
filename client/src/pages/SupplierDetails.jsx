@@ -163,11 +163,8 @@ const SupplierDetails = () => {
           <p className=" font-semibold  mb-6">RISK GALLERY</p>
           <div className="w-full grid grid-cols-2 gap-4">
             {supplier?.risks?.map((risk, index) => (
-              <div
-                key={index}
-                className="relative group overflow-hidden"
-              >
-                <SupplierRiskCard/>
+              <div key={index} className="relative group overflow-hidden">
+                <SupplierRiskCard risk={risk}/>
               </div>
             ))}
           </div>

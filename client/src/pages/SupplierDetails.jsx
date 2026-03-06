@@ -175,7 +175,7 @@ const SupplierDetails = () => {
       <Button
             onClick={()=> setOpen(true)}
             label="Add Risk"
-            icon={<IoMdAdd className="text-lg" />}
+            icon={<IoMdAdd className="text-" />}
             className="flex flex-row-reverse  gap-1 items-center bg-gray-200 hover:bg-gray-300 rounded-md py-1 2xl:py-2.5"
           />
     

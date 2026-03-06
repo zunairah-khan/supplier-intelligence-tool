@@ -654,6 +654,20 @@ export const suppliers = [
     likelihood: "High",
     riskTolerance: 2,
     controlConfidence:3},
+    {
+    id: "7",
+    riskName: "Operational Disruptions",
+    impact: "High",
+    likelihood: "High",
+    riskTolerance: 2,
+    controlConfidence:3},
+    {
+    id: "8",
+    riskName: "Operational Disruptions",
+    impact: "High",
+    likelihood: "High",
+    riskTolerance: 2,
+    controlConfidence:3},
     ]
   },
   {

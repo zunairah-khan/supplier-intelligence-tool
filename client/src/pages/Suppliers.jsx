@@ -43,7 +43,7 @@ const Suppliers = () => {
         {!tier && (
           <Button
             onClick={()=> setOpen(true)}
-            label="Add Action"
+            label="Add Supplier"
             icon={<IoMdAdd className="text-lg" />}
             className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
           />

@@ -1,8 +1,9 @@
-import React from "react";
+import {React, useState} from "react";
 import clsx from "clsx";
 import { useParams } from "react-router-dom";
 import { suppliers } from "../assets/data";
 import { getInitials } from "../utils";
+import { IoMdAdd } from "react-icons/io";
 import { 
   MdBusinessCenter, 
   MdLocationOn, 
@@ -13,6 +14,7 @@ import {
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import Breadcrumb from "../components/Breadcrumb";
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
+import Button from "../components/Button";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
@@ -28,7 +30,8 @@ const RISK_LEVEL_BG = {
 
 const SupplierDetails = () => {
   const { id } = useParams();
-  const supplier = suppliers[1]; // Using first supplier as default
+  const supplier = suppliers[0]; // Using first supplier as default
+  const [open, setOpen] = useState(false);
 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
@@ -42,7 +45,7 @@ const SupplierDetails = () => {
       
       <div 
       className={clsx(
-              "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-8 py-8 overflow-y-auto",
+              "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-4 py-5 overflow-y-auto",
               RISK_BORDER_STYLES[supplier.RiskLevel]
             )}>
         {/* LEFT SECTION */}
@@ -157,49 +160,52 @@ const SupplierDetails = () => {
           )}
         </div>
 
-        {/* RIGHT SECTION - ASSETS */}
-        <div className="w-full md:w-1/2 space-y-8">
-        <div className="shadow rounded-lg p-3">
-        <p className=" font-semibold  text-lg mb-2 ">Risks</p>
-        <div className="h-1/3 overflow-y-scroll"> {/*Risk gallery section*/}
-        {supplier?.risks && supplier?.risks?.length > 0 ? (
-          <div className="w-full grid grid-cols-2 gap-4">
-            {supplier?.risks?.map((risk, index) => (
-              <div key={index} className="relative group overflow-hidden">
-                <SupplierRiskCard risk={risk}/>
-              </div>
-            ))}
-          </div>
-        ) :(
-          <p className="text-gray-500 italic">There are no risks associated with {supplier?.name}</p>
-        )}
-        </div>
-        </div>
-          <div>
-            <p className=" font-semibold  text-lg mb-6">Assets</p>
+        {/* RIGHT SECTION*/}
+<div className="w-full md:w-1/2 space-y-8">
 
-            {supplier?.assets && supplier?.assets?.length > 0 ? (
-              <div className="w-full grid grid-cols-4 gap-4">
-                {supplier?.assets?.map((asset, index) => (
-                  <div
-                    key={index}
-                    className="relative group overflow-hidden rounded-lg shadow-md"
-                  >
-                    <img
-                      src={asset}
-                      alt={`${supplier?.name} asset ${index + 1}`}
-                      className="w-full rounded h-28 md:h-36 2xl:h-52 object-cover cursor-pointer transition-all duration-700 group-hover:scale-125 group-hover:z-50"
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="bg-gray-100 rounded-lg p-8 text-center">
-                <p className="text-gray-500">No assets available</p>
-              </div>
-            )}
-          </div>
+  {/* Risk Section */}
+  <div className="shadow rounded-lg bg-white p-3 flex flex-col h-1/2">
+
+<div className="justify-between items-center mb-2 flex border-b border-gray-200">
+    <span className="font-semibold text-lg mb-2 p-2">
+      Risks
+      </span>
+    
+    
+      <Button
+            onClick={()=> setOpen(true)}
+            label="Add Risk"
+            icon={<IoMdAdd className="text-lg" />}
+            className="flex flex-row-reverse  gap-1 items-center bg-gray-200 hover:bg-gray-300 rounded-md py-1 2xl:py-2.5"
+          />
+    
+</div>
+
+    <div className="overflow-y-auto flex-1">
+      {supplier?.risks && supplier?.risks?.length > 0 ? (
+        <div className="w-full grid grid-cols-2 gap-4 p-2">
+          {supplier?.risks?.map((risk, index) => (
+            <div key={index} className="relative group overflow-hidden">
+              <SupplierRiskCard risk={risk} />
+            </div>
+          ))}
         </div>
+      ) : (
+        <p className="text-gray-500 italic justify-center items-center flex h-full">
+          There are no risks associated with {supplier?.name}
+        </p>
+      )}
+    </div>
+
+  </div>
+
+  {/* Supplier Tier Mapping Section */}
+  <div className="shadow rounded-lg p-3 bg-white overflow-y-auto">
+    <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">Supplier Tier Mapping</p>
+    <p>Coming soon</p>
+  </div>
+
+</div>
       </div>
     </div>
   );

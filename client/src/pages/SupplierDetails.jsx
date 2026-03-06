@@ -128,7 +128,7 @@ const SupplierDetails = () => {
           {/* Contacts */}
           {supplier?.contacts && supplier?.contacts?.length > 0 && (
             <div className="space-y-3 py-4 border-t border-gray-200">
-              <p className=" font-semibold text-sm">CONTACTS</p>
+              <p className=" font-semibold text-md">Contacts</p>
               <div className="space-y-2">
                 {supplier?.contacts?.map((contact, index) => (
                   <div
@@ -160,7 +160,7 @@ const SupplierDetails = () => {
         {/* RIGHT SECTION - ASSETS */}
         <div className="w-full md:w-1/2 space-y-8">
         <div> {/*Risk gallery section*/}
-          <p className=" font-semibold  mb-6">RISK GALLERY</p>
+          <p className=" font-semibold  text-lg mb-6">Risks</p>
           <div className="w-full grid grid-cols-2 gap-4">
             {supplier?.risks?.map((risk, index) => (
               <div key={index} className="relative group overflow-hidden">
@@ -170,7 +170,7 @@ const SupplierDetails = () => {
           </div>
         </div>
           <div>
-            <p className=" font-semibold  mb-6">ASSETS</p>
+            <p className=" font-semibold  text-lg mb-6">Assets</p>
 
             {supplier?.assets && supplier?.assets?.length > 0 ? (
               <div className="w-full grid grid-cols-4 gap-4">

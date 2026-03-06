@@ -12,17 +12,18 @@ import {
 } from "react-icons/md";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import Breadcrumb from "../components/Breadcrumb";
+import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 
-const RISK_LEVEL_STYLES = {
-  High: "text-red-600",
-  Medium: "text-yellow-600",
-  Low: "text-green-600",
+const RISK_BORDER_STYLES = {
+  High: "border-red-600",
+  Medium: "border-yellow-600",
+  Low: "border-green-600",
 };
 
 const RISK_LEVEL_BG = {
-  High: "bg-red-200",
-  Medium: "bg-yellow-200",
-  Low: "bg-green-200",
+  High: "bg-red-600",
+  Medium: "bg-yellow-600",
+  Low: "bg-green-600",
 };
 
 const SupplierDetails = () => {
@@ -39,24 +40,24 @@ const SupplierDetails = () => {
       <Breadcrumb/>
       <h1 className="text-2xl text-gray-600 font-bold">Supplier Overview</h1>
       
-      <div className="w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow rounded-md px-8 py-8 overflow-y-auto">
+      <div 
+      className={clsx(
+              "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-8 py-8 overflow-y-auto",
+              RISK_BORDER_STYLES[supplier.RiskLevel]
+            )}>
         {/* LEFT SECTION */}
         <div className="w-full md:w-1/2 space-y-5 bg-white shadow rounded-lg p-6">
           {/* Supplier Name with Risk Level & Tier */}
           <div className="flex items-center gap-5 flex-wrap">
             <h2 className="text-3xl font-bold text-gray-600">{supplier?.name}</h2>
-            <div
-              className={clsx(
-                "flex gap-1 items-center text-base font-semibold px-3 py-1 rounded-full",
-                RISK_LEVEL_STYLES[supplier?.RiskLevel],
-                RISK_LEVEL_BG[supplier?.RiskLevel]
-              )}
-            >
-              <span className="uppercase">{supplier?.RiskLevel} Risk</span>
-            </div>
-            <div className="flex items-center gap-2 bg-blue-100 px-3 py-1 rounded-full">
-              <span className="text-blue-600 font-semibold">Tier {supplier?.tier}</span>
-            </div>
+            <span className="text-white text-sm font-bold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">Tier {supplier?.tier}</span>
+            
+              <span className={clsx(
+                          "text-white text-sm font-semibold px-2 py-1 rounded-md whitespace-nowrap",
+                          RISK_LEVEL_BG[supplier.RiskLevel]
+                        )}>{supplier?.RiskLevel} Risk</span>
+            
+              
           </div>
 
           {/* Capacity */}
@@ -127,12 +128,12 @@ const SupplierDetails = () => {
           {/* Contacts */}
           {supplier?.contacts && supplier?.contacts?.length > 0 && (
             <div className="space-y-3 py-4 border-t border-gray-200">
-              <p className="text-cyan-600 font-semibold text-sm">CONTACTS</p>
+              <p className=" font-semibold text-sm">CONTACTS</p>
               <div className="space-y-2">
                 {supplier?.contacts?.map((contact, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-4 py-1 px-4 border border-cyan-200 rounded-md bg-cyan-50"
+                    className="flex items-center gap-4 py-1 px-4 border border-blue-200 rounded-md bg-blue-50"
                   >
                     <div
                       className={
@@ -158,6 +159,19 @@ const SupplierDetails = () => {
 
         {/* RIGHT SECTION - ASSETS */}
         <div className="w-full md:w-1/2 space-y-8">
+        <div> {/*Risk gallery section*/}
+          <p className=" font-semibold  mb-6">RISK GALLERY</p>
+          <div className="w-full grid grid-cols-2 gap-4">
+            {supplier?.risks?.map((risk, index) => (
+              <div
+                key={index}
+                className="relative group overflow-hidden"
+              >
+                <SupplierRiskCard/>
+              </div>
+            ))}
+          </div>
+        </div>
           <div>
             <p className=" font-semibold  mb-6">ASSETS</p>
 

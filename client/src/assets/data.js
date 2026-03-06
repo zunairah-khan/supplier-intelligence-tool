@@ -611,6 +611,15 @@ export const suppliers = [
         email: "jane.smith@example.com",
       },
     ],
+    risks:[
+    { 
+    id: "1",
+    riskName: "Supplier Concentration",
+    impact: "High",
+    likelihood: "Low",
+    riskTolerance: 3,
+    controlConfidence:6}
+    ]
   },
   {
     _id: "65c5f27fb5204a81bde86834",
@@ -975,37 +984,7 @@ export const suppliers = [
 },
 ];
 
-export const supplierRisks =[
-  {
-    _id: "65c5f27fb5204a81bde86841",
-    fk_supplierIdsupplierId: "65c5f27fb5204a81bde86833",
-    riskName: "Supplier Concentration",
-    impact: "High",
-    likelihood: "Low",
-    riskTolerance: 3,
-    controlConfidence:6
-  },
-  {
-    _id: "65c5f27fb5204a81bde86842",
-    fk_supplierId: "65c5f27fb5204a81bde86833",
-    riskName: "Cyber Risk",
-    impact:"Medium",
-    likelihood:"Medium",
-    riskTolerance: 2,
-    controlConfidence: 4,
-  },
-  {
-    _id: "65c5f27fb5204a81bde86843",
-    fk_supplierId: "65c5f27fb5204a81bde86833",
-    riskName: "Financial Risk",
-    impact:"High",
-    likelihood:"Low",
-    riskTolerance: 2,
-    controlConfidence: 4,
 
-  }
-
-]
 
 export const tasks = [
   {

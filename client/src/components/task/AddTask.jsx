@@ -9,7 +9,7 @@ import { BiImages } from "react-icons/bi";
 import Button from "../Button";
 
 const STAGES = ["TODO", "IN PROGRESS", "COMPLETED"];
-const PRIORITIES = ["HIGH", "MEDIUM", "NORMAL", "LOW"];
+const PRIORITIES = ["HIGH", "MEDIUM",  "LOW"];
 
 const uploadedFileURLs = [];
 

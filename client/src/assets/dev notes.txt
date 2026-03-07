@@ -35,9 +35,13 @@ view risk
 add risk
 supplier and task sections high medium low organisation
 
+
 big logic:
 email summary
-dependency mapping
+dependency mapping:
+change tier map data to read from suppliers list - add parentsupplierid field to suppliers
+convert flat supplier list to hierarchical tree - wrapping tree in virtual root node 'org'
+add supplier form- have parent supplier selector - tier field should be automatically calculated
 -----------------------------------------------------------------------
 NON-DEV TODO:
 low fidelity wireframes

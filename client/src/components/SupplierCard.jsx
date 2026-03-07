@@ -66,7 +66,7 @@ const SupplierCard = ({ supplier }) => {
 
           <div className="flex flex-wrap gap-2 justify-start">
               {supplier.capacity && (
-                <span className="bg-purple-100 text-purple-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full">
                   Capacity: {(supplier.capacity * 100).toFixed(0)}%
                 </span>
               )}

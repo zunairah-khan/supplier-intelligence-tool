@@ -48,7 +48,7 @@ const SupplierDetails = () => {
         <Button
             onClick={()=> navigate(-1)}
             label=""
-            icon={<IoChevronBackCircle className="text-3xl text-gray-700 hover:text-gray-600" />}
+            icon={<IoChevronBackCircle className="text-3xl text-gray-700 hover:text-gray-500" />}
             className="flex  rounded-full items-center  text-white  "
           />
 

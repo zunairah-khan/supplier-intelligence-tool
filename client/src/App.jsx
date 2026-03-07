@@ -4,7 +4,7 @@ import Tasks from "./pages/Tasks.jsx";
 import Users from "./pages/Users.jsx";
 import Trash from "./pages/Trash.jsx";
 import TaskDetails from "./pages/TaskDetails.jsx";
-import SupplyChainMapping from "./pages/SupplyChainMapping.jsx";
+import SupplierTierMap from "./pages/SupplierTierMap.jsx";
 import Suppliers from "./pages/Suppliers.jsx";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard.jsx";
 import SupplierDetails from "./pages/SupplierDetails.jsx";
@@ -112,13 +112,13 @@ function App() {
         {/*layout wrapper for protected routes*/}
         <Route element={<Layout />}>
           {/* Redirect root to dashboard */}{" "}
-          <Route index path="/" element={<Navigate to="/supplierdashboard" />} />
+          <Route index path="/" element={<Navigate to="/executive-dashboard" />} />
           {/*Main application routes which map URLs to components*/}
-          <Route path="/executivedashboard" element={<ExecutiveDashboard />} />
-           <Route path="/supplychainmapping" element={<SupplyChainMapping />} />
+          <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />
+           <Route path="/supplier-tier-map" element={<SupplierTierMap />} />
            <Route path="/suppliers" element={<Suppliers />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/actions-dashboard" element={<Dashboard />} />
+          <Route path="/actions" element={<Tasks />} />
           {/*dynamic task routes using status parameter*/}
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />
@@ -130,7 +130,7 @@ function App() {
           <Route path="/team" element={<Users />} />
           <Route path="/trashed" element={<Trash />} />
           {/*dynamic route using taskid parameter*/}
-          <Route path="/tasks/:id" element={<TaskDetails />} />
+          <Route path="/actions/:id" element={<TaskDetails />} />
           {/*dynamic route using supplierid parameter*/}
             <Route path="/suppliers/:id" element={<SupplierDetails />} />
         </Route>

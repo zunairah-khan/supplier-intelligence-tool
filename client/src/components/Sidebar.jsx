@@ -20,7 +20,7 @@ import clsx from "clsx";
 const linkData = [
   {
     label: "Executive Dashboard",
-    link: "executivedashboard",
+    link: "executive-dashboard",
     icon: <MdDashboard />,
   },
   {
@@ -43,18 +43,18 @@ const linkData = [
     icon: <PiNumberCircleThreeFill />,
   },
   {
-    label: "Supply Chain Mapping",
-    link: "supplychainmapping",
+    label: "Supplier Tier Mapping",
+    link: "supplier-tier-map",
     icon: <FaBoxes />,
   },
   {
     label: "Action Tracking Dashboard",
-    link: "dashboard",
+    link: "actions-dashboard",
     icon: <IoBarChart />,
   },
   {
     label: "Actions",
-    link: "tasks",
+    link: "actions",
     icon: <FaTasks />,
   },
   /*{

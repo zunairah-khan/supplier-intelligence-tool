@@ -6,7 +6,7 @@ import Trash from "./pages/Trash.jsx";
 import TaskDetails from "./pages/TaskDetails.jsx";
 import SupplyChainMapping from "./pages/SupplyChainMapping.jsx";
 import Suppliers from "./pages/Suppliers.jsx";
-import SupplierDashboard from "./pages/SupplierDashboard.jsx";
+import ExecutiveDashboard from "./pages/ExecutiveDashboard.jsx";
 import SupplierDetails from "./pages/SupplierDetails.jsx";
 import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
@@ -114,7 +114,7 @@ function App() {
           {/* Redirect root to dashboard */}{" "}
           <Route index path="/" element={<Navigate to="/supplierdashboard" />} />
           {/*Main application routes which map URLs to components*/}
-          <Route path="/supplierdashboard" element={<SupplierDashboard />} />
+          <Route path="/executivedashboard" element={<ExecutiveDashboard />} />
            <Route path="/supplychainmapping" element={<SupplyChainMapping />} />
            <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/dashboard" element={<Dashboard />} />

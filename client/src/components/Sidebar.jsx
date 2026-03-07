@@ -19,8 +19,8 @@ import clsx from "clsx";
 //importing icons from react-icons for the sidebar links
 const linkData = [
   {
-    label: "Supplier Dashboard",
-    link: "supplierdashboard",
+    label: "Executive Dashboard",
+    link: "executivedashboard",
     icon: <MdDashboard />,
   },
   {

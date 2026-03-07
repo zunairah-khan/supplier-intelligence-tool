@@ -94,11 +94,11 @@ const TaskDetails = () => {
         <Button
             onClick={()=> navigate(-1)}
             label=""
-            icon={<IoChevronBackCircle className="text-3xl text-gray-700 hover:text-gray-500" />}
+            icon={<IoChevronBackCircle className="text-4xl text-gray-700 hover:text-gray-500" />}
             className="flex  rounded-full items-center  text-white  "
           />
         <span>
-          <h1 className="text-2xl text-gray-600 font-bold">{task?.title}</h1>
+          <h1 className="text-2xl text-gray-600 font-semibold">{task?.title}</h1>
         </span>
       </div>
       <Tabs tabs={TABS} setSelected={setSelected}>

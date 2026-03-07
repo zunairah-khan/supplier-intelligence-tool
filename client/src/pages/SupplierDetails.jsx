@@ -44,16 +44,16 @@ const SupplierDetails = () => {
   return (
 
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
-      <div className="flex items-center  ">
+      <div className="flex items-center ">
         <Button
             onClick={()=> navigate(-1)}
             label=""
-            icon={<IoChevronBackCircle className="text-3xl text-gray-700 hover:text-gray-500" />}
+            icon={<IoChevronBackCircle className="text-4xl text-gray-700 hover:text-gray-500" />}
             className="flex  rounded-full items-center  text-white  "
           />
 
         <span>
-          <h1 className="text-2xl text-gray-600 font-bold">Supplier Overview</h1>
+          <h1 className="text-2xl font-semibold text-gray-600">Supplier Overview</h1>
         </span>
       </div>
       

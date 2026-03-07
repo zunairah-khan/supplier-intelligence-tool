@@ -78,7 +78,7 @@ const SupplierTable = ({ suppliers }) => {
       </td>
 
       <td className='py-2'>
-        <span className="bg-purple-100 text-purple-700 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">
+        <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">
           {supplier?.capacity ? (supplier.capacity * 100).toFixed(0) : '0'}%
         </span>
       </td>

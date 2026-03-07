@@ -1,9 +1,19 @@
 import React from 'react'
+import TierMap from "../components/TierMap";
+import { supplierTierData } from "../assets/data";
 
-const SupplierTierMap = () => {
+function SupplierTierMap() {
   return (
-    <div>Supplier Tier Mapping coming soon!</div>
-  )
+    <div className="bg-white p-6 rounded-lg shadow">
+      <h1 className="text-xl font-semibold mb-6">
+        Supplier Tier Mapping
+      </h1>
+
+      <div className="overflow-auto">
+        <TierMap data={supplierTierData} />
+      </div>
+    </div>
+  );
 }
 
-export default SupplierTierMap
+export default SupplierTierMap;

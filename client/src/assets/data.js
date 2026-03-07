@@ -581,6 +581,38 @@ export const chartData = [
   },
 ];  
 
+export const supplierTierData = {
+  name: "Client Organisation",
+  tier: 0,
+  children: [
+    {
+      name: "Supplier A",
+      tier: 1,
+      children: [
+        {
+          name: "Sub Supplier A1",
+          tier: 2,
+          children: [
+            { name: "Raw Materials Ltd", tier: 3 }
+          ]
+        },
+        {
+          name: "Sub Supplier A2",
+          tier: 2
+        }
+      ]
+    },
+    {
+      name: "Supplier B",
+      tier: 1,
+      children: [
+        { name: "Component Co", tier: 2 }
+      ]
+    }
+  ]
+};
+
+
 export const suppliers = [
   {
     _id: "65c5f27fb5204a81bde86833",

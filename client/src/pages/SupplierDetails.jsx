@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { suppliers } from "../assets/data";
 import { getInitials } from "../utils";
 import { IoMdAdd } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 import { 
   MdBusinessCenter, 
   MdLocationOn, 
@@ -12,9 +13,11 @@ import {
   MdGavel
 } from "react-icons/md";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
-import Breadcrumb from "../components/Breadcrumb";
+
+
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 import Button from "../components/Button";
+import { IoChevronBackCircle  } from "react-icons/io5";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
@@ -32,6 +35,7 @@ const SupplierDetails = () => {
   const { id } = useParams();
   const supplier = suppliers[0]; // Using first supplier as default
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
@@ -40,8 +44,20 @@ const SupplierDetails = () => {
   return (
 
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
-      <Breadcrumb/>
-      <h1 className="text-2xl text-gray-600 font-bold">Supplier Overview</h1>
+      <div className="flex items-center  ">
+        <Button
+            onClick={()=> navigate(-1)}
+            label=""
+            icon={<IoChevronBackCircle className="text-3xl text-gray-700 hover:text-gray-600" />}
+            className="flex  rounded-full items-center  text-white  "
+          />
+
+        <span>
+          <h1 className="text-2xl text-gray-600 font-bold">Supplier Overview</h1>
+        </span>
+      </div>
+      
+      
       
       <div 
       className={clsx(

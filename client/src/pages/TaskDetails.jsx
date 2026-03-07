@@ -18,6 +18,8 @@ import { toast } from "sonner"; //for toast notifications from sonner library
 import { tasks } from "../assets/data";
 import { PRIORITYSTYLES, TASK_TYPE, getInitials } from "../utils";
 import Tabs from "../components/Tabs";
+import { IoChevronBackCircle  } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import Button
  from "../components/Button";
 const ICONS = {
@@ -25,7 +27,7 @@ const ICONS = {
   medium: <MdKeyboardArrowUp />,
   low: <MdKeyboardArrowDown />,
 };
-import Breadcrumb from "../components/Breadcrumb";
+
 
 const bgColor = {
   high: "bg-red-200",
@@ -84,11 +86,21 @@ const TaskDetails = () => {
   const { id } = useParams();
   const [selected, setSelected] = useState(0); //which tab is selected
   const task = tasks[3];
+  const navigate = useNavigate();
 
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
-      <Breadcrumb/>
-      <h1 className="text-2xl text-gray-600 font-bold">{task?.title}</h1>
+      <div className="flex items-center  ">
+        <Button
+            onClick={()=> navigate(-1)}
+            label=""
+            icon={<IoChevronBackCircle className="text-3xl text-gray-700 hover:text-gray-600" />}
+            className="flex  rounded-full items-center  text-white  "
+          />
+        <span>
+          <h1 className="text-2xl text-gray-600 font-bold">{task?.title}</h1>
+        </span>
+      </div>
       <Tabs tabs={TABS} setSelected={setSelected}>
         {selected === 0 ? (
           <>

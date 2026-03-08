@@ -614,8 +614,10 @@ export const supplierTierData = {
 
 
 export const suppliers = [
+  //tuer 1
   {
     _id: "65c5f27fb5204a81bde86833",
+    parentSupplierID: null,
     tier: 1,
     name: "Supplier A",
     RiskLevel: "High",
@@ -704,7 +706,8 @@ export const suppliers = [
   },
   {
     _id: "65c5f27fb5204a81bde86834",
-    tier: 2,
+    parentSupplierID: null,
+    tier: 1,
     name: "Supplier B",
     RiskLevel: "Medium",
     location: "UK North",
@@ -732,9 +735,11 @@ export const suppliers = [
       },
     ],
   },
+  //tier 2
   {
     _id: "65c5f27fb5204a81bde86835",
-    tier: 3,
+    parentSupplierID: "65c5f27fb5204a81bde86833",
+    tier: 2,
     name: "Supplier C",
     RiskLevel: "Low",
     location: "UK East",
@@ -759,7 +764,8 @@ export const suppliers = [
   },
   {
     _id: "65c5f27fb5204a81bde86836",
-    tier: 1,
+    parentSupplierID: "65c5f27fb5204a81bde86833",
+    tier: 2,
     name: "Supplier D",
     RiskLevel: "Medium",
     location: "UK West",
@@ -785,6 +791,7 @@ export const suppliers = [
   },
   {
   _id: "65c5f27fb5204a81bde86837",
+  parentSupplierID: "65c5f27fb5204a81bde86833",
   tier: 2,
   name: "Supplier E",
   RiskLevel: "High",
@@ -815,7 +822,8 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde86838",
-  tier: 3,
+  parentSupplierID: "65c5f27fb5204a81bde86834",
+  tier: 2,
   name: "Supplier F",
   RiskLevel: "Low",
   location: "Manchester Central",
@@ -840,7 +848,8 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde86839",
-  tier: 1,
+  parentSupplierID: "65c5f27fb5204a81bde86834",
+  tier: 2,
   name: "Supplier G",
   RiskLevel: "Medium",
   location: "Birmingham East",
@@ -868,9 +877,11 @@ export const suppliers = [
     },
   ],
 },
+//tier 3
 {
   _id: "65c5f27fb5204a81bde8683a",
-  tier: 2,
+  parentSupplierID: "65c5f27fb5204a81bde86835",
+  tier: 3,
   name: "Supplier H",
   RiskLevel: "High",
   location: "Bristol West",
@@ -895,7 +906,8 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683b",
-  tier: 1,
+  parentSupplierID: "65c5f27fb5204a81bde86835",
+  tier: 3,
   name: "Supplier I",
   RiskLevel: "Low",
   location: "Leeds North",
@@ -925,6 +937,7 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683c",
+  parentSupplierID: "65c5f27fb5204a81bde86835",
   tier: 3,
   name: "Supplier J",
   RiskLevel: "Medium",
@@ -950,7 +963,8 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683d",
-  tier: 2,
+  parentSupplierID: "65c5f27fb5204a81bde86836",
+  tier: 3,
   name: "Supplier K",
   RiskLevel: "Low",
   location: "Glasgow West",
@@ -980,7 +994,8 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683e",
-  tier: 1,
+  parentSupplierID: "65c5f27fb5204a81bde86836",
+  tier: 3,
   name: "Supplier L",
   RiskLevel: "High",
   location: "Liverpool Central",
@@ -1005,7 +1020,8 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683f",
-  tier: 2,
+  parentSupplierID: "65c5f27fb5204a81bde86839",
+  tier: 3,
   name: "Supplier M",
   RiskLevel: "Medium",
   location: "Newcastle East",
@@ -1035,6 +1051,7 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde86840",
+  parentSupplierID: "65c5f27fb5204a81bde86838",
   tier: 3,
   name: "Supplier N",
   RiskLevel: "Low",

@@ -34,16 +34,19 @@ const RISK_LEVEL_BG = {
 
 const SupplierDetails = () => {
   const { id } = useParams();
-  const supplier = suppliers[0]; // Using first supplier as default
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const supplierId = supplier._id;
-  // Build supplier hierarchy for tier mapping from current supplier id
-  const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
+
+  const supplier = suppliers.find((s) => s._id === id);
+  
 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
   }
+
+   // Build supplier hierarchy for tier mapping from current supplier id
+  const supplierId = supplier._id;
+  const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
 
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">

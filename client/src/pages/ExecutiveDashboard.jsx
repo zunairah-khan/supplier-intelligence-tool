@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ExecutiveDashboard = () => {
-  return (
-    <div>Executive Dashboard coming soon!</div>
-  )
-}
+  return <div>Executive Dashboard coming soon!</div>;
+};
 
-export default ExecutiveDashboard
+export default ExecutiveDashboard;

@@ -13,6 +13,8 @@ import {
   MdGavel
 } from "react-icons/md";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+import TierMap from "../components/TierMap";
+import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
 
 
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
@@ -36,6 +38,10 @@ const SupplierDetails = () => {
   const supplier = suppliers[0]; // Using first supplier as default
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  // Build supplier hierarchy for tier mapping
+  const hierarchyData = buildSupplierHierarchy(suppliers);
+  // Find the subtree for the current supplier
+  const supplierTree = hierarchyData.children.find((node) => node._id === supplier._id);
 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
@@ -218,7 +224,9 @@ const SupplierDetails = () => {
   {/* Supplier Tier Mapping Section */}
   <div className="shadow rounded-lg p-3 bg-white overflow-y-auto">
     <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">Supplier Tier Mapping</p>
-    <p>Coming soon</p>
+    <div className="w-full h-75">
+      <TierMap data={supplierTree} width={500} height={400} />
+    </div>
   </div>
 
 </div>

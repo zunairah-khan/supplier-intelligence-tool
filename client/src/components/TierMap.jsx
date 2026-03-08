@@ -1,72 +1,82 @@
-import React from 'react'
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const TierMap = ({ data }) => {
+const TierMap = ({ data, width = 900, height = 500 }) => {
+
   const svgRef = useRef();
 
   useEffect(() => {
-    const width = 1000;
-    const height = 600;
 
-    const svg = d3
-      .select(svgRef.current)
-      .attr("width", width)
-      .attr("height", height);
+    if (!data) return;
 
+    const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
+    const margin = { top: 40, right: 120, bottom: 40, left: 120 };
+
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const g = svg
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Convert to D3 hierarchy
     const root = d3.hierarchy(data);
 
-    const treeLayout = d3.tree().size([height - 100, width - 200]);
+    // Tree layout
+    const treeLayout = d3.tree().size([innerHeight, innerWidth]);
 
     treeLayout(root);
 
-    const g = svg.append("g").attr("transform", "translate(100,50)");
-
     // Links
-    g.selectAll("path")
+    g.selectAll(".link")
       .data(root.links())
       .enter()
       .append("path")
+      .attr("class", "link")
+      .attr("fill", "none")
+      .attr("stroke", "#ccc")
+      .attr("stroke-width", 2)
       .attr(
         "d",
-        d3
-          .linkHorizontal()
-          .x((d) => d.y)
-          .y((d) => d.x)
-      )
-      .attr("fill", "none")
-      .attr("stroke", "#cbd5e1")
-      .attr("stroke-width", 2);
+        d3.linkHorizontal()
+          .x(d => d.y)
+          .y(d => d.x)
+      );
 
     // Nodes
-    const nodes = g
-      .selectAll("g.node")
+    const node = g
+      .selectAll(".node")
       .data(root.descendants())
       .enter()
       .append("g")
-      .attr("transform", (d) => `translate(${d.y},${d.x})`);
+      .attr("class", "node")
+      .attr("transform", d => `translate(${d.y},${d.x})`);
 
-    nodes
-      .append("circle")
-      .attr("r", 8)
-      .attr("fill", (d) => {
-        if (d.data.tier === 1) return "#3b82f6";
-        if (d.data.tier === 2) return "#10b981";
+    // Node circles
+    node.append("circle")
+      .attr("r", 10)
+      .attr("fill", d => {
+        if (!d.parent) return "#111827"; // root
+        if (d.data.tier === 1) return "#2563eb";
+        if (d.data.tier === 2) return "#16a34a";
         if (d.data.tier === 3) return "#f59e0b";
-        return "#111827";
+        return "#6b7280";
       });
 
-    nodes
-      .append("text")
-      .attr("dx", 12)
-      .attr("dy", 4)
-      .style("font-size", "13px")
-      .text((d) => d.data.name);
+    // Labels
+    node.append("text")
+      .attr("dy", "0.35em")
+      .attr("x", d => (d.children ? -16 : 16))
+      .attr("text-anchor", d => (d.children ? "end" : "start"))
+      .style("font-size", "12px")
+      .text(d => d.data.name);
 
-  }, [data]);
+  }, [data, width, height]);
 
   return <svg ref={svgRef}></svg>;
 };

@@ -13,14 +13,14 @@ const SupplierRiskCard = ({ risk }) => {
       <span className="font-semibold text-gray-800">
             Risk:
           </span>
-          <span className="text-gray-800 font-semibold">
+          <span className="text-gray-800 font-semibold line-clamp-1">
             {risk.riskName}
           </span>
       </div>
 
       {/* Risk Info */}
-        <div className="flex gap-2">
-          <span className="font-semibold text-gray-800">
+        <div className="flex gap-2 ">
+          <span className="font-semibold text-gray-800 ">
             Risk Tolerance:
           </span>
           <span className="text-gray-600">

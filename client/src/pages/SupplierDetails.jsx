@@ -182,7 +182,7 @@ const SupplierDetails = () => {
         </div>
 
         {/* RIGHT SECTION*/}
-<div className="w-full md:w-1/2 space-y-8">
+<div className="w-full md:w-1/2 space-y-5 bg-white pb-6">
 
   {/* Risk Section */}
   <div className="shadow rounded-lg bg-white p-3 flex flex-col h-1/2">
@@ -221,9 +221,9 @@ const SupplierDetails = () => {
   </div>
 
   {/* Supplier Tier Mapping Section */}
-  <div className="shadow rounded-lg p-3 bg-white flex flex-col">
+  <div className="shadow rounded-lg p-2 bg-white h-1/2">
     <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">Supplier Dependencies</p>
-    <div className="w-full h-flex">
+    <div className="w-full h-flex justify-start  flex">
       <TierMap data={hierarchyData} width={500} height={400} />
     </div>
   </div>

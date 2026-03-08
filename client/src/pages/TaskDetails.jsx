@@ -85,8 +85,14 @@ const act_types = [
 const TaskDetails = () => {
   const { id } = useParams();
   const [selected, setSelected] = useState(0); //which tab is selected
-  const task = tasks[3];
   const navigate = useNavigate();
+
+   const task = tasks.find((t) => t._id === id);
+    
+  
+    if (!task) {
+      return <div className="text-red-600">Error: Task not found</div>;
+    }
 
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">

@@ -35,7 +35,7 @@ const RISK_LEVEL_BG = {
 
 const SupplierDetails = () => {
   const { id } = useParams();
-  const supplier = suppliers[0]; // Using first supplier as default
+  const supplier = suppliers[2]; // Using first supplier as default
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   // Build supplier hierarchy for tier mapping

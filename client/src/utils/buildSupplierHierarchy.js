@@ -1,38 +1,44 @@
-export function buildSupplierHierarchy(suppliers) {
 
-// algorithmic complexity is o(n) where n is the number of suppliers, since it loops through the list a few times but never nested loops
+// Builds a hierarchical tree of suppliers for mapping.
+// Can either build the full org tree or start from a specific supplier.
 
-  // lookup map for quick access to suppliers by ID
-  const supplierMap = {};
-  suppliers.forEach(supplier => {
-    supplierMap[supplier._id] = { ...supplier, children: [] };
+export function buildSupplierHierarchy(suppliers, rootSupplierId = null) {
+  // Map of supplierId -> supplier object with empty children array
+  const supplierMap = new Map();
+
+  // Map of parentSupplierId -> list of child supplierIds
+  const childrenMap = new Map();
+
+  // First pass: populate supplierMap and childrenMap
+  suppliers.forEach((supplier) => {
+    // Store supplier and prepare empty children array
+    supplierMap.set(supplier._id, { ...supplier, children: [] });
+
+    // Map parentSupplierId -> child IDs
+    if (!childrenMap.has(supplier.parentSupplierID)) childrenMap.set(supplier.parentSupplierID, []);
+    childrenMap.get(supplier.parentSupplierID).push(supplier._id);
+
+    // Ensure every supplier ID exists as a key in childrenMap
+    // This prevents undefined children when building subtrees
+    if (!childrenMap.has(supplier._id)) childrenMap.set(supplier._id, []);
   });
 
-  // array for top-level suppliers
-  const rootChildren = [];
+  // Recursive function to build a node and its nested children
+  function buildNode(supplierId) {
+    const supplier = supplierMap.get(supplierId);             // Get supplier object
+    const childrenIds = childrenMap.get(supplierId) || [];    // Get IDs of children
+    supplier.children = childrenIds.map((id) => buildNode(id)); // Recursively build children
+    return supplier;
+  }
 
-  suppliers.forEach(supplier => {
+  // If no rootSupplierId is provided, create an "org" root node
+  if (!rootSupplierId) {
+    return {
+      name: "org",
+      children: (childrenMap.get(null) || []).map((id) => buildNode(id)), // Tier 1 suppliers
+    };
+  }
 
-    if (supplier.parentSupplierID === null) {
-      // Tier 1 supplier
-      rootChildren.push(supplierMap[supplier._id]);
-    } 
-    else {
-      // Find parent supplier and nest suppliers under their parents
-      const parent = supplierMap[supplier.parentSupplierID];
- 
-      if (parent) {
-        parent.children.push(supplierMap[supplier._id]);
-      }
-    }
-
-  });
-
-  // Wrap everything in a virtual root node (this represents the client org)
-  return {
-    _id: "org",
-    name: "Organisation",
-    children: rootChildren
-  };
-
+  // Otherwise, build tree starting from a specific supplier
+  return buildNode(rootSupplierId);
 }

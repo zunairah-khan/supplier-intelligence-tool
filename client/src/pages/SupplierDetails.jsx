@@ -35,14 +35,13 @@ const RISK_LEVEL_BG = {
 
 const SupplierDetails = () => {
   const { id } = useParams();
-  const supplier = suppliers[2]; // Using first supplier as default
+  const supplier = suppliers[0]; // Using first supplier as default
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  // Build supplier hierarchy for tier mapping
-  const hierarchyData = buildSupplierHierarchy(suppliers);
-  // Find the subtree for the current supplier
-  const supplierTree = hierarchyData.children.find((node) => node._id === supplier._id);
-
+  const supplierId = supplier._id; 
+  // Build supplier hierarchy for tier mapping from current supplier id
+  const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
+ 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
   }
@@ -225,7 +224,7 @@ const SupplierDetails = () => {
   <div className="shadow rounded-lg p-3 bg-white flex flex-col">
     <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">Supplier Dependencies</p>
     <div className="w-full h-flex">
-      <TierMap data={supplierTree} width={500} height={400} />
+      <TierMap data={hierarchyData} width={500} height={400} />
     </div>
   </div>
 

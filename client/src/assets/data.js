@@ -614,7 +614,7 @@ export const supplierTierData = {
 
 
 export const suppliers = [
-  //tuer 1
+  //tier 1
   {
     _id: "65c5f27fb5204a81bde86833",
     parentSupplierID: null,

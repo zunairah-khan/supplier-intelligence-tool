@@ -1,5 +1,7 @@
 export function buildSupplierHierarchy(suppliers) {
 
+// algorithmic complexity is o(n) where n is the number of suppliers, since we loop through the list a few times but never nested loops
+
   // lookup map for quick access to suppliers by ID
   const supplierMap = {};
   suppliers.forEach(supplier => {

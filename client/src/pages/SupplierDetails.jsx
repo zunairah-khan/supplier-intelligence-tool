@@ -222,9 +222,9 @@ const SupplierDetails = () => {
   </div>
 
   {/* Supplier Tier Mapping Section */}
-  <div className="shadow rounded-lg p-3 bg-white overflow-y-auto">
-    <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">Supplier Tier Mapping</p>
-    <div className="w-full h-75">
+  <div className="shadow rounded-lg p-3 bg-white flex flex-col">
+    <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">Supplier Dependencies</p>
+    <div className="w-full h-flex">
       <TierMap data={supplierTree} width={500} height={400} />
     </div>
   </div>

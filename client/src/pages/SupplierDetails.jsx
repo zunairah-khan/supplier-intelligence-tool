@@ -69,7 +69,7 @@ const SupplierDetails = () => {
 
       <div
         className={clsx(
-          "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-4 py-5 overflow-y-auto",
+          "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-4 py-5",
           RISK_BORDER_STYLES[supplier.RiskLevel],
         )}
       >

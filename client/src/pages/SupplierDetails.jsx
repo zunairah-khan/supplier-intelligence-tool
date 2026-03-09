@@ -19,6 +19,7 @@ import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 import Button from "../components/Button";
 import { IoChevronBackCircle } from "react-icons/io5";
+import { calculateDependencyStats } from "../utils/calculateDependencyStats";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
@@ -38,16 +39,16 @@ const SupplierDetails = () => {
   const navigate = useNavigate();
 
   const supplier = suppliers.find((s) => s._id === id);
-  
 
   if (!supplier) {
     return <div className="text-red-600">Error: Supplier not found</div>;
   }
 
-   // Build supplier hierarchy for tier mapping from current supplier id
+  // Build supplier hierarchy for tier mapping from current supplier id
   const supplierId = supplier._id;
   const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
-  const supplierHasDependencies = hierarchyData?.children?.length>0
+  const { downstreamSuppliers, highCriticalityRoutes } = calculateDependencyStats(hierarchyData);
+  const supplierHasDependencies = hierarchyData?.children?.length > 0;
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
       <div className="flex items-center ">
@@ -241,17 +242,33 @@ const SupplierDetails = () => {
 
           {/* Supplier Tier Mapping Section */}
           <div className="shadow rounded-lg p-2 bg-white h-1/2">
-            <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">
-              Supplier Dependencies
-            </p>
+            <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
+              <p className="font-semibold text-lg">Supplier Dependencies</p>
+              {/* Display key stats about the supplier dependencies */}
+              <div className="flex gap-2">
+                <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
+                  <p className="text-xs ">Downstream Suppliers</p>
+                  <p className="font-semibold text-blue-700">
+                    {downstreamSuppliers}
+                  </p>
+                </div>
+
+                <div className="bg-red-50 px-3 py-1 rounded-md text-center">
+                  <p className="text-xs ">High Criticality Routes</p>
+                  <p className="font-semibold text-red-700">
+                    {highCriticalityRoutes}
+                  </p>
+                </div>
+              </div>
+            </div>
             {!supplierHasDependencies ? (
               <p className="text-gray-500 italic justify-center items-center flex h-full">
                 {supplier?.name} has no dependencies
               </p>
             ) : (
-            <div className="w-full h-flex justify-start  flex">
-              <TierMap data={hierarchyData} width={500} height={400} />
-            </div>
+              <div className="w-full h-flex justify-start  flex">
+                <TierMap data={hierarchyData} width={500} height={400} />
+              </div>
             )}
           </div>
         </div>

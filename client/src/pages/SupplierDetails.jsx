@@ -246,7 +246,7 @@ const SupplierDetails = () => {
             </p>
             {!supplierHasDependencies ? (
               <p className="text-gray-500 italic justify-center items-center flex h-full">
-                This supplier has no dependencies
+                {supplier?.name} has no dependencies
               </p>
             ) : (
             <div className="w-full h-flex justify-start  flex">

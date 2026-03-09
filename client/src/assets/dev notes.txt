@@ -10,9 +10,11 @@ taskdialogue showing in taskcard component and Add subtask button
 task/table:
 open dialogue and add subtask button
 
+----OPTIMISATIONS-----
 REFACTOR SELF CLOSING DIV TO SEPARATE COMPONENT:
 className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task.stage])} (IN TASK TABLE and elsewhere)
 task and supplier sub components to be the same components instead of having  very similar components. allows for risk module to be added
+ADD STYLING PAGE TO STORE COLOUR THEMES RATHER THAN WITHIN SEPARATE COMPONENTS
 
 DEV TODO:
 supplier risk gallery

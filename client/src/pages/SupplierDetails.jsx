@@ -47,7 +47,7 @@ const SupplierDetails = () => {
    // Build supplier hierarchy for tier mapping from current supplier id
   const supplierId = supplier._id;
   const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
-
+  const supplierHasDependencies = hierarchyData?.children?.length>0
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
       <div className="flex items-center ">
@@ -244,9 +244,15 @@ const SupplierDetails = () => {
             <p className="font-semibold text-lg border-b border-gray-200 p-2 mb-2">
               Supplier Dependencies
             </p>
+            {!supplierHasDependencies ? (
+              <p className="text-gray-500 italic justify-center items-center flex h-full">
+                This supplier has no dependencies
+              </p>
+            ) : (
             <div className="w-full h-flex justify-start  flex">
               <TierMap data={hierarchyData} width={500} height={400} />
             </div>
+            )}
           </div>
         </div>
       </div>

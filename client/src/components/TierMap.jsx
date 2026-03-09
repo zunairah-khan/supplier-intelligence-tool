@@ -9,6 +9,13 @@ const CRITICALITY_COLOURS = {
   Default: "#6b7280",
 };
 
+const TIER_COLOURS = {
+  1: "#1D4ED8",
+  2: "#3B82F6",
+  3: "#93C5FD",
+  Default: "#6b7280",
+};
+
 const TierMap = ({ data, width = 900, height = 500 }) => {
 
   const svgRef = useRef();
@@ -72,11 +79,8 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     node.append("circle")
       .attr("r", 10)
       .attr("fill", d => {
-        if (!d.parent) return "#2563eb"; // root
-        if (d.data.tier === 1) return "#ef4444";
-        if (d.data.tier === 2) return "#16a34a";
-        if (d.data.tier === 3) return "#f59e0b";
-        return "#6b7280";
+        if (d.data.name === "org") return TIER_COLOURS.Default; // organisation root node
+        return TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default;
       });
 
     // Labels

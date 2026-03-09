@@ -617,7 +617,7 @@ export const suppliers = [
   //tier 1
   {
     _id: "65c5f27fb5204a81bde86833",
-    parentSupplierID: null,
+    parentSuppliers: [],
     tier: 1,
     name: "Supplier A",
     RiskLevel: "High",
@@ -706,7 +706,7 @@ export const suppliers = [
   },
   {
     _id: "65c5f27fb5204a81bde86834",
-    parentSupplierID: null,
+    parentSuppliers: [],  
     tier: 1,
     name: "Supplier B",
     RiskLevel: "Medium",
@@ -738,7 +738,12 @@ export const suppliers = [
   //tier 2
   {
     _id: "65c5f27fb5204a81bde86835",
-    parentSupplierID: "65c5f27fb5204a81bde86833",
+    parentSuppliers: [
+      {
+        _id: "65c5f27fb5204a81bde86833",
+        routeCriticality: "High",
+      },
+    ],
     tier: 2,
     name: "Supplier C",
     RiskLevel: "Low",
@@ -764,7 +769,12 @@ export const suppliers = [
   },
   {
     _id: "65c5f27fb5204a81bde86836",
-    parentSupplierID: "65c5f27fb5204a81bde86833",
+    parentSuppliers: [
+      {
+        _id: "65c5f27fb5204a81bde86833",
+        routeCriticality: "High",
+      },
+    ],
     tier: 2,
     name: "Supplier D",
     RiskLevel: "Medium",
@@ -791,7 +801,12 @@ export const suppliers = [
   },
   {
   _id: "65c5f27fb5204a81bde86837",
-  parentSupplierID: "65c5f27fb5204a81bde86833",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86833",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 2,
   name: "Supplier E",
   RiskLevel: "High",
@@ -822,7 +837,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde86838",
-  parentSupplierID: "65c5f27fb5204a81bde86834",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86834",
+      routeCriticality: "High",
+    },
+  ],
   tier: 2,
   name: "Supplier F",
   RiskLevel: "Low",
@@ -848,7 +868,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde86839",
-  parentSupplierID: "65c5f27fb5204a81bde86834",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86834",
+      routeCriticality: "High",
+    },
+  ],
   tier: 2,
   name: "Supplier G",
   RiskLevel: "Medium",
@@ -880,7 +905,12 @@ export const suppliers = [
 //tier 3
 {
   _id: "65c5f27fb5204a81bde8683a",
-  parentSupplierID: "65c5f27fb5204a81bde86835",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86835",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 3,
   name: "Supplier H",
   RiskLevel: "High",
@@ -906,7 +936,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683b",
-  parentSupplierID: "65c5f27fb5204a81bde86835",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86835",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 3,
   name: "Supplier I",
   RiskLevel: "Low",
@@ -937,7 +972,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683c",
-  parentSupplierID: "65c5f27fb5204a81bde86835",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86835",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 3,
   name: "Supplier J",
   RiskLevel: "Medium",
@@ -963,7 +1003,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683d",
-  parentSupplierID: "65c5f27fb5204a81bde86836",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86836",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 3,
   name: "Supplier K",
   RiskLevel: "Low",
@@ -994,7 +1039,16 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683e",
-  parentSupplierID: "65c5f27fb5204a81bde86836",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86836",
+      routeCriticality: "Medium",
+    },
+    {
+      _id: "65c5f27fb5204a81bde86837",
+      routeCriticality: "High",
+    }
+  ],
   tier: 3,
   name: "Supplier L",
   RiskLevel: "High",
@@ -1020,7 +1074,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde8683f",
-  parentSupplierID: "65c5f27fb5204a81bde86839",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86839",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 3,
   name: "Supplier M",
   RiskLevel: "Medium",
@@ -1051,7 +1110,12 @@ export const suppliers = [
 },
 {
   _id: "65c5f27fb5204a81bde86840",
-  parentSupplierID: "65c5f27fb5204a81bde86838",
+  parentSuppliers: [
+    {
+      _id: "65c5f27fb5204a81bde86838",
+      routeCriticality: "Medium",
+    },
+  ],
   tier: 3,
   name: "Supplier N",
   RiskLevel: "Low",

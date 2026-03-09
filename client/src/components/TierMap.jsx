@@ -2,6 +2,13 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+const CRITICALITY_COLOURS = {
+  High: "#FF0000",
+  Medium: "#FFA500",
+  Low: "#00FF00",
+  Default: "#6b7280",
+};
+
 const TierMap = ({ data, width = 900, height = 500 }) => {
 
   const svgRef = useRef();
@@ -39,7 +46,11 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
       .append("path")
       .attr("class", "link")
       .attr("fill", "none")
-      .attr("stroke", "#ccc")
+      //link colour is determined from routeCriticality stored on the child node
+      .attr("stroke", d => {
+        const criticality = d.target.data.routeCriticality;
+        return CRITICALITY_COLOURS[criticality] || CRITICALITY_COLOURS.Default;
+      })
       .attr("stroke-width", 2)
       .attr(
         "d",
@@ -61,8 +72,8 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     node.append("circle")
       .attr("r", 10)
       .attr("fill", d => {
-        if (!d.parent) return "#111827"; // root
-        if (d.data.tier === 1) return "#2563eb";
+        if (!d.parent) return "#2563eb"; // root
+        if (d.data.tier === 1) return "#ef4444";
         if (d.data.tier === 2) return "#16a34a";
         if (d.data.tier === 3) return "#f59e0b";
         return "#6b7280";

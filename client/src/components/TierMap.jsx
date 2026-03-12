@@ -30,11 +30,9 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
 
     const margin = { top: 50, right: 120, bottom: 50, left: 120 };
 
-    // Zoom and pan
-    const zoom = d3.zoom().on("zoom", (event) => {
-      svg.select("g").attr("transform", event.transform);
-    });
-    svg.call(zoom);
+  
+
+
 
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -55,6 +53,20 @@ const tooltip = d3.select("body").append("div")
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
+
+//zoom and pan setup
+  const panFactor = 0.7; // 0.5 = half speed, 1 = normal speed
+  const initialTransform = d3.zoomIdentity.translate(margin.left, margin.top).scale(1); //Set initial transform to position the tree nicely within the SVG to ensure tree isnt rendered of-screen on first load
+
+  const zoom = d3.zoom()
+  .scaleExtent([0.5, 2]) // keep zoom normal
+  .on("zoom", (event) => {
+    // Slow down panning by applying pan factor to translate events
+    g.attr("transform", `translate(${event.transform.x * panFactor}, ${event.transform.y * panFactor}) scale(${event.transform.k})`);
+  });
+
+svg.call(zoom)
+  .call(zoom.transform, initialTransform); // Set initial position and zoom level
 
     // Convert to D3 hierarchy
     const root = d3.hierarchy(data);
@@ -157,7 +169,7 @@ const rectRadius = 5;
     // Hide tooltip
     tooltip.style("opacity", 0);})
 
-  //when node is clicked,
+  //when node is clicked, navigate to supplier details page if it's not the root node. Also hide tooltip on click to prevent it from lingering when navigating to new page.
   .on("click", (event, d) => 
   d.data.name !== "org" && (
     tooltip && tooltip.style("opacity", 0),

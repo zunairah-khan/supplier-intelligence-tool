@@ -27,7 +27,13 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    const margin = { top: 40, right: 120, bottom: 40, left: 120 };
+    const margin = { top: 50, right: 120, bottom: 50, left: 120 };
+
+    // Zoom and pan
+    const zoom = d3.zoom().on("zoom", (event) => {
+      svg.select("g").attr("transform", event.transform);
+    });
+    svg.call(zoom);
 
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;

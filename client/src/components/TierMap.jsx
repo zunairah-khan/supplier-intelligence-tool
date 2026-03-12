@@ -12,6 +12,8 @@ const TIER_COLOURS = {
   1: "#1D4ED8",
   2: "#3B82F6",
   3: "#93C5FD",
+  4: "#BFDBFE",
+  5: "#DBEAFE",
   Default: "#6b7280",
 };
 
@@ -82,36 +84,40 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
       .attr("class", "node")
       .attr("transform", (d) => `translate(${d.y},${d.x})`);
 
-    // Node circles
-    node
-      .append("circle")
-      .attr("r", 10)
+    // Node rectangles
+const rectWidth = 120;
+const rectHeight = 27;
+const rectRadius = 5;
 
-      .attr("fill", (d) =>
-        d.data.name === "org" //org root node
-          ? TIER_COLOURS.Default
-          : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default,
-      )
+    // Node rectangles
+    node.append("rect")
+  .attr("width", rectWidth)
+  .attr("height", rectHeight)
+  .attr("x", -rectWidth / 2)  // center horizontally
+  .attr("y", -rectHeight / 2) // center vertically
+  .attr("rx", rectRadius)
+  .attr("ry", rectRadius)
+  .attr("fill", d => d.data.name === "org" 
+        ? TIER_COLOURS.Default 
+        : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default)
+  .attr("stroke", "none")
+  .attr("stroke-width", 1);
+
+  // Node labels (centered)
+node.append("text")
+  .attr("text-anchor", "middle")
+  .attr("dy", "0.35em")
+  .style("font-size", "12px")
+  .style("fill", "#fff")
+  .text(d => d.data.name);
+
       //tooltip content is determined from node data
+    node.append("title")
+  .text(d => d.data.name === "org" 
+        ? "Organisation Root Node" 
+        : `Supplier: ${d.data.name}\nTier: ${d.data.tier}\nCriticality: ${d.routeCriticality || "N/A"}`);
 
-      .append("title")
-
-      .text((d) =>
-        d.data.name === "org"
-          ? "Organisation Root Node"
-          : `Supplier: ${d.data.name}
-Tier: ${d.data.tier}
-Criticality: ${d.data.routeCriticality || "N/A"}`,
-      );
-
-    // Labels
-    node
-      .append("text")
-      .attr("dy", "0.35em")
-      .attr("x", (d) => (d.children ? -16 : 16))
-      .attr("text-anchor", (d) => (d.children ? "end" : "start"))
-      .style("font-size", "12px")
-      .text((d) => d.data.name);
+   
   }, [data, width, height]);
 
   return <svg ref={svgRef}></svg>;

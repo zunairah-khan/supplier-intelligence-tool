@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
@@ -17,11 +16,9 @@ const TIER_COLOURS = {
 };
 
 const TierMap = ({ data, width = 900, height = 500 }) => {
-
   const svgRef = useRef();
 
   useEffect(() => {
-
     if (!data) return;
 
     const svg = d3.select(svgRef.current);
@@ -60,20 +57,22 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
       .attr("class", "link")
       .attr("fill", "none")
       //link colour is determined from routeCriticality stored on the child node
-      .attr("stroke", d => {
+      .attr("stroke", (d) => {
         const criticality = d.target.data.routeCriticality;
         return CRITICALITY_COLOURS[criticality] || CRITICALITY_COLOURS.Default;
       })
-      .attr("stroke-width", d=> {
+      //link width is determined from routeCriticality stored on the child node
+      .attr("stroke-width", (d) => {
         const criticality = d.target.data.routeCriticality;
         if (criticality === "High") return 3;
         return 2;
       })
       .attr(
         "d",
-        d3.linkHorizontal()
-          .x(d => d.y)
-          .y(d => d.x)
+        d3
+          .linkHorizontal()
+          .x((d) => d.y)
+          .y((d) => d.x),
       );
 
     // Nodes
@@ -83,24 +82,35 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
       .enter()
       .append("g")
       .attr("class", "node")
-      .attr("transform", d => `translate(${d.y},${d.x})`);
+      .attr("transform", (d) => `translate(${d.y},${d.x})`);
 
     // Node circles
-    node.append("circle")
+    node
+      .append("circle")
       .attr("r", 10)
-      .attr("fill", d => {
+      .attr("fill", (d) => {
         if (d.data.name === "org") return TIER_COLOURS.Default; // organisation root node
         return TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default;
+      })
+      //tooltip content is determined from node data
+      .append("title")
+      .text((d) => {
+        if (d.data.name === "org") {
+          return "Organisation Root Node";
+        } else {
+          return   `Supplier: ${d.data.name}
+          Tier: ${d.data.tier}
+          Criticality: ${d.data.routeCriticality || "N/A"}`;}
       });
 
     // Labels
-    node.append("text")
+    node
+      .append("text")
       .attr("dy", "0.35em")
-      .attr("x", d => (d.children ? -16 : 16))
-      .attr("text-anchor", d => (d.children ? "end" : "start"))
+      .attr("x", (d) => (d.children ? -16 : 16))
+      .attr("text-anchor", (d) => (d.children ? "end" : "start"))
       .style("font-size", "12px")
-      .text(d => d.data.name);
-
+      .text((d) => d.data.name);
   }, [data, width, height]);
 
   return <svg ref={svgRef}></svg>;

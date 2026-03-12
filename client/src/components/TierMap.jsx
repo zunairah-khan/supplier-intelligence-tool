@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import {useNavigate} from "react-router-dom";
 
 const CRITICALITY_COLOURS = {
   High: "#FF0000",
@@ -19,7 +20,7 @@ const TIER_COLOURS = {
 
 const TierMap = ({ data, width = 900, height = 500 }) => {
   const svgRef = useRef();
-
+  const navigate = useNavigate();
   useEffect(() => {
     // If no data or data is not in expected format, do not attempt to render the tree. this protects against errors when data is missing or malformed.
     if (!data || !data.children) return;
@@ -113,9 +114,10 @@ const rectRadius = 5;
         : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default)
   .attr("stroke", "none")
   .attr("stroke-width", 1)
-  //hover events
 
-  //when mouse enters the node, show the tooltip with supplier details.
+  //-----NODE EVENTS----
+
+  //when mouse enters the node
    .on("mouseover", function(event, d) {
     // Darken the rectangle
     d3.select(this)
@@ -135,12 +137,14 @@ const rectRadius = 5;
       .style("left", event.pageX + 10 + "px")
       .style("top", event.pageY + 10 + "px");
   })
+
   //when mouse moves within the node, update tooltip position to follow the cursor
   .on("mousemove", (event) => {
     tooltip
       .style("left", event.pageX + 10 + "px")
       .style("top", event.pageY + 10 + "px");
   })
+
   //when mouse leaves the node
   .on("mouseout", function(event, d) {
     // Restore original rectangle color
@@ -152,6 +156,14 @@ const rectRadius = 5;
 
     // Hide tooltip
     tooltip.style("opacity", 0);})
+
+  //when node is clicked,
+  .on("click", (event, d) => 
+  d.data.name !== "org" && (
+    tooltip && tooltip.style("opacity", 0),
+    navigate(`/suppliers/${d.data._id}`)
+  )
+);
 
   // Node labels (centered)
 node.append("text")

@@ -74,6 +74,7 @@ git push
 
 tiermap page:
 tier labels above branches and restrict panning to only left and right 
+collapsible tiers?
 fix padding/layout within screens
 add route legend
 add some stats and format map page

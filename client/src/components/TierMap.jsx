@@ -19,7 +19,8 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
   const svgRef = useRef();
 
   useEffect(() => {
-    if (!data) return;
+    // If no data or data is not in expected format, do not attempt to render the tree. this protects against errors when data is missing or malformed.
+    if (!data || !data.children) return;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();

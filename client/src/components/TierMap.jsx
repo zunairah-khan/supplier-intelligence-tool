@@ -38,6 +38,17 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
+    // Create tooltip div in DOM to show hover content. This is done outside of the SVG to allow for better styling and positioning.
+const tooltip = d3.select("body").append("div")
+  .style("position", "absolute")
+  .style("background", "#333")
+  .style("color", "#fff")
+  .style("padding", "6px 10px")
+  .style("border-radius", "4px")
+  .style("pointer-events", "none") // prevents tooltip from blocking mouse events
+  .style("opacity", 0)
+  .style("font-size", "12px");
+
     const g = svg
       .attr("width", width)
       .attr("height", height)
@@ -101,7 +112,46 @@ const rectRadius = 5;
         ? TIER_COLOURS.Default 
         : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default)
   .attr("stroke", "none")
-  .attr("stroke-width", 1);
+  .attr("stroke-width", 1)
+  //hover events
+
+  //when mouse enters the node, show the tooltip with supplier details.
+   .on("mouseover", function(event, d) {
+    // Darken the rectangle
+    d3.select(this)
+      .attr("fill", d3.color(d.data.name === "org"
+          ? TIER_COLOURS.Default
+          : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default
+        ).darker(0.7)
+      );
+
+    // Show tooltip
+    tooltip
+      .style("opacity", 1)
+      .html(d.data.name === "org"
+        ? "Organisation Root Node"
+        : `Supplier: ${d.data.name}<br/>Tier: ${d.data.tier}<br/>Criticality: ${d.routeCriticality || "N/A"}`
+      )
+      .style("left", event.pageX + 10 + "px")
+      .style("top", event.pageY + 10 + "px");
+  })
+  //when mouse moves within the node, update tooltip position to follow the cursor
+  .on("mousemove", (event) => {
+    tooltip
+      .style("left", event.pageX + 10 + "px")
+      .style("top", event.pageY + 10 + "px");
+  })
+  //when mouse leaves the node
+  .on("mouseout", function(event, d) {
+    // Restore original rectangle color
+    d3.select(this)
+      .attr("fill", d.data.name === "org"
+        ? TIER_COLOURS.Default
+        : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default
+      );
+
+    // Hide tooltip
+    tooltip.style("opacity", 0);})
 
   // Node labels (centered)
 node.append("text")
@@ -111,12 +161,7 @@ node.append("text")
   .style("fill", "#fff")
   .text(d => d.data.name);
 
-      //tooltip content is determined from node data
-    node.append("title")
-  .text(d => d.data.name === "org" 
-        ? "Organisation Root Node" 
-        : `Supplier: ${d.data.name}\nTier: ${d.data.tier}\nCriticality: ${d.routeCriticality || "N/A"}`);
-
+  
    
   }, [data, width, height]);
 

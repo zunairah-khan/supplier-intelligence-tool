@@ -130,7 +130,7 @@ const rectRadius = 5;
       .style("opacity", 1)
       .html(d.data.name === "org"
         ? "Organisation Root Node"
-        : `Supplier: ${d.data.name}<br/>Tier: ${d.data.tier}<br/>Criticality: ${d.routeCriticality || "N/A"}`
+        : `Supplier: ${d.data.name}<br/>Tier: ${d.data.tier}<br/>Criticality: ${d.data.routeCriticality || "N/A"}`
       )
       .style("left", event.pageX + 10 + "px")
       .style("top", event.pageY + 10 + "px");

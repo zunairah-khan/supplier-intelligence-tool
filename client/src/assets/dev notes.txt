@@ -71,3 +71,14 @@ or
 git commit -am "message"
 git push
 
+
+tiermap page:
+tier labels above branches and restrict panning to only left and right 
+fix padding/layout within screens
+add route legend
+add some stats and format map page
+
+executive dashboard
+
+adding supplier- calculate tier automatically
+

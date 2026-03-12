@@ -58,15 +58,12 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
       .attr("fill", "none")
       //link colour is determined from routeCriticality stored on the child node
       .attr("stroke", (d) => {
-        const criticality = d.target.data.routeCriticality;
-        return CRITICALITY_COLOURS[criticality] || CRITICALITY_COLOURS.Default;
+        return CRITICALITY_COLOURS[d.target.data.routeCriticality] || CRITICALITY_COLOURS.Default;
       })
       //link width is determined from routeCriticality stored on the child node
-      .attr("stroke-width", (d) => {
-        const criticality = d.target.data.routeCriticality;
-        if (criticality === "High") return 3;
-        return 2;
-      })
+      .attr("stroke-width", (d) => 
+        d.target.data.routeCriticality === "High" ? 3 : 2
+      )
       .attr(
         "d",
         d3
@@ -88,20 +85,23 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     node
       .append("circle")
       .attr("r", 10)
-      .attr("fill", (d) => {
-        if (d.data.name === "org") return TIER_COLOURS.Default; // organisation root node
-        return TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default;
-      })
+
+      .attr("fill", (d) =>
+        d.data.name === "org" //org root node
+          ? TIER_COLOURS.Default
+          : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default,
+      )
       //tooltip content is determined from node data
+
       .append("title")
-      .text((d) => {
-        if (d.data.name === "org") {
-          return "Organisation Root Node";
-        } else {
-          return   `Supplier: ${d.data.name}
-          Tier: ${d.data.tier}
-          Criticality: ${d.data.routeCriticality || "N/A"}`;}
-      });
+
+      .text((d) =>
+        d.data.name === "org"
+          ? "Organisation Root Node"
+          : `Supplier: ${d.data.name}
+Tier: ${d.data.tier}
+Criticality: ${d.data.routeCriticality || "N/A"}`,
+      );
 
     // Labels
     node

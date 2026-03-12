@@ -64,7 +64,11 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
         const criticality = d.target.data.routeCriticality;
         return CRITICALITY_COLOURS[criticality] || CRITICALITY_COLOURS.Default;
       })
-      .attr("stroke-width", 2)
+      .attr("stroke-width", d=> {
+        const criticality = d.target.data.routeCriticality;
+        if (criticality === "High") return 3;
+        return 2;
+      })
       .attr(
         "d",
         d3.linkHorizontal()

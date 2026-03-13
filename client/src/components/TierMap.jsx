@@ -77,18 +77,19 @@ svg.call(zoom)
     // Convert to D3 hierarchy
     const root = d3.hierarchy(data);
 
+     // Node rectangles
+  const rectWidth = 130;
+  const rectHeight = 27;
+  const rectRadius = 5;
+
+    //custom node spacing
     const levels = root.height + 1; // total tiers
     const verticalSpacing = innerHeight / levels; // dynamic vertical spacing
-    const horizontalSpacing = 120; // fixed horizontal distance between nodes 
-
+    const horizontalSpacing = rectWidth; // fixed horizontal distance between nodes 
 
     // Tree layout
     const treeLayout = d3.tree().nodeSize([horizontalSpacing, verticalSpacing]);
-
     treeLayout(root);
-
- 
-
 
     // Links
     g.selectAll(".link")
@@ -122,10 +123,7 @@ svg.call(zoom)
       .attr("class", "node")
       .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
-    // Node rectangles
-const rectWidth = 120;
-const rectHeight = 27;
-const rectRadius = 5;
+    
 
     // Node rectangles
     node.append("rect")

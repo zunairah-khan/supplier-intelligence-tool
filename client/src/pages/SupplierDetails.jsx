@@ -264,11 +264,11 @@ const SupplierDetails = () => {
 
             {/* TierMap */}
             {!supplierHasDependencies ? (
-              <p className="text-gray-500 italic justify-center items-center flex flex-grow">
+              <p className="text-gray-500 italic justify-center items-center flex grow">
                 {supplier?.name} has no dependencies
               </p>
             ) : (
-              <div className="w-full flex-grow">
+              <div className="w-full grow">
                 <TierMap data={hierarchyData} />
               </div>
             )}

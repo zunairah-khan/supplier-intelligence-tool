@@ -18,7 +18,7 @@ const TIER_COLOURS = {
   Default: "#6b7280",
 };
 
-const TierMap = ({ data, width = 900, height = 500 }) => {
+const TierMap = ({ data }) => {
   const svgRef = useRef();
   const navigate = useNavigate();
   useEffect(() => {
@@ -28,7 +28,12 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    const margin = { top: 50, right: 120, bottom: 50, left: 120 };
+    //get height and width of parent container
+    const container = svgRef.current.parentElement;
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+    const margin = { top: 5, right: 5, bottom: 5, left: 5 };
 
   
 
@@ -49,8 +54,9 @@ const tooltip = d3.select("body").append("div")
   .style("box-shadow", "0 4px 12px rgba(0,0,0,0.2)");
 
     const g = svg
-      .attr("width", width)
-      .attr("height", height)
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .attr("viewBox", `0 0 ${width} ${height}`)
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -72,7 +78,7 @@ svg.call(zoom)
     const root = d3.hierarchy(data);
 
     // Tree layout
-    const treeLayout = d3.tree().size([innerHeight, innerWidth]);
+    const treeLayout = d3.tree().size([innerWidth, innerHeight]);
 
     treeLayout(root);
 
@@ -94,9 +100,9 @@ svg.call(zoom)
       .attr(
         "d",
         d3
-          .linkHorizontal()
-          .x((d) => d.y)
-          .y((d) => d.x),
+          .linkVertical()
+          .x((d) => d.x)
+          .y((d) => d.y),
       );
 
     // Nodes
@@ -106,7 +112,7 @@ svg.call(zoom)
       .enter()
       .append("g")
       .attr("class", "node")
-      .attr("transform", (d) => `translate(${d.y},${d.x})`);
+      .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
     // Node rectangles
 const rectWidth = 120;
@@ -188,7 +194,7 @@ node.append("text")
 
   
    
-  }, [data, width, height]);
+  }, [data]);
 
   return <svg ref={svgRef}></svg>;
 };

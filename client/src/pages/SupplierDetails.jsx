@@ -266,7 +266,7 @@ const SupplierDetails = () => {
                 {supplier?.name} has no dependencies
               </p>
             ) : (
-              <div className="w-full h-flex justify-start  flex">
+              <div className="w-full h-flex justify-start  flex h-full">
                 <TierMap data={hierarchyData} width={500} height={400} />
               </div>
             )}

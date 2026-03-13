@@ -82,6 +82,27 @@ svg.call(zoom)
 
     treeLayout(root);
 
+    //custom spacing adjustments
+    const maxVerticalSpacing = 170;
+root.descendants().forEach(d => {
+  if(d.parent) {
+    if(d.y - d.parent.y > maxVerticalSpacing) {
+      d.y = d.parent.y + maxVerticalSpacing;
+    }
+  }
+});
+// Example: Min horizontal spacing between siblings
+const minHorizontalSpacing = 1;
+root.descendants().forEach(d => {
+  if(d.parent) {
+    const deltaX = d.x - d.parent.x;
+    if(deltaX < minHorizontalSpacing) {
+      d.x = d.parent.x + minHorizontalSpacing;
+    }
+  }
+});
+
+
     // Links
     g.selectAll(".link")
       .data(root.links())

@@ -77,30 +77,17 @@ svg.call(zoom)
     // Convert to D3 hierarchy
     const root = d3.hierarchy(data);
 
+    const levels = root.height + 1; // total tiers
+    const verticalSpacing = innerHeight / levels; // dynamic vertical spacing
+    const horizontalSpacing = 120; // fixed horizontal distance between nodes 
+
+
     // Tree layout
-    const treeLayout = d3.tree().size([innerWidth, innerHeight]);
+    const treeLayout = d3.tree().nodeSize([horizontalSpacing, verticalSpacing]);
 
     treeLayout(root);
 
-    //custom spacing adjustments
-    const maxVerticalSpacing = 170;
-root.descendants().forEach(d => {
-  if(d.parent) {
-    if(d.y - d.parent.y > maxVerticalSpacing) {
-      d.y = d.parent.y + maxVerticalSpacing;
-    }
-  }
-});
-// Example: Min horizontal spacing between siblings
-const minHorizontalSpacing = 1;
-root.descendants().forEach(d => {
-  if(d.parent) {
-    const deltaX = d.x - d.parent.x;
-    if(deltaX < minHorizontalSpacing) {
-      d.x = d.parent.x + minHorizontalSpacing;
-    }
-  }
-});
+ 
 
 
     // Links

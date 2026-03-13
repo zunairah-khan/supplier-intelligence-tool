@@ -47,7 +47,8 @@ const SupplierDetails = () => {
   // Build supplier hierarchy for tier mapping from current supplier id
   const supplierId = supplier._id;
   const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
-  const { downstreamSuppliers, highCriticalityRoutes } = calculateDependencyStats(hierarchyData);
+  const { downstreamSuppliers, highCriticalityRoutes } =
+    calculateDependencyStats(hierarchyData);
   const supplierHasDependencies = hierarchyData?.children?.length > 0;
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
@@ -241,33 +242,34 @@ const SupplierDetails = () => {
           </div>
 
           {/* Supplier Tier Mapping Section */}
-          <div className="shadow rounded-lg p-2 bg-white h-1/2">
+          <div className="shadow rounded-lg p-2 bg-white h-1/2 flex flex-col">
+            {/* Header / Stats */}
             <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
               <p className="font-semibold text-lg">Supplier Dependencies</p>
-              {/* Display key stats about the supplier dependencies */}
               <div className="flex gap-2">
                 <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
-                  <p className="text-xs ">Downstream Suppliers</p>
+                  <p className="text-xs">Downstream Suppliers</p>
                   <p className="font-semibold text-blue-700">
                     {downstreamSuppliers}
                   </p>
                 </div>
-
                 <div className="bg-red-50 px-3 py-1 rounded-md text-center">
-                  <p className="text-xs ">High Criticality Routes</p>
+                  <p className="text-xs">High Criticality Routes</p>
                   <p className="font-semibold text-red-700">
                     {highCriticalityRoutes}
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* TierMap */}
             {!supplierHasDependencies ? (
-              <p className="text-gray-500 italic justify-center items-center flex h-full">
+              <p className="text-gray-500 italic justify-center items-center flex flex-grow">
                 {supplier?.name} has no dependencies
               </p>
             ) : (
-              <div className="w-full h-flex justify-start  flex h-full">
-                <TierMap data={hierarchyData} width={500} height={400} />
+              <div className="w-full flex-grow">
+                <TierMap data={hierarchyData} />
               </div>
             )}
           </div>

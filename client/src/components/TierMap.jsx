@@ -30,8 +30,8 @@ const TierMap = ({ data }) => {
 
     //get height and width of parent container
     const container = svgRef.current.parentElement;
-  const width = container.clientWidth;
-  const height = container.clientHeight;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
 
     const margin = { top: 5, right: 5, bottom: 5, left: 5 };
 
@@ -85,7 +85,7 @@ svg.call(zoom)
     //custom node spacing
     const levels = root.height + 1; // total tiers
     const verticalSpacing = innerHeight / levels; // dynamic vertical spacing
-    const horizontalSpacing = rectWidth; // fixed horizontal distance between nodes 
+    const horizontalSpacing = rectWidth+ 5; // fixed horizontal distance between nodes 
 
     // Tree layout
     const treeLayout = d3.tree().nodeSize([horizontalSpacing, verticalSpacing]);

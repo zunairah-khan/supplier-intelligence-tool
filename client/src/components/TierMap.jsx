@@ -37,16 +37,16 @@ const TierMap = ({ data, width = 900, height = 500 }) => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // Create tooltip div in DOM to show hover content. This is done outside of the SVG to allow for better styling and positioning.
+    // Create tooltip div in DOM to show hover content. this is done outside of the SVG to allow for better styling and positioning.
 const tooltip = d3.select("body").append("div")
   .style("position", "absolute")
-  .style("background", "#333")
-  .style("color", "#fff")
+  .style("background","#EFF6FF")
   .style("padding", "6px 10px")
   .style("border-radius", "4px")
   .style("pointer-events", "none") // prevents tooltip from blocking mouse events
   .style("opacity", 0)
-  .style("font-size", "12px");
+  .style("font-size", "12px")
+  .style("box-shadow", "0 4px 12px rgba(0,0,0,0.2)");
 
     const g = svg
       .attr("width", width)
@@ -126,6 +126,7 @@ const rectRadius = 5;
         : TIER_COLOURS[d.data.tier] || TIER_COLOURS.Default)
   .attr("stroke", "none")
   .attr("stroke-width", 1)
+  .attr("cursor", "pointer") 
 
   //-----NODE EVENTS----
 

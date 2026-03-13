@@ -202,7 +202,7 @@ node.append("text")
    
   }, [data]);
 
-  return <svg ref={svgRef}></svg>;
+  return <svg ref={svgRef} style={{ backgroundColor: "#F3F4F6", width: "100%", height: "100%" }}></svg>;
 };
 
 export default TierMap;

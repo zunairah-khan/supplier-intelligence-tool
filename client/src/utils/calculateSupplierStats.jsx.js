@@ -15,7 +15,7 @@ export const calculateSupplierStats = (node) => {
     if (current.name !== "org") {
       stats.totalSuppliers++;
 
-      // Risk counts
+      // Supplier Risk level counts
       const risk = current.RiskLevel?.toLowerCase();
       if (risk === "high") stats.highRiskSuppliers++;
       else if (risk === "medium") stats.mediumRiskSuppliers++;

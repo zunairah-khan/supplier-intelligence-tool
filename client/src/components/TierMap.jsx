@@ -58,8 +58,6 @@ const TierMap = ({ data }) => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-   
-
     // Convert to D3 hierarchy
     const root = d3.hierarchy(data);
 

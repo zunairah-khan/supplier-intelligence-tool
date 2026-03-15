@@ -18,6 +18,7 @@ ADD STYLING PAGE TO STORE COLOUR THEMES RATHER THAN WITHIN SEPARATE COMPONENTS
 ternaary operators in tier map compoennt for concise code - but leaving if statements for more complex conditional scenarios
 stat cards in supplier tier map refactored into separate component
 eliminate dependecioes on org label
+rewrite stats function to use single-reducer style traversal
 
 DEV TODO:
 supplier risk gallery

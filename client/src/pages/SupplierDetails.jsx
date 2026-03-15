@@ -19,7 +19,7 @@ import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 import Button from "../components/Button";
 import { IoChevronBackCircle } from "react-icons/io5";
-import { calculateDependencyStats } from "../utils/calculateDependencyStats";
+import { calculateSupplierStats } from "../utils/calculateDependencyStats";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",

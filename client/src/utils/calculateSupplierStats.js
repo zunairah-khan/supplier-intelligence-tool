@@ -1,6 +1,7 @@
 export const calculateSupplierStats = (node) => {
   const stats = {
     totalSuppliers: 0,
+    totalDownstreamSuppliers: -1,
     highRiskSuppliers: 0,
     mediumRiskSuppliers: 0,
     lowRiskSuppliers: 0,
@@ -14,6 +15,8 @@ export const calculateSupplierStats = (node) => {
     // Skip the root organisation node
     if (current.name !== "org") {
       stats.totalSuppliers++;
+      stats.totalDownstreamSuppliers++;
+     
 
       // Supplier Risk level counts
       const risk = current.RiskLevel?.toLowerCase();

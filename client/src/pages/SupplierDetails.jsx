@@ -47,7 +47,7 @@ const SupplierDetails = () => {
   // Build supplier hierarchy for tier mapping from current supplier id
   const supplierId = supplier._id;
   const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
-  const { totalSuppliers, highCriticalityRoutes } =
+  const { totalDownstreamSuppliers, highCriticalityRoutes } =
     calculateSupplierStats(hierarchyData);
   const supplierHasDependencies = hierarchyData?.children?.length > 0;
   return (
@@ -250,7 +250,7 @@ const SupplierDetails = () => {
                 <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
                   <p className="text-xs">Downstream Suppliers</p>
                   <p className="font-semibold text-blue-700">
-                    {totalSuppliers}
+                    {totalDownstreamSuppliers}
                   </p>
                 </div>
                 <div className="bg-red-50 px-3 py-1 rounded-md text-center">

@@ -48,6 +48,12 @@ dependency mapping:
 change tier map data to read from suppliers list - add parentsupplierid field to suppliers
 convert flat supplier list to hierarchical tree - wrapping tree in virtual root node 'org'
 add supplier form- have parent supplier selector - tier field should be automatically calculated
+routecriticality- change to be the same as supplier risk level?
+risk signals in supplier details and dependency map and exec dashboard
+suppliaer tier should be dynamically calculated as more than 3 tiers could be added
+reformat supplier details so that risk gallery is horizontal ribbon and add risk signals window
+remove tier1,2,3 pages. replace with high,medium,low risk suppliers
+tier filtering on supplier page
 -----------------------------------------------------------------------
 NON-DEV TODO:
 low fidelity wireframes

@@ -19,7 +19,7 @@ import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 import Button from "../components/Button";
 import { IoChevronBackCircle } from "react-icons/io5";
-import { calculateSupplierStats } from "../utils/calculateDependencyStats";
+import { calculateSupplierStats } from "../utils/calculateSupplierStats";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
@@ -47,8 +47,8 @@ const SupplierDetails = () => {
   // Build supplier hierarchy for tier mapping from current supplier id
   const supplierId = supplier._id;
   const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
-  const { downstreamSuppliers, highCriticalityRoutes } =
-    calculateDependencyStats(hierarchyData);
+  const { totalSuppliers, highCriticalityRoutes } =
+    calculateSupplierStats(hierarchyData);
   const supplierHasDependencies = hierarchyData?.children?.length > 0;
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
@@ -250,7 +250,7 @@ const SupplierDetails = () => {
                 <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
                   <p className="text-xs">Downstream Suppliers</p>
                   <p className="font-semibold text-blue-700">
-                    {downstreamSuppliers}
+                    {totalSuppliers}
                   </p>
                 </div>
                 <div className="bg-red-50 px-3 py-1 rounded-md text-center">

@@ -2,10 +2,12 @@ import React from "react";
 import TierMap from "../components/TierMap";
 import { suppliers } from "../assets/data";
 import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
+import { calculateSupplierStats } from "../utils/calculateSupplierStats";
 
 const SupplierTierMap = () => {
 
-  const hierarchyData = buildSupplierHierarchy(suppliers);
+  const hierarchyData = buildSupplierHierarchy(suppliers); //building hierarchy data with no supplier id parsed, so builds tree from org root node
+  const { totalSuppliers, highCriticalityRoutes,highRiskSuppliers,mediumRiskSuppliers,lowRiskSuppliers } = calculateSupplierStats(hierarchyData);
 
   return (
     <div className="w-full min-h-screen flex flex-col gap-6">
@@ -20,27 +22,27 @@ const SupplierTierMap = () => {
 
         <div className="bg-white p-4 rounded-lg shadow text-center">
           <p className="text-sm text-gray-500">Total Suppliers</p>
-          <p className="text-xl font-semibold">--</p>
+          <p className="text-xl font-semibold">{totalSuppliers}</p>
         </div>
 
         <div className="bg-white p-4 rounded-lg shadow text-center">
           <p className="text-sm text-gray-500">High Risk</p>
-          <p className="text-xl font-semibold">--</p>
+          <p className="text-xl font-semibold">{highRiskSuppliers}</p>
         </div>
 
         <div className="bg-white p-4 rounded-lg shadow text-center">
           <p className="text-sm text-gray-500">Medium Risk</p>
-          <p className="text-xl font-semibold">--</p>
+          <p className="text-xl font-semibold">{mediumRiskSuppliers}</p>
         </div>
 
         <div className="bg-white p-4 rounded-lg shadow text-center">
           <p className="text-sm text-gray-500">Low Risk</p>
-          <p className="text-xl font-semibold">--</p>
+          <p className="text-xl font-semibold">{lowRiskSuppliers}</p>
         </div>
 
         <div className="bg-white p-4 rounded-lg shadow text-center">
           <p className="text-sm text-gray-500">High Criticality Routes</p>
-          <p className="text-xl font-semibold">--</p>
+          <p className="text-xl font-semibold">{highCriticalityRoutes}</p>
         </div>
 
       </div>

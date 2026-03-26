@@ -54,6 +54,7 @@ suppliaer tier should be dynamically calculated as more than 3 tiers could be ad
 reformat supplier details so that risk gallery is horizontal ribbon and add risk signals window
 remove tier1,2,3 pages. replace with high,medium,low risk suppliers
 tier filtering on supplier page
+stat card component rather than repeated code in suplpeir tier map page
 -----------------------------------------------------------------------
 NON-DEV TODO:
 low fidelity wireframes

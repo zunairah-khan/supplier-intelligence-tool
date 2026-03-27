@@ -4,6 +4,7 @@ import { suppliers } from "../assets/data";
 import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
 import { calculateSupplierStats } from "../utils/calculateSupplierStats";
 
+import DataCard from "../components/DataCard.jsx"
 const SupplierTierMap = () => {
 
   const hierarchyData = buildSupplierHierarchy(suppliers); //building hierarchy data with no supplier id parsed, so builds tree from org root node
@@ -20,30 +21,31 @@ const SupplierTierMap = () => {
       {/* Statistics Cards */}
       <div className="grid grid-cols-5 gap-4">
 
-        <div className="bg-white p-4 rounded-lg shadow text-center">
-          <p className="text-sm text-gray-500">Total Suppliers</p>
-          <p className="text-xl font-semibold">{totalSuppliers}</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow text-center">
-          <p className="text-sm text-gray-500">High Risk</p>
-          <p className="text-xl font-semibold">{highRiskSuppliers}</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow text-center">
-          <p className="text-sm text-gray-500">Medium Risk</p>
-          <p className="text-xl font-semibold">{mediumRiskSuppliers}</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow text-center">
-          <p className="text-sm text-gray-500">Low Risk</p>
-          <p className="text-xl font-semibold">{lowRiskSuppliers}</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow text-center">
-          <p className="text-sm text-gray-500">High Criticality Routes</p>
-          <p className="text-xl font-semibold">{highCriticalityRoutes}</p>
-        </div>
+        <DataCard
+        header="Total Suppliers"
+        statistic={totalSuppliers}
+        
+        />
+        <DataCard
+        header="High Risk"
+        statistic={highRiskSuppliers}
+        
+        />
+        <DataCard
+        header="Medium Risk"
+        statistic={mediumRiskSuppliers}
+        
+        />
+        <DataCard
+        header="Low Risk"
+        statistic={lowRiskSuppliers}
+       
+        />
+        <DataCard
+        header="High Criticality Routes"
+        statistic={highCriticalityRoutes}
+        
+        />
 
       </div>
 

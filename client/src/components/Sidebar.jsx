@@ -29,20 +29,6 @@ const linkData = [
     icon: <FaBoxOpen />,
   },
   {
-    label: "Tier 1 Suppliers",
-    link: "tier1/1",
-    icon: <PiNumberCircleOneFill />,
-  },
-  {    label: "Tier 2 Suppliers",
-    link: "tier2/2",
-    icon: <PiNumberCircleTwoFill />,
-  },
-  {
-    label: "Tier 3 Suppliers",
-    link: "tier3/3",
-    icon: <PiNumberCircleThreeFill />,
-  },
-  {
     label: "Supplier Tier Mapping",
     link: "supplier-tier-map",
     icon: <FaBoxes />,

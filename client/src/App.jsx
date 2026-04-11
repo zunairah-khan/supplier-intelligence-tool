@@ -123,10 +123,7 @@ function App() {
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />
           <Route path="/todo/:status" element={<Tasks />} />
-          {/*dynamic supplier routes using status parameter*/}
-            <Route path="/tier1/:tier" element={<Suppliers />} />
-            <Route path="/tier2/:tier" element={<Suppliers />} />
-             <Route path="/tier3/:tier" element={<Suppliers />} />
+          
           <Route path="/team" element={<Users />} />
           <Route path="/trashed" element={<Trash />} />
           {/*dynamic route using taskid parameter*/}

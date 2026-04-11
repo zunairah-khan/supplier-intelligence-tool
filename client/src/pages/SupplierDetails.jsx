@@ -242,7 +242,7 @@ const SupplierDetails = () => {
           </div>
 
           {/* Supplier Tier Mapping Section */}
-          <div className="shadow rounded-lg p-2 bg-white h-1/2 flex flex-col">
+          <div className="shadow rounded-lg p-2 bg-white h-1/2 overflow-y-auto flex flex-col">
             {/* Header / Stats */}
             <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
               <p className="font-semibold text-lg">Supplier Dependencies</p>

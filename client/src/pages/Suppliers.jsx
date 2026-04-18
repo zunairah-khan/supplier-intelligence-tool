@@ -7,7 +7,6 @@ import Title from "../components/Title";
 import Button from "../components/Button";
 import { IoMdAdd } from "react-icons/io";
 import Tabs from "../components/Tabs";
-import TaskTitle from "../components/TaskTitle";
 import GridView from "../components/GridView";
 import { suppliers } from "../assets/data";
 import SupplierTable from "../components/supplier/SupplierTable";
@@ -76,7 +75,7 @@ const Suppliers = () => {
             placeholder='Search supplier details and contacts...'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className='flex-1 outline-none bg-transparent placeholder:text-gray-500 text-gray-800'
+            className='flex-1 outline-none bg-transparent placeholder:text-gray-500 text-gray-800 '
           />
         </div>
           <Button

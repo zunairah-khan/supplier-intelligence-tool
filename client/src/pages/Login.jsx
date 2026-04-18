@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TextBox from "../components/Textbox.jsx";
 import Button from "../components/Button.jsx";
 import { useSelector, useDispatch } from "react-redux"; // useSelector allows for extracting data from redux store state. usedispatch used to dispatch actions to the redux store
-import { setCredentials } from "../redux/slices/authSlice.js"; //importing the setCredentials action from the auth slice of the redux store
+import { setCredentials, logout } from "../redux/slices/authSlice.js"; //importing the setCredentials action from the auth slice of the redux store
 
 
 const fakeUser = {
@@ -50,6 +50,10 @@ const Login = () => {
       navigate("/executive-dashboard");
     }
   }, [user, navigate]); //dependency array to re-run the effect when user changes
+
+  useEffect(() => {
+    dispatch(logout());
+  }, [dispatch]); // logout when visiting login page
 
 
 

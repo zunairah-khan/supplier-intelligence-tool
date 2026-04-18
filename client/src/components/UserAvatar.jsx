@@ -16,7 +16,8 @@ const UserAvatar = () => {
 
   //the logouthandler function dispatches the logout action to clear user data from the redux store and local storage, and logs a message to the console.
   const logoutHandler = () => {
-    console.log("logged out");
+    //navigate to login page
+    navigate("/login");
   };
 
   return (

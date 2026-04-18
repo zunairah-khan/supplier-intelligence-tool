@@ -1,13 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"; // userform is a custom hook to manage form state and validation. a hook is a special function in react that lets you use state and other react features without writing a class. state is a way to store and manage data in a component.
 import { useNavigate } from "react-router-dom";
 import TextBox from "../components/Textbox.jsx";
 import Button from "../components/Button.jsx";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; // useSelector allows for extracting data from redux store state. usedispatch used to dispatch actions to the redux store
+import { setCredentials } from "../redux/slices/authSlice.js"; //importing the setCredentials action from the auth slice of the redux store
 
+
+const fakeUser = {
+  email: "user@example.com",
+  password: "Password123!",
+  name: "Zunairah Khan",
+};
 
 const Login = () => {
   const user = useSelector((state) => state.auth.user); // accessing the user state from the auth slice of the redux store using useSelector hook. useSelector is a hook that allows us to extract data from the redux store state.
+  const dispatch = useDispatch();
+  const [loginError, setLoginError] = useState("");
   
   const {
     register,
@@ -18,13 +27,29 @@ const Login = () => {
   const navigate = useNavigate();// Placeholder for navigation function
 
   //when we pass handlesubmit to the form's onsubmit, it will first validate the form and then call the submitHandler function if the form is valid. the submitHandler function will receive the form data as an argument and we can use that data to perform any action we want, like sending it to the server or updating the state.
-  const submitHandler = async (data)=> {
-    console.log("submit");
+  const submitHandler = async (data) => {
+    const { email, password } = data;
+
+    if (email === fakeUser.email && password === fakeUser.password) {
+      dispatch(
+        setCredentials({
+          email: fakeUser.email,
+          name: fakeUser.name,
+        }),
+      );
+      setLoginError("");
+      navigate("/executive-dashboard");
+      return;
+    }
+
+    setLoginError("Invalid email or password. Use user@example.com / Password123!");
   };
  
   useEffect(() => {
-    user && navigate("/dashboard"); // if user is authenticated, navigate to dashboard
-  }, [user]); //dependency array to re-run the effect when user changes
+    if (user) {
+      navigate("/executive-dashboard");
+    }
+  }, [user, navigate]); //dependency array to re-run the effect when user changes
 
 
 
@@ -86,6 +111,10 @@ const Login = () => {
           error={errors.password ? errors.password.message : ""}
           autocomplete="current-password"
           />
+
+          {loginError && (
+            <div className="text-sm text-red-600">{loginError}</div>
+          )}
 
           <span className="text-sm text-gray-600 cursor-pointer hover:text-blue-600 hover:underline">
             I have forgotten my password

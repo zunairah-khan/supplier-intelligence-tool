@@ -22,10 +22,8 @@ import { Transition } from "@headlessui/react";
 function Layout() {
   const user = useSelector((state) => state.auth.user); // Accessing user state from Redux store
   const location = useLocation(); // Get current location
-  // TODO: Re-enable user authentication check before deployment
-  // return user ? (
-  return (
-    //if user is authenticated, render the layout
+  return user ? (
+    // if user is authenticated, render the layout
     <div className="w-full h-screen flex flex-col md:flex-row">
       {" "}
       {/*main container*/}
@@ -46,10 +44,9 @@ function Layout() {
         </div>
       </div>
     </div>
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
   );
-  // ) : (
-  //   <Navigate to="/login" state={{ from: location }} replace />
-  // );
 }
 
 // the MobileSidebar is only relevant in the context of the Layout, it doesn't need to be a separate component that can be reused elsewhere in the application.

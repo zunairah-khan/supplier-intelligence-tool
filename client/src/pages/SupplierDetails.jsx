@@ -66,6 +66,7 @@ const SupplierDetails = () => {
           <h1 className="text-2xl font-semibold text-gray-600">
             Supplier Overview
           </h1>
+          
         </span>
       </div>
 

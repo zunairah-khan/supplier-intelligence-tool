@@ -12,6 +12,7 @@ import GridView from "../components/GridView";
 import { tasks } from "../assets/data";
 import Table from "../components/task/Table";
 import AddTask from "../components/task/AddTask";
+import { MdOutlineSearch } from "react-icons/md";
 const TABS = [
   { title: "Grid View", icon: <MdGridView /> },
   { title: "List View", icon: <FaList /> },
@@ -37,17 +38,25 @@ const Tasks = () => {
   ) : (
     <div className="w-full">
       <div className="flex items-center justify-between mb-4">
-        <Title title={status ? `${status} Actions` : "Actions"} />
+        <Title title={"Actions"} />
+        {/*Search bar*/}
+                <div className='w-64 2xl:w-100 flex items-center py-2 px-3 gap-2 rounded-full bg-[#ffffff]'>
+                  <MdOutlineSearch className='text-gray-500 text-xl' />
+                {/*input field for search*/}
+                  <input
+                    type='text'
+                    placeholder='Search....'
+                    className='flex-1 outline-none bg-transparent placeholder:text-gray-500 text-gray-800'
+                  />
+                </div>
 
-        {/*render create task button when no status*/}
-        {!status && (
           <Button
             onClick={()=> setOpen(true)}
             label="Add Action"
             icon={<IoMdAdd className="text-lg" />}
             className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
           />
-        )}
+       
       </div>
       {/*Tabs for grid and list view*/}
       <div>

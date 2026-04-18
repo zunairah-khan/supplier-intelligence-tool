@@ -33,7 +33,7 @@ function Layout() {
         <Sidebar />
       </div>
       <MobileSidebar />
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 min-w-0 overflow-y-auto">
         {" "}
         {/*main content area*/}
         <Navbar />

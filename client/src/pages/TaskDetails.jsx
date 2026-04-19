@@ -249,8 +249,8 @@ const Activities = ({ activity, id }) => {
       <div className="w-10 h-10 flex items-center justify-center">
         {TASKTYPEICON[item?.type]}
       </div>
-      <div className="w-full flex items-center">
-        <div className="w-0.5 bg-gray-300 h-full" />
+      <div className="w-full flex items-center h-20">
+        <div className="w-0.5 bg-gray-300 h-full ml-5" />
       </div>
     </div>
 
@@ -263,6 +263,7 @@ const Activities = ({ activity, id }) => {
     </div>
     <div className="text-gray-700">{item?.activity}</div>
     </div>
+    
     </div>
     )
   }

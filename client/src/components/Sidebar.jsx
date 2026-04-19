@@ -7,9 +7,9 @@ import {
   MdTaskAlt,
   MdOutlineAddTask,
 } from "react-icons/md"; //md - material design icons
-import { FaTasks, FaUsers, FaTrashAlt,FaBoxes,FaBoxOpen } from "react-icons/fa"; //fa - font awesome icons
+import { FaTasks, FaUsers, FaTrashAlt,FaBoxOpen, FaSitemap } from "react-icons/fa"; //fa - font awesome icons
 import { FaArrowsTurnToDots } from "react-icons/fa6";
-import { PiNumberCircleOneFill, PiNumberCircleTwoFill, PiNumberCircleThreeFill  } from "react-icons/pi";
+
 import { IoBarChart } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux"; //hooks to interact with redux store
 import { Link, useLocation } from "react-router-dom"; //hook to get current location
@@ -31,7 +31,7 @@ const linkData = [
   {
     label: "Supplier Tier Mapping",
     link: "supplier-tier-map",
-    icon: <FaBoxes />,
+    icon: <FaSitemap  />,
   },
   {
     label: "Action Tracking Dashboard",

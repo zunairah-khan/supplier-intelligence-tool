@@ -19,6 +19,7 @@ ternaary operators in tier map compoennt for concise code - but leaving if state
 stat cards in supplier tier map refactored into separate component
 eliminate dependecioes on org label
 rewrite stats function to use single-reducer style traversal
+use headless ui tab functionality using tabpanel and tabgroup instead of selected ===0?...:...
 
 DEV TODO:
 supplier risk gallery

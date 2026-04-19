@@ -12,10 +12,12 @@ import {
   MdCalendarToday,
   MdGavel,
 } from "react-icons/md";
-import { FaPhone, FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaSitemap  } from "react-icons/fa";
+import { TbListDetails } from "react-icons/tb";
+
 import TierMap from "../components/TierMap";
 import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
-
+import Tabs from "../components/Tabs";
 import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 import Button from "../components/Button";
 import { IoChevronBackCircle } from "react-icons/io5";
@@ -27,6 +29,11 @@ const RISK_BORDER_STYLES = {
   Low: "border-green-600",
 };
 
+const TABS = [
+  { title: "Details", icon: <TbListDetails /> },
+  { title: "Dependency Map", icon: <FaSitemap  /> },
+];
+
 const RISK_LEVEL_BG = {
   High: "bg-red-600",
   Medium: "bg-yellow-600",
@@ -36,6 +43,7 @@ const RISK_LEVEL_BG = {
 const SupplierDetails = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(0); //which tab is selected
   const navigate = useNavigate();
 
   const supplier = suppliers.find((s) => s._id === id);
@@ -62,14 +70,17 @@ const SupplierDetails = () => {
           className="flex  rounded-full items-center  text-white  "
         />
 
-        <span>
+        
           <h1 className="text-2xl font-semibold text-gray-600">
             Supplier Overview
           </h1>
           
-        </span>
+        
       </div>
 
+      <Tabs tabs={TABS} selected={selected} setSelected={setSelected}>
+        {selected === 0 ? (
+          <>
       <div
         className={clsx(
           "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-4 py-5",
@@ -124,7 +135,7 @@ const SupplierDetails = () => {
                   {supplier?.address}
                 </p>
               </div>
-            </div>
+          </div>
 
             <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
               <MdBusinessCenter className="text-amber-500 mt-1" size={20} />
@@ -213,7 +224,7 @@ const SupplierDetails = () => {
         {/* RIGHT SECTION*/}
         <div className="w-full md:w-1/2 space-y-5 bg-white pb-6">
           {/* Risk Section */}
-          <div className="shadow rounded-lg bg-white p-3 flex flex-col h-1/2">
+          <div className="shadow rounded-lg bg-white p-3 flex flex-col ">
             <div className="justify-between items-center mb-2 flex border-b border-gray-200">
               <span className="font-semibold text-lg mb-2 p-2">Risks</span>
 
@@ -241,9 +252,13 @@ const SupplierDetails = () => {
               )}
             </div>
           </div>
-
+        </div>
+      </div>
+          </>
+    ) : (
+          <>
           {/* Supplier Tier Mapping Section */}
-          <div className="shadow rounded-lg p-2 bg-white h-1/2 overflow-y-auto flex flex-col">
+          <div className="shadow rounded-lg p-2 bg-white h-150 overflow-y-auto flex flex-col">
             {/* Header / Stats */}
             <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
               <p className="font-semibold text-lg">Supplier Dependencies</p>
@@ -269,13 +284,14 @@ const SupplierDetails = () => {
                 {supplier?.name} has no dependencies
               </p>
             ) : (
-              <div className="w-full grow">
+              <div className="w-full grow h-full">
                 <TierMap data={hierarchyData} />
               </div>
             )}
           </div>
-        </div>
-      </div>
+          </>
+          )}
+          </Tabs>
     </div>
   );
 };

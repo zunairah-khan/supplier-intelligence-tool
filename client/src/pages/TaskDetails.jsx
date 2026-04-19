@@ -95,7 +95,10 @@ const TaskDetails = () => {
     }
 
   return (
+
+   
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
+      {/*back button and task title*/}
       <div className="flex items-center  ">
         <Button
             onClick={()=> navigate(-1)}
@@ -107,7 +110,13 @@ const TaskDetails = () => {
           <h1 className="text-2xl text-gray-600 font-semibold">{task?.title}</h1>
         </span>
       </div>
+
+
+      {/*tabs for action details and activity timeline*/}
       <Tabs tabs={TABS} setSelected={setSelected}>
+
+
+        {/*if action details tab is selected show task details else show activity timeline*/}
         {selected === 0 ? (
           <>
             <div className="w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow rounded-md px-8 py-8 overflow-y-auto">

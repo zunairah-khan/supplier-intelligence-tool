@@ -30,6 +30,26 @@ const Tasks = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const status = params?.status || "";
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  
+  // returns true for all tasks if search query empty, else check specified fields for search query 
+    const filteredTasks = tasks.filter((task) => {
+      const query = searchQuery.trim().toLowerCase();
+      if (!query) return true;
+      const teamValues = task?.team
+        ? task.team.map((member) => `${member.name} ${member.email} ${member.title}`).join(" ")
+        : "";
+  
+      return [
+        task?.title,
+        task?.priority,
+        task?.stage,
+        teamValues,
+      ]
+        .filter(Boolean)
+        .some((value) => value.toLowerCase().includes(query));
+    });
 
   return loading ? (
     <div className="py-10">
@@ -45,8 +65,10 @@ const Tasks = () => {
                 {/*input field for search*/}
                   <input
                     type='text'
-                    placeholder='Search....'
-                    className='flex-1 outline-none bg-transparent placeholder:text-gray-500 text-gray-800'
+            placeholder='Search action details...'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className='flex-1 outline-none bg-transparent placeholder:text-gray-500 text-gray-800 '
                   />
                 </div>
 
@@ -72,10 +94,10 @@ const Tasks = () => {
             </div>
           )}
           {selected === 0 ? (
-            <GridView tasks={tasks} />
+            <GridView tasks={filteredTasks} />
           ) : (
             <div>
-              <Table tasks={tasks} />
+              <Table tasks={filteredTasks} />
             </div>
           )}
         </Tabs>

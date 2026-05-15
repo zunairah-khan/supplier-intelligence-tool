@@ -1,3 +1,4 @@
+import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
 // --- INDIVIDUAL RISK RULE ---
 // This operates on each risk object within a supplier's risks array
 // Flags risks where the calculated risk rating (impact * likelihood)

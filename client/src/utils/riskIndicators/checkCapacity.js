@@ -1,3 +1,5 @@
+import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
+
 // --- SUPPLIER CAPACITY (revenue dependency) ---
 // capacity represents the proportion of the supplier's total revenue
 // derived from this client organisation. High values indicate dependency

@@ -1,3 +1,4 @@
+import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
 // --- CONTRACT EXPIRY ---
 // Requires contract_expiry_date field on supplier object (ISO date string)
 export const checkContractExpiry = (supplier) => {

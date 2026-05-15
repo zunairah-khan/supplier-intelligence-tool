@@ -1,6 +1,8 @@
+import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
+import { calculateSupplierStats } from "../calculateSupplierStats";
 // --- DOWNSTREAM DEPENDENCY COUNT ---
 // Uses calculateSupplierStats to get downstream count for a supplier subtree.
-// Requires the full suppliers array and buildSupplierHierarchy to build the subtree.
+// Requires the full suppliers array and buildSupplierHierarchy to build the subtree. 
 export const checkDownstreamCount = (supplier, supplierSubtree) => {
   const { totalDownstreamSuppliers, highCriticalityRoutes } = calculateSupplierStats(supplierSubtree);
 

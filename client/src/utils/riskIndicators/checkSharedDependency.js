@@ -1,3 +1,4 @@
+import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
 // --- SHARED SUB-TIER DEPENDENCY (false double sourcing) ---
 // Detects suppliers with more than one parent — indicating a shared
 // dependency that may undermine perceived supply chain diversification

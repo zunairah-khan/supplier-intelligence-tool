@@ -6,6 +6,6 @@ export { checkContractExpiry } from "./checkContractExpiry";
 export { checkDownstreamCount } from "./checkDownstreamCount";
 export { checkSharedDependency } from "./checkSharedDependency";
 export { checkRiskToleranceBreached } from "./checkRiskToleranceBreached";
-export { checkHighRatingLowControl } from "./checkHighRatingLowControl";
+export { checkRisksToImprove } from "./checkrisksToImprove";
 export { generateSupplierIndicators } from "./generateSupplierIndicators";
 export { generatePortfolioIndicators } from "./generatePortfolioIndicators";

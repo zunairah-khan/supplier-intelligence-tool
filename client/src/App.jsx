@@ -20,27 +20,26 @@ import { IoClose } from "react-icons/io5";
 import { Transition } from "@headlessui/react";
 
 function Layout() {
-  const user = useSelector((state) => state.auth.user); // Accessing user state from Redux store
-  const location = useLocation(); // Get current location
+  const user = useSelector((state) => state.auth.user);
+  const location = useLocation();
+  
   return user ? (
-    // if user is authenticated, render the layout
     <div className="w-full h-screen flex flex-col md:flex-row">
-      {" "}
-      {/*main container*/}
+      {/* Sidebar */}
       <div className="w-1/6 l:w-1/7 h-screen bg-white sticky top-0 hidden md:block">
-        {" "}
-        {/*sidebar container*/}
         <Sidebar />
       </div>
+
       <MobileSidebar />
-      <div className="flex-1 min-w-0 overflow-y-auto">
-        {" "}
-        {/*main content area*/}
+
+      {/* Main content area — flex-1 fills remaining width after sidebar,
+          overflow-y-auto allows normal page scrolling for most pages */}
+      <div className="flex-1 min-w-0 overflow-y-auto flex flex-col">
         <Navbar />
-        <div className="p-4 2xl:px-10">
-          {" "}
-          {/*padding for main content*/}
-          <Outlet /> {/* Outlet renders the matched child route component */}
+
+        {/* Padding wrapper*/}
+        <div className="flex-1 min-h-0 p-4 2xl:px-10 flex flex-col">
+          <Outlet />
         </div>
       </div>
     </div>
@@ -104,36 +103,26 @@ const MobileSidebar = () => {
 
 function App() {
   return (
-    <main className="w-full min-h-screen bg-[#f3f4f6]">
+    <main className="w-full h-screen bg-[#f3f4f6]">
       <Routes>
         {/*layout wrapper for protected routes*/}
         <Route element={<Layout />}>
-          {/* Redirect root to dashboard */}{" "}
           <Route index path="/" element={<Navigate to="/executive-dashboard" />} />
-          {/*Main application routes which map URLs to components*/}
           <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />
-           <Route path="/supplier-tier-map" element={<SupplierTierMap />} />
-           <Route path="/suppliers" element={<Suppliers />} />
+          <Route path="/supplier-tier-map" element={<SupplierTierMap />} />
+          <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/actions-dashboard" element={<Dashboard />} />
           <Route path="/actions" element={<Tasks />} />
-          {/*dynamic task routes using status parameter*/}
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />
           <Route path="/todo/:status" element={<Tasks />} />
-          
           <Route path="/team" element={<Users />} />
           <Route path="/trashed" element={<Trash />} />
-          {/*dynamic route using taskid parameter*/}
           <Route path="/actions/:id" element={<TaskDetails />} />
-          {/*dynamic route using supplierid parameter*/}
-            <Route path="/suppliers/:id" element={<SupplierDetails />} />
+          <Route path="/suppliers/:id" element={<SupplierDetails />} />
         </Route>
-
-        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
       </Routes>
-
-      {/* Global Toaster for Notifications */}
       <Toaster richColors />
     </main>
   );

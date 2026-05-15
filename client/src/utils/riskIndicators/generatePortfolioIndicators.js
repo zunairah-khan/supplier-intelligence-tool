@@ -5,7 +5,7 @@ import { checkContractExpiry } from "./checkContractExpiry";
 import { checkDownstreamCount } from "./checkDownstreamCount";
 import { checkSharedDependency } from "./checkSharedDependency";
 import { checkRiskToleranceBreached } from "./checkRiskToleranceBreached";
-import { checkHighRatingLowControl } from "./checkHighRatingLowControl";
+import { checkRisksToImprove } from "./checkRisksToImprove";
 import { SEVERITY } from "./createIndicator";
 
 const SEVERITY_WEIGHT = {
@@ -40,7 +40,7 @@ export const generatePortfolioIndicators = (suppliers) => {
       checkContractExpiry(supplier),
       ...checkDownstreamCount(supplier, supplierSubtree),
       ...checkRiskToleranceBreached(supplier),
-      ...checkHighRatingLowControl(supplier),
+      ...checkRisksToImprove(supplier),
     ].filter(Boolean);
   });
 

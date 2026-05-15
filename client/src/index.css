@@ -12,6 +12,10 @@
       }
     }
 
+    html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
 .cell {
   display: inline-block;
   width: 49%;

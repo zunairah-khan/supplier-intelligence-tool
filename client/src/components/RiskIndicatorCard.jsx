@@ -42,7 +42,7 @@ const RiskIndicatorCard = ({ indicator, showNavigate = false }) => {
             </span>
           </div>
 
-          <p className="font-medium mt-0.5">{indicator.supplierName}</p>
+          <p className="font-bold mt-0.5">{indicator.supplierName}</p>
           <p className="mt-0.5 font-normal">{indicator.message}</p>
         </div>
 

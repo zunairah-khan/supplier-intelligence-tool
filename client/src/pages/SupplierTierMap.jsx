@@ -7,6 +7,10 @@ import { calculateSupplierStats } from "../utils/calculateSupplierStats";
 import DataCard from "../components/DataCard.jsx";
 import { useMemo } from "react";
 import RiskIndicatorCard from "../components/RiskIndicatorCard.jsx";
+import { useState } from "react";
+import RiskIndicatorFilterBar from "../components/RiskIndicatorFilterBar.jsx";
+
+
 
 
 const SupplierTierMap = () => {
@@ -19,8 +23,23 @@ const SupplierTierMap = () => {
   const { totalSuppliers, highCriticalityRoutes, highRiskSuppliers, mediumRiskSuppliers, lowRiskSuppliers } =
     useMemo(() => calculateSupplierStats(hierarchyData), [hierarchyData]);
 
-  const indicators = useMemo(() => generatePortfolioIndicators(suppliers), []);
+  const rawIndicators = useMemo(() => generatePortfolioIndicators(suppliers), []);
+const [activeFilter, setActiveFilter] = useState(null);
 
+const toggleFilter = (severity) => {
+  setActiveFilter(prev => prev === severity ? null : severity);
+};
+
+const counts = {
+  critical: rawIndicators.filter(i => i.severity === "critical").length,
+  warning: rawIndicators.filter(i => i.severity === "warning").length,
+  info: rawIndicators.filter(i => i.severity === "info").length,
+};
+
+const filteredIndicators = activeFilter
+  ? rawIndicators.filter(i => i.severity === activeFilter)
+  : rawIndicators;
+  
   return (
     // h-full instead of min-h-screen — relies on parent layout
     // providing full height. overflow-hidden prevents page scroll.
@@ -56,26 +75,24 @@ const SupplierTierMap = () => {
         <div className="bg-white p-6 rounded-lg shadow flex flex-col min-h-0">
           <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Indicators</h2>
 
-          <p className="text-sm text-gray-500 mb-4 shrink-0">
-            {indicators.filter(i => i.severity === "critical").length} Critical,{" "}
-            {indicators.filter(i => i.severity === "warning").length} Warnings,{" "}
-            {indicators.filter(i => i.severity === "info").length} Info
-          </p>
+          <RiskIndicatorFilterBar
+    activeFilter={activeFilter}
+    toggleFilter={toggleFilter}
+    counts={counts}
+  />
 
-          {/* flex-1 and min-h-0 allow this div to fill remaining panel
-              height without pushing the panel beyond its container */}
-          <div className="flex flex-col gap-3 overflow-y-auto flex-1 min-h-0">
-            {indicators.length === 0 ? (
-              <p className="text-gray-500 text-sm">No risk indicators detected.</p>
-            ) : (
-              indicators.map((indicator, index) => (
-                 <RiskIndicatorCard
-                  key={`${indicator.supplierId}-${index}`}
-                  indicator={indicator}
-                  showNavigate={true}
-              />
-              ))
-            )}
+  <div className="flex flex-col gap-3 overflow-y-auto flex-1 min-h-0">
+    {filteredIndicators.length === 0 ? (
+      <p className="text-gray-500 text-sm">No indicators for this severity.</p>
+    ) : (
+      filteredIndicators.map((indicator, index) => (
+        <RiskIndicatorCard
+          key={`${indicator.supplierId}-${index}`}
+          indicator={indicator}
+          showNavigate={true}
+        />
+      ))
+    )}
           </div>
         </div>
 

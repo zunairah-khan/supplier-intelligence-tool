@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useMemo } from "react";
 import clsx from "clsx";
 import { useParams } from "react-router-dom";
 import { suppliers } from "../assets/data";
@@ -12,9 +12,8 @@ import {
   MdCalendarToday,
   MdGavel,
 } from "react-icons/md";
-import { FaEnvelope, FaSitemap  } from "react-icons/fa";
+import { FaEnvelope, FaSitemap } from "react-icons/fa";
 import { TbListDetails } from "react-icons/tb";
-
 import TierMap from "../components/TierMap";
 import { buildSupplierHierarchy } from "../utils/buildSupplierHierarchy";
 import Tabs from "../components/Tabs";
@@ -22,6 +21,9 @@ import SupplierRiskCard from "../components/supplier/SupplierRiskCard";
 import Button from "../components/Button";
 import { IoChevronBackCircle } from "react-icons/io5";
 import { calculateSupplierStats } from "../utils/calculateSupplierStats";
+import { generateSupplierIndicators } from "../utils/riskIndicators/generateSupplierIndicators";
+import RiskIndicatorCard from "../components/RiskIndicatorCard";
+import RiskIndicatorFilterBar from "../components/RiskIndicatorFilterBar";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
@@ -31,7 +33,7 @@ const RISK_BORDER_STYLES = {
 
 const TABS = [
   { title: "Details", icon: <TbListDetails /> },
-  { title: "Dependency Map", icon: <FaSitemap  /> },
+  { title: "Dependency Map", icon: <FaSitemap /> },
 ];
 
 const RISK_LEVEL_BG = {
@@ -43,7 +45,8 @@ const RISK_LEVEL_BG = {
 const SupplierDetails = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(0); //which tab is selected
+  const [selected, setSelected] = useState(0);
+  const [activeFilter, setActiveFilter] = useState(null);
   const navigate = useNavigate();
 
   const supplier = suppliers.find((s) => s._id === id);
@@ -52,246 +55,271 @@ const SupplierDetails = () => {
     return <div className="text-red-600">Error: Supplier not found</div>;
   }
 
-  // Build supplier hierarchy for tier mapping from current supplier id
-  const supplierId = supplier._id;
-  const hierarchyData = buildSupplierHierarchy(suppliers, supplierId);
+  const hierarchyData = useMemo(
+    () => buildSupplierHierarchy(suppliers, supplier._id),
+    [supplier._id]
+  );
+
   const { totalDownstreamSuppliers, highCriticalityRoutes } =
-    calculateSupplierStats(hierarchyData);
+    useMemo(() => calculateSupplierStats(hierarchyData), [hierarchyData]);
+
   const supplierHasDependencies = hierarchyData?.children?.length > 0;
+
+  // Generate indicators for this specific supplier only
+  const rawIndicators = useMemo(
+    () => generateSupplierIndicators(supplier, suppliers),
+    [supplier]
+  );
+
+  const toggleFilter = (severity) => {
+    setActiveFilter((prev) => (prev === severity ? null : severity));
+  };
+
+  const counts = {
+    critical: rawIndicators.filter((i) => i.severity === "critical").length,
+    warning: rawIndicators.filter((i) => i.severity === "warning").length,
+    info: rawIndicators.filter((i) => i.severity === "info").length,
+  };
+
+  const filteredIndicators = activeFilter
+    ? rawIndicators.filter((i) => i.severity === activeFilter)
+    : rawIndicators;
+
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
-      <div className="flex items-center ">
+      {/* Page Header */}
+      <div className="flex items-center">
         <Button
           onClick={() => navigate(-1)}
           label=""
           icon={
             <IoChevronBackCircle className="text-4xl text-gray-700 hover:text-gray-500" />
           }
-          className="flex  rounded-full items-center  text-white  "
+          className="flex rounded-full items-center text-white"
         />
-
-        
-          <h1 className="text-2xl font-semibold text-gray-600">
-            Supplier Overview
-          </h1>
-          
-        
+        <h1 className="text-2xl font-semibold text-gray-600">
+          Supplier Overview
+        </h1>
       </div>
 
-      <Tabs tabs={TABS} selected={selected} setSelected={setSelected}>
-        {selected === 0 ? (
-          <>
-      <div
-        className={clsx(
-          "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md  p-5 rounded-md border-l-5 px-4 py-5",
-          RISK_BORDER_STYLES[supplier.RiskLevel],
-        )}
-      >
-        {/* LEFT SECTION */}
-        <div className="w-full md:w-1/2 space-y-5 bg-white shadow rounded-lg p-6">
-          {/* Supplier Name with Risk Level & Tier */}
-          <div className="flex items-center gap-5 flex-wrap">
-            <h2 className="text-3xl font-bold text-gray-600">
-              {supplier?.name}
-            </h2>
-            <span className="text-white text-sm font-bold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
-              Tier {supplier?.tier}
-            </span>
+      {/* Main Layout — tabs on left, risk signals pinned on right */}
+      <div className="flex gap-5 min-h-0 flex-1">
 
-            <span
-              className={clsx(
-                "text-white text-sm font-semibold px-2 py-1 rounded-md whitespace-nowrap",
-                RISK_LEVEL_BG[supplier.RiskLevel],
-              )}
-            >
-              {supplier?.RiskLevel} Risk
-            </span>
-          </div>
-
-          {/* Capacity */}
-          <div className="space-y-1 bg-blue-50 p-2 rounded-lg">
-            <p className=" font-semibold text-sm">PRODUCTION CAPACITY</p>
-            <div className="flex items-center gap-2">
-              <div className="w-full bg-blue-200 rounded-full h-2.5">
-                <div
-                  className="bg-blue-600 h-2.5 rounded-full"
-                  style={{ width: `${supplier?.capacity * 100}%` }}
-                ></div>
-              </div>
-              <span className="text-blue-700 font-semibold">
-                {(supplier?.capacity * 100).toFixed(0)}%
-              </span>
-            </div>
-          </div>
-
-          {/* Basic Information */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-              <MdLocationOn className="text-blue-500 mt-1" size={20} />
-              <div>
-                <p className="text-sm text-gray-500 font-semibold">LOCATION</p>
-                <p className="text-gray-700">{supplier?.location}</p>
-                <p className="text-sm text-gray-600 mt-1">
-                  {supplier?.address}
-                </p>
-              </div>
-          </div>
-
-            <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-              <MdBusinessCenter className="text-amber-500 mt-1" size={20} />
-              <div>
-                <p className="text-sm text-gray-500 font-semibold">
-                  OPERATION TYPE
-                </p>
-                <p className="text-gray-700">{supplier?.operation_type}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-              <MdAttachMoney className="text-green-500 mt-1" size={20} />
-              <div>
-                <p className="text-sm text-gray-500 font-semibold">
-                  CONTRACT VALUE
-                </p>
-                <p className="text-gray-700 text-lg font-semibold">
-                  £{supplier?.contract_value?.toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Legal & Date Information */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-              <MdGavel className="text-purple-500 mt-1" size={20} />
-              <div>
-                <p className="text-sm text-gray-500 font-semibold">
-                  LEGAL STATUS
-                </p>
-                <p className="text-gray-700">{supplier?.legal_status}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <MdCalendarToday className="text-indigo-500 mt-1" size={20} />
-              <div>
-                <p className="text-sm text-gray-500 font-semibold">
-                  INCORPORATED DATE
-                </p>
-                <p className="text-gray-700">
-                  {new Date(supplier?.incorporated_date).toDateString()}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Contacts */}
-          {supplier?.contacts && supplier?.contacts?.length > 0 && (
-            <div className="space-y-3 py-4 border-t border-gray-200">
-              <p className=" font-semibold text-md">Contacts</p>
-              <div className="space-y-2">
-                {supplier?.contacts?.map((contact, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-4 py-1 px-4 border border-blue-200 rounded-md bg-blue-50"
-                  >
-                    <div
-                      className={
-                        "w-10 h-10 rounded-full text-white flex items-center justify-center text-sm font-semibold bg-blue-600 shrink-0"
-                      }
+        {/* Left — Tabs and tab content */}
+        <div className="flex-1 min-w-0">
+          <Tabs tabs={TABS} selected={selected} setSelected={setSelected}>
+            {selected === 0 ? (
+              <div
+                className={clsx(
+                  "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md p-5 rounded-md border-l-5 px-4 py-5",
+                  RISK_BORDER_STYLES[supplier.RiskLevel]
+                )}
+              >
+                {/* LEFT SECTION */}
+                <div className="w-full md:w-1/2 space-y-5 bg-white shadow rounded-lg p-6">
+                  {/* Supplier Name with Risk Level & Tier */}
+                  <div className="flex items-center gap-5 flex-wrap">
+                    <h2 className="text-3xl font-bold text-gray-600">
+                      {supplier?.name}
+                    </h2>
+                    <span className="text-white text-sm font-bold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
+                      Tier {supplier?.tier}
+                    </span>
+                    <span
+                      className={clsx(
+                        "text-white text-sm font-semibold px-2 py-1 rounded-md whitespace-nowrap",
+                        RISK_LEVEL_BG[supplier.RiskLevel]
+                      )}
                     >
-                      <span className="text-center">
-                        {getInitials(contact?.name)}
+                      {supplier?.RiskLevel} Risk
+                    </span>
+                  </div>
+
+                  {/* Capacity */}
+                  <div className="space-y-1 bg-blue-50 p-2 rounded-lg">
+                    <p className="font-semibold text-sm">REVENUE DEPENDENCY</p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-full bg-blue-200 rounded-full h-2.5">
+                        <div
+                          className="bg-blue-600 h-2.5 rounded-full"
+                          style={{ width: `${supplier?.capacity * 100}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-blue-700 font-semibold">
+                        {(supplier?.capacity * 100).toFixed(0)}%
                       </span>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-lg font-semibold text-gray-700">
-                        {contact?.name}
-                      </p>
-                      <p className="text-sm text-gray-600">{contact?.title}</p>
-                      <div className="flex items-center gap-2 mt-1 text-gray-500 text-sm flex-wrap">
-                        <FaEnvelope size={14} />
-                        <span className="truncate">{contact?.email}</span>
+                  </div>
+
+                  {/* Basic Information */}
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
+                      <MdLocationOn className="text-blue-500 mt-1" size={20} />
+                      <div>
+                        <p className="text-sm text-gray-500 font-semibold">LOCATION</p>
+                        <p className="text-gray-700">{supplier?.location}</p>
+                        <p className="text-sm text-gray-600 mt-1">{supplier?.address}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
+                      <MdBusinessCenter className="text-amber-500 mt-1" size={20} />
+                      <div>
+                        <p className="text-sm text-gray-500 font-semibold">OPERATION TYPE</p>
+                        <p className="text-gray-700">{supplier?.operation_type}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
+                      <MdAttachMoney className="text-green-500 mt-1" size={20} />
+                      <div>
+                        <p className="text-sm text-gray-500 font-semibold">CONTRACT VALUE</p>
+                        <p className="text-gray-700 text-lg font-semibold">
+                          £{supplier?.contract_value?.toLocaleString()}
+                        </p>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
 
-        {/* RIGHT SECTION*/}
-        <div className="w-full md:w-1/2 space-y-5 bg-white pb-6">
-          {/* Risk Section */}
-          <div className="shadow rounded-lg bg-white p-3 flex flex-col ">
-            <div className="justify-between items-center mb-2 flex border-b border-gray-200">
-              <span className="font-semibold text-lg mb-2 p-2">Risks</span>
-
-              <Button
-                onClick={() => setOpen(true)}
-                label="Add Risk"
-                icon={<IoMdAdd className="text-" />}
-                className="flex flex-row-reverse  gap-1 items-center bg-gray-200 hover:bg-gray-300 rounded-md py-1 2xl:py-2.5"
-              />
-            </div>
-
-            <div className="overflow-y-auto flex-1">
-              {supplier?.risks && supplier?.risks?.length > 0 ? (
-                <div className="w-full grid grid-cols-2 gap-4 p-2">
-                  {supplier?.risks?.map((risk, index) => (
-                    <div key={index} className="relative group overflow-hidden">
-                      <SupplierRiskCard risk={risk} />
+                  {/* Legal & Date Information */}
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
+                      <MdGavel className="text-purple-500 mt-1" size={20} />
+                      <div>
+                        <p className="text-sm text-gray-500 font-semibold">LEGAL STATUS</p>
+                        <p className="text-gray-700">{supplier?.legal_status}</p>
+                      </div>
                     </div>
-                  ))}
+
+                    <div className="flex items-start gap-3">
+                      <MdCalendarToday className="text-indigo-500 mt-1" size={20} />
+                      <div>
+                        <p className="text-sm text-gray-500 font-semibold">INCORPORATED DATE</p>
+                        <p className="text-gray-700">
+                          {new Date(supplier?.incorporated_date).toDateString()}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Contacts */}
+                  {supplier?.contacts && supplier?.contacts?.length > 0 && (
+                    <div className="space-y-3 py-4 border-t border-gray-200">
+                      <p className="font-semibold text-md">Contacts</p>
+                      <div className="space-y-2">
+                        {supplier?.contacts?.map((contact, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-4 py-1 px-4 border border-blue-200 rounded-md bg-blue-50"
+                          >
+                            <div className="w-10 h-10 rounded-full text-white flex items-center justify-center text-sm font-semibold bg-blue-600 shrink-0">
+                              <span className="text-center">
+                                {getInitials(contact?.name)}
+                              </span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-lg font-semibold text-gray-700">{contact?.name}</p>
+                              <p className="text-sm text-gray-600">{contact?.title}</p>
+                              <div className="flex items-center gap-2 mt-1 text-gray-500 text-sm flex-wrap">
+                                <FaEnvelope size={14} />
+                                <span className="truncate">{contact?.email}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <p className="text-gray-500 italic justify-center items-center flex h-full">
-                  There are no risks associated with {supplier?.name}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-          </>
-    ) : (
-          <>
-          {/* Supplier Tier Mapping Section */}
-          <div className="shadow rounded-lg p-2 bg-white h-150 overflow-y-auto flex flex-col">
-            {/* Header / Stats */}
-            <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
-              <p className="font-semibold text-lg">Supplier Dependencies</p>
-              <div className="flex gap-2">
-                <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
-                  <p className="text-xs">Downstream Suppliers</p>
-                  <p className="font-semibold text-blue-700">
-                    {totalDownstreamSuppliers}
-                  </p>
-                </div>
-                <div className="bg-red-50 px-3 py-1 rounded-md text-center">
-                  <p className="text-xs">High Criticality Routes</p>
-                  <p className="font-semibold text-red-700">
-                    {highCriticalityRoutes}
-                  </p>
+
+                {/* RIGHT SECTION — Risks */}
+                <div className="w-full md:w-1/2 space-y-5 bg-white pb-6">
+                  <div className="shadow rounded-lg bg-white p-3 flex flex-col">
+                    <div className="justify-between items-center mb-2 flex border-b border-gray-200">
+                      <span className="font-semibold text-lg mb-2 p-2">Risks</span>
+                      <Button
+                        onClick={() => setOpen(true)}
+                        label="Add Risk"
+                        icon={<IoMdAdd />}
+                        className="flex flex-row-reverse gap-1 items-center bg-gray-200 hover:bg-gray-300 rounded-md py-1 2xl:py-2.5"
+                      />
+                    </div>
+                    <div className="overflow-y-auto flex-1">
+                      {supplier?.risks && supplier?.risks?.length > 0 ? (
+                        <div className="w-full grid grid-cols-2 gap-4 p-2">
+                          {supplier?.risks?.map((risk, index) => (
+                            <div key={index} className="relative group overflow-hidden">
+                              <SupplierRiskCard risk={risk} />
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-gray-500 italic justify-center items-center flex h-full">
+                          There are no risks associated with {supplier?.name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* TierMap */}
-            {!supplierHasDependencies ? (
-              <p className="text-gray-500 italic justify-center items-center flex grow">
-                {supplier?.name} has no dependencies
-              </p>
             ) : (
-              <div className="w-full grow h-full">
-                <TierMap data={hierarchyData} />
+              <div className="shadow rounded-lg p-2 bg-white h-150 overflow-y-auto flex flex-col">
+                <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
+                  <p className="font-semibold text-lg">Supplier Dependencies</p>
+                  <div className="flex gap-2">
+                    <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
+                      <p className="text-xs">Downstream Suppliers</p>
+                      <p className="font-semibold text-blue-700">{totalDownstreamSuppliers}</p>
+                    </div>
+                    <div className="bg-red-50 px-3 py-1 rounded-md text-center">
+                      <p className="text-xs">High Criticality Routes</p>
+                      <p className="font-semibold text-red-700">{highCriticalityRoutes}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {!supplierHasDependencies ? (
+                  <p className="text-gray-500 italic justify-center items-center flex grow">
+                    {supplier?.name} has no dependencies
+                  </p>
+                ) : (
+                  <div className="w-full grow h-full">
+                    <TierMap data={hierarchyData} />
+                  </div>
+                )}
               </div>
             )}
-          </div>
-          </>
-          )}
           </Tabs>
+        </div>
+
+        {/* Right — Risk Signals Panel, persistent across both tabs */}
+        <div className="w-80 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col min-h-0">
+          <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Signals</h2>
+
+          <RiskIndicatorFilterBar
+            activeFilter={activeFilter}
+            toggleFilter={toggleFilter}
+            counts={counts}
+          />
+
+          <div className="flex flex-col gap-3 overflow-y-auto flex-1 min-h-0">
+            {filteredIndicators.length === 0 ? (
+              <p className="text-gray-500 text-sm italic">
+                No risk signals detected for {supplier?.name}.
+              </p>
+            ) : (
+              filteredIndicators.map((indicator, index) => (
+                <RiskIndicatorCard
+                  key={`${indicator.supplierId}-${index}`}
+                  indicator={indicator}
+                  showNavigate={false}
+                />
+              ))
+            )}
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 };

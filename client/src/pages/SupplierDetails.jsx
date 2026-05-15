@@ -293,7 +293,7 @@ const SupplierDetails = () => {
         </div>
 
         {/* Right — Risk Signals Panel, persistent across both tabs */}
-        <div className="w-80 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col min-h-0">
+        <div className="w-100 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col min-h-0">
           <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Signals</h2>
 
           <RiskIndicatorFilterBar

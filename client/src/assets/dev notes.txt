@@ -94,3 +94,29 @@ executive dashboard
 
 adding supplier- calculate tier automatically
 
+todo:
+exec dashboard
+view risks
+update supplier info 
+add supplier form  
+
+report write up:
+
+risk indicator engine:
+util functions
+filter bar component
+indicator component
+memos
+
+tier map:
+build hierarchy util 
+calculate supplier stats util 
+tiermap component 
+suppliertiermap page 
+supplier details page 
+
+action tracking page
+exec dashboard page 
+supplier page 
+supplier details page 
+

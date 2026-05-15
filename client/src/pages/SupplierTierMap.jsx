@@ -6,18 +6,8 @@ import { generatePortfolioIndicators } from "../utils/riskIndicators/generatePor
 import { calculateSupplierStats } from "../utils/calculateSupplierStats";
 import DataCard from "../components/DataCard.jsx";
 import { useMemo } from "react";
+import RiskIndicatorCard from "../components/RiskIndicatorCard.jsx";
 
-const SEVERITY_STYLES = {
-  critical: "bg-red-50 border-l-4 border-red-500 text-red-800",
-  warning: "bg-orange-50 border-l-4 border-orange-400 text-orange-800",
-  info: "bg-blue-50 border-l-4 border-blue-400 text-blue-800",
-};
-
-const SEVERITY_LABEL = {
-  critical: "Critical",
-  warning: "Warning",
-  info: "Info",
-};
 
 const SupplierTierMap = () => {
 
@@ -64,11 +54,11 @@ const SupplierTierMap = () => {
         {/* Risk Signals Panel — flex column with overflow-hidden on
             the container and overflow-y-auto on the list only */}
         <div className="bg-white p-6 rounded-lg shadow flex flex-col min-h-0">
-          <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Signals</h2>
+          <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Indicators</h2>
 
           <p className="text-sm text-gray-500 mb-4 shrink-0">
-            {indicators.filter(i => i.severity === "critical").length} critical,{" "}
-            {indicators.filter(i => i.severity === "warning").length} warnings
+            {indicators.filter(i => i.severity === "critical").length} Critical,{" "}
+            {indicators.filter(i => i.severity === "warning").length} Warnings
           </p>
 
           {/* flex-1 and min-h-0 allow this div to fill remaining panel
@@ -78,16 +68,11 @@ const SupplierTierMap = () => {
               <p className="text-gray-500 text-sm">No risk indicators detected.</p>
             ) : (
               indicators.map((indicator, index) => (
-                <div
+                 <RiskIndicatorCard
                   key={`${indicator.supplierId}-${index}`}
-                  className={`p-3 rounded text-sm ${SEVERITY_STYLES[indicator.severity]}`}
-                >
-                  <span className="font-semibold uppercase text-xs tracking-wide">
-                    {SEVERITY_LABEL[indicator.severity]}
-                  </span>
-                  <p className="font-medium mt-0.5">{indicator.supplierName}</p>
-                  <p className="mt-0.5 font-normal">{indicator.message}</p>
-                </div>
+                  indicator={indicator}
+                  showNavigate={true}
+              />
               ))
             )}
           </div>

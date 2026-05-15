@@ -58,7 +58,8 @@ const SupplierTierMap = () => {
 
           <p className="text-sm text-gray-500 mb-4 shrink-0">
             {indicators.filter(i => i.severity === "critical").length} Critical,{" "}
-            {indicators.filter(i => i.severity === "warning").length} Warnings
+            {indicators.filter(i => i.severity === "warning").length} Warnings,{" "}
+            {indicators.filter(i => i.severity === "info").length} Info
           </p>
 
           {/* flex-1 and min-h-0 allow this div to fill remaining panel

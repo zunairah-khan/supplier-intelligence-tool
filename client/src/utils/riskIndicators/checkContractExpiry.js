@@ -21,7 +21,7 @@ export const checkContractExpiry = (supplier) => {
     return createIndicator(
       supplier._id,
       supplier.name,
-      SEVERITY.WARNING,
+      SEVERITY.INFO,
       CATEGORY.CONTRACT,
       `Contract with ${supplier.name} expires in ${daysUntilExpiry} days.`
     );

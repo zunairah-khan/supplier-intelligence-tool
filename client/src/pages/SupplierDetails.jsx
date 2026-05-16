@@ -60,12 +60,13 @@ const SupplierDetails = () => {
     [supplier._id]
   );
 
-  const { totalDownstreamSuppliers, highCriticalityRoutes } =
-    useMemo(() => calculateSupplierStats(hierarchyData), [hierarchyData]);
+  const { totalDownstreamSuppliers, highCriticalityRoutes } = useMemo(
+    () => calculateSupplierStats(hierarchyData),
+    [hierarchyData]
+  );
 
   const supplierHasDependencies = hierarchyData?.children?.length > 0;
 
-  // Generate indicators for this specific supplier only
   const rawIndicators = useMemo(
     () => generateSupplierIndicators(supplier, suppliers),
     [supplier]
@@ -86,9 +87,9 @@ const SupplierDetails = () => {
     : rawIndicators;
 
   return (
-    <div className="w-full flex flex-col gap-3 mb-4 h-full overflow-y-hidden">
+    <div className="w-full flex flex-col gap-3 h-full overflow-y-hidden">
       {/* Page Header */}
-      <div className="flex items-center">
+      <div className="flex items-center shrink-0">
         <Button
           onClick={() => navigate(-1)}
           label=""
@@ -103,183 +104,188 @@ const SupplierDetails = () => {
       </div>
 
       {/* Main Layout — tabs on left, risk signals pinned on right */}
-      <div className="flex gap-5 min-h-0 flex-1 ">
+      <div className="flex gap-5 flex-1 min-h-0">
 
         {/* Left — Tabs and tab content */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 min-h-0">
           <Tabs tabs={TABS} selected={selected} setSelected={setSelected}>
             {selected === 0 ? (
               <div
                 className={clsx(
-                  "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md p-5 rounded-md border-l-5 px-4 py-5",
+                  "w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md p-5 rounded-md border-l-5 px-4 py-5 h-full min-h-0",
                   RISK_BORDER_STYLES[supplier.RiskLevel]
                 )}
               >
                 {/* LEFT SECTION */}
-                <div className="w-full md:w-1/2 space-y-5 bg-white shadow rounded-lg p-6">
-                  {/* Supplier Name with Risk Level & Tier */}
-                  <div className="flex items-center gap-5 flex-wrap">
-                    <h2 className="text-3xl font-bold text-gray-600">
-                      {supplier?.name}
-                    </h2>
-                    <span className="text-white text-sm font-bold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
-                      Tier {supplier?.tier}
-                    </span>
-                    <span
-                      className={clsx(
-                        "text-white text-sm font-semibold px-2 py-1 rounded-md whitespace-nowrap",
-                        RISK_LEVEL_BG[supplier.RiskLevel]
-                      )}
-                    >
-                      {supplier?.RiskLevel} Risk
-                    </span>
-                  </div>
+                <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-2 flex flex-col min-h-0">
 
-                  {/* Capacity */}
-                  <div className="space-y-1 bg-blue-50 p-2 rounded-lg">
-                    <p className="font-semibold text-sm">REVENUE DEPENDENCY</p>
-                    <div className="flex items-center gap-2">
-                      <div className="w-full bg-blue-200 rounded-full h-2.5">
-                        <div
-                          className="bg-blue-600 h-2.5 rounded-full"
-                          style={{ width: `${supplier?.capacity * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-blue-700 font-semibold">
-                        {(supplier?.capacity * 100).toFixed(0)}%
+                  {/* Fixed header */}
+                  <div className="shrink-0 space-y-3 p-2 border-b border-gray-200 mb-3">
+                    <div className="flex items-center gap-5 flex-wrap">
+                      <h2 className="text-3xl font-bold text-gray-600">
+                        {supplier?.name}
+                      </h2>
+                      <span className="text-white text-sm font-bold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
+                        Tier {supplier?.tier}
+                      </span>
+                      <span
+                        className={clsx(
+                          "text-white text-sm font-semibold px-2 py-1 rounded-md whitespace-nowrap",
+                          RISK_LEVEL_BG[supplier.RiskLevel]
+                        )}
+                      >
+                        {supplier?.RiskLevel} Risk
                       </span>
                     </div>
-                  </div>
 
-                  {/* Basic Information */}
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-                      <MdLocationOn className="text-blue-500 mt-1" size={20} />
-                      <div>
-                        <p className="text-sm text-gray-500 font-semibold">LOCATION</p>
-                        <p className="text-gray-700">{supplier?.location}</p>
-                        <p className="text-sm text-gray-600 mt-1">{supplier?.address}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-                      <MdBusinessCenter className="text-amber-500 mt-1" size={20} />
-                      <div>
-                        <p className="text-sm text-gray-500 font-semibold">OPERATION TYPE</p>
-                        <p className="text-gray-700">{supplier?.operation_type}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-                      <MdAttachMoney className="text-green-500 mt-1" size={20} />
-                      <div>
-                        <p className="text-sm text-gray-500 font-semibold">CONTRACT VALUE</p>
-                        <p className="text-gray-700 text-lg font-semibold">
-                          £{supplier?.contract_value?.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Legal & Date Information */}
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 pb-4 border-b border-gray-200">
-                      <MdGavel className="text-purple-500 mt-1" size={20} />
-                      <div>
-                        <p className="text-sm text-gray-500 font-semibold">LEGAL STATUS</p>
-                        <p className="text-gray-700">{supplier?.legal_status}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <MdCalendarToday className="text-indigo-500 mt-1" size={20} />
-                      <div>
-                        <p className="text-sm text-gray-500 font-semibold">INCORPORATED DATE</p>
-                        <p className="text-gray-700">
-                          {new Date(supplier?.incorporated_date).toDateString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Contacts */}
-                  {supplier?.contacts && supplier?.contacts?.length > 0 && (
-                    <div className="space-y-3 py-4 border-t border-gray-200">
-                      <p className="font-semibold text-md">Contacts</p>
-                      <div className="space-y-2">
-                        {supplier?.contacts?.map((contact, index) => (
+                    {/* Capacity */}
+                    <div className="space-y-1 bg-blue-50 p-2 rounded-lg">
+                      <p className="font-semibold text-sm">REVENUE DEPENDENCY</p>
+                      <div className="flex items-center gap-2">
+                        <div className="w-full bg-blue-200 rounded-full h-2.5">
                           <div
-                            key={index}
-                            className="flex items-center gap-4 py-1 px-4 border border-blue-200 rounded-md bg-blue-50"
-                          >
-                            <div className="w-10 h-10 rounded-full text-white flex items-center justify-center text-sm font-semibold bg-blue-600 shrink-0">
-                              <span className="text-center">
-                                {getInitials(contact?.name)}
-                              </span>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-lg font-semibold text-gray-700">{contact?.name}</p>
-                              <p className="text-sm text-gray-600">{contact?.title}</p>
-                              <div className="flex items-center gap-2 mt-1 text-gray-500 text-sm flex-wrap">
-                                <FaEnvelope size={14} />
-                                <span className="truncate">{contact?.email}</span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                            className="bg-blue-600 h-2.5 rounded-full"
+                            style={{ width: `${supplier?.capacity * 100}%` }}
+                          ></div>
+                        </div>
+                        <span className="text-blue-700 font-semibold">
+                          {(supplier?.capacity * 100).toFixed(0)}%
+                        </span>
                       </div>
                     </div>
-                  )}
-                </div>
+                  </div>
 
-                {/* RIGHT SECTION — Risks */}
-                <div className="w-full md:w-1/2 space-y-5 bg-white pb-6">
-                  <div className="shadow rounded-lg bg-white p-3 flex flex-col">
-                    <div className="justify-between items-center mb-2 flex border-b border-gray-200">
-                      <span className="font-semibold text-lg mb-2 p-2">Risks</span>
-                      <Button
-                        onClick={() => setOpen(true)}
-                        label="Add Risk"
-                        icon={<IoMdAdd />}
-                        className="flex flex-row-reverse gap-1 items-center bg-gray-200 hover:bg-gray-300 rounded-md py-1 2xl:py-2.5"
-                      />
+                  {/* Scrollable body */}
+                  <div className="overflow-y-auto flex-1 min-h-0 space-y-4 px-2">
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                      <MdLocationOn className="text-blue-500 shrink-0" size={20} />
+                      <p className="text-sm text-gray-500 font-semibold">
+                        LOCATION: {supplier?.location}, {supplier?.address}
+                      </p>
                     </div>
-                    <div className="overflow-y-auto flex-1">
-                      {supplier?.risks && supplier?.risks?.length > 0 ? (
-                        <div className="w-full grid grid-cols-2 gap-4 p-2">
-                          {supplier?.risks?.map((risk, index) => (
-                            <div key={index} className="relative group overflow-hidden">
-                              <SupplierRiskCard risk={risk} />
+
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                      <MdBusinessCenter className="text-amber-500 shrink-0" size={20} />
+                      <p className="text-sm text-gray-500 font-semibold">
+                        OPERATION TYPE: {supplier?.operation_type}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                      <MdAttachMoney className="text-green-500 shrink-0" size={20} />
+                      <p className="text-sm text-gray-500 font-semibold">
+                        CONTRACT VALUE: £{supplier?.contract_value?.toLocaleString()}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                      <MdGavel className="text-purple-500 shrink-0" size={20} />
+                      <p className="text-sm text-gray-500 font-semibold">
+                        LEGAL STATUS: {supplier?.legal_status}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                      <MdCalendarToday className="text-indigo-500 shrink-0" size={20} />
+                      <p className="text-sm text-gray-500 font-semibold">
+                        INCORPORATED DATE: {new Date(supplier?.incorporated_date).toDateString()}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+                      <MdCalendarToday className="text-amber-500 shrink-0" size={20} />
+                      <p className="text-sm text-gray-500 font-semibold">
+                        CONTRACT EXPIRY DATE: {new Date(supplier?.contract_expiry_date).toDateString()}
+                      </p>
+                    </div>
+
+                    {/* Contacts */}
+                    {supplier?.contacts && supplier?.contacts?.length > 0 && (
+                      <div className="space-y-3 py-4 border-t border-gray-200">
+                        <p className="font-semibold text-md">Contacts</p>
+                        <div className="space-y-2">
+                          {supplier?.contacts?.map((contact, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-4 py-1 px-4 border border-blue-200 rounded-md bg-blue-50"
+                            >
+                              <div className="w-10 h-10 rounded-full text-white flex items-center justify-center text-sm font-semibold bg-blue-600 shrink-0">
+                                <span className="text-center">
+                                  {getInitials(contact?.name)}
+                                </span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-lg font-semibold text-gray-700">
+                                  {contact?.name}
+                                </p>
+                                <p className="text-sm text-gray-600">{contact?.title}</p>
+                                <div className="flex items-center gap-2 mt-1 text-gray-500 text-sm flex-wrap">
+                                  <FaEnvelope size={14} />
+                                  <span className="truncate">{contact?.email}</span>
+                                </div>
+                              </div>
                             </div>
                           ))}
                         </div>
-                      ) : (
-                        <p className="text-gray-500 italic justify-center items-center flex h-full">
-                          There are no risks associated with {supplier?.name}
-                        </p>
-                      )}
-                    </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* RIGHT SECTION — Risks */}
+                <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-3 flex flex-col min-h-0">
+
+                  {/* Fixed header */}
+                  <div className="justify-between items-center mb-2 flex border-b border-gray-200 pb-2 shrink-0">
+                    <span className="font-semibold text-lg p-2">Risks</span>
+                    <Button
+                      onClick={() => setOpen(true)}
+                      label="Add Risk"
+                      icon={<IoMdAdd />}
+                      className="flex flex-row-reverse gap-1 items-center bg-gray-200 hover:bg-gray-300 rounded-md py-1 2xl:py-2.5"
+                    />
+                  </div>
+
+                  {/* Scrollable risk cards */}
+                  <div className="overflow-y-auto flex-1 min-h-0">
+                    {supplier?.risks && supplier?.risks?.length > 0 ? (
+                      <div className="w-full grid grid-cols-2 gap-4 p-2">
+                        {supplier?.risks?.map((risk, index) => (
+                          <div key={index} className="relative group overflow-hidden">
+                            <SupplierRiskCard risk={risk} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-500 italic justify-center items-center flex h-full">
+                        There are no risks associated with {supplier?.name}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="shadow rounded-lg p-2 bg-white h-full flex flex-col min-h-0 ">
+              <div className="shadow rounded-lg p-2 bg-white h-full flex flex-col min-h-0">
                 <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2 shrink-0">
                   <p className="font-semibold text-lg">Supplier Dependencies</p>
                   <div className="flex gap-2">
                     <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
                       <p className="text-xs">Downstream Suppliers</p>
-                      <p className="font-semibold text-blue-700">{totalDownstreamSuppliers}</p>
+                      <p className="font-semibold text-blue-700">
+                        {totalDownstreamSuppliers}
+                      </p>
                     </div>
                     <div className="bg-red-50 px-3 py-1 rounded-md text-center">
                       <p className="text-xs">High Criticality Routes</p>
-                      <p className="font-semibold text-red-700">{highCriticalityRoutes}</p>
+                      <p className="font-semibold text-red-700">
+                        {highCriticalityRoutes}
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 {!supplierHasDependencies ? (
-                  <p className="text-gray-500 italic justify-center items-center flex grow ">
+                  <p className="text-gray-500 italic justify-center items-center flex grow">
                     {supplier?.name} has no dependencies
                   </p>
                 ) : (
@@ -293,7 +299,7 @@ const SupplierDetails = () => {
         </div>
 
         {/* Right — Risk Signals Panel, persistent across both tabs */}
-        <div className="w-100 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col self-stretch">
+        <div className="w-100 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col min-h-0">
           <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Indicators</h2>
 
           <RiskIndicatorFilterBar
@@ -318,7 +324,6 @@ const SupplierDetails = () => {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

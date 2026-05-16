@@ -7,6 +7,7 @@ import { checkDownstreamCount } from "./checkDownstreamCount";
 import { checkRiskToleranceBreached } from "./checkRiskToleranceBreached";
 import { checkRisksToImprove } from "./checkRisksToImprove";
 import { SEVERITY } from "./createIndicator";
+import { checkSharedDependency } from "./checkSharedDependency";
 
 // Severity weights for sorting — critical indicators always surface first
 const SEVERITY_WEIGHT = {
@@ -34,6 +35,7 @@ export const generateSupplierIndicators = (supplier, suppliers) => {
     ...checkDownstreamCount(supplier, supplierSubtree),
     ...checkRiskToleranceBreached(supplier),
     ...checkRisksToImprove(supplier),
+    ...checkSharedDependency(suppliers.filter(s => s._id === supplier._id)), // Check if this supplier is a shared dependency
   ].filter(Boolean);
 
   return sortIndicators(indicators);

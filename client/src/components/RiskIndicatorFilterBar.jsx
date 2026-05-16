@@ -22,7 +22,7 @@ const FILTER_ICONS = {
   info: <FiInfo size={12} />,
 };
 
-const IndicatorFilterBar = ({ activeFilter, toggleFilter, counts }) => {
+const RiskIndicatorFilterBar = ({ activeFilter, toggleFilter, counts }) => {
   return (
     <div className="flex gap-2 mb-4 flex-wrap shrink-0">
       {Object.entries(FILTER_STYLES).map(([severity, styles]) =>
@@ -46,4 +46,4 @@ const IndicatorFilterBar = ({ activeFilter, toggleFilter, counts }) => {
   );
 };
 
-export default IndicatorFilterBar;
+export default RiskIndicatorFilterBar;

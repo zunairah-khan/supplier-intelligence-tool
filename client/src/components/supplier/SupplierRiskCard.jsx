@@ -28,7 +28,7 @@ const SupplierRiskCard = ({ risk }) => {
         {/* Top row — Risk Name + View button */}
         <div className="flex items-start justify-between gap-2">
           <p className="font-semibold text-gray-800 line-clamp-2 leading-tight">
-            {risk.riskName}
+            {risk.riskReference}: {risk.riskName}
           </p>
           <button
             onClick={() => setModalOpen(true)}

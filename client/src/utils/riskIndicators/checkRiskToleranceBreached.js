@@ -14,7 +14,7 @@ export const checkRiskToleranceBreached = (supplier) => {
         supplier.name,
         SEVERITY.CRITICAL,
         CATEGORY.RISK,
-        `"${risk.riskName}": risk rating of ${risk.impact * risk.likelihood} exceeds tolerance threshold of ${risk.riskTolerance}.`
+        `${risk.riskReference} - ${risk.riskName}: risk rating of ${risk.impact * risk.likelihood} exceeds tolerance threshold of ${risk.riskTolerance}.`
       )
     );
 };

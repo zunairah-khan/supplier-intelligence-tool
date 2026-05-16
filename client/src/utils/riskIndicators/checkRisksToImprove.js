@@ -20,7 +20,7 @@ export const checkRisksToImprove = (supplier) => {
         supplier.name,
         SEVERITY.CRITICAL,
         CATEGORY.RISK,
-        `"${risk.riskName}": high risk rating (${risk.impact * risk.likelihood}/25) with low control confidence (${risk.controlConfidence}/5) — immediate attention required.`
+        `"${risk.riskReference}": ${risk.riskName}": high risk rating (${risk.impact * risk.likelihood}/25) with low control confidence (${risk.controlConfidence}/5) — immediate attention required.`
       )
     );
 };

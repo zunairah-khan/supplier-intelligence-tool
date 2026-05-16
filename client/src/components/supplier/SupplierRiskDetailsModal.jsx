@@ -40,7 +40,7 @@ const SupplierRiskDetailModal = ({ risk, isOpen, onClose }) => {
           {/* Header */}
           <div className="flex items-start justify-between gap-4">
             <Dialog.Title className="text-lg font-semibold text-gray-800">
-              {risk.riskName}
+              {risk.riskReference}: {risk.riskName}
             </Dialog.Title>
             <button
               onClick={onClose}

@@ -649,6 +649,7 @@ export const suppliers = [
     risks:[
     { 
     id: "1",
+    riskReference: "R001",
     riskName: "Supplier Concentration",
     impact: 4,
     likelihood: 3,
@@ -656,6 +657,7 @@ export const suppliers = [
     controlConfidence:2},
     {
     id: "2",
+    riskReference: "R002",
     riskName: "Financial Instability",
     impact: 3,
     likelihood: 2,
@@ -663,6 +665,7 @@ export const suppliers = [
     controlConfidence:5},
     {
     id: "3",
+    riskReference: "R003",
     riskName: "Operational Disruptions",
     impact: 4,
     likelihood: 3,
@@ -670,6 +673,7 @@ export const suppliers = [
     controlConfidence:4},
     {
     id: "4",
+    riskReference: "R004",
     riskName: "Operational Disruptions",
     impact: 1,
     likelihood: 2,
@@ -677,6 +681,7 @@ export const suppliers = [
     controlConfidence:3},
     {
     id: "5",
+    riskReference: "R005",
     riskName: "Operational Disruptions",
     impact: 2,
     likelihood: 3,
@@ -684,6 +689,7 @@ export const suppliers = [
     controlConfidence:1},
     {
     id: "6",
+    riskReference: "R006",
     riskName: "Operational Disruptions",
     impact: 1,
     likelihood: 3,
@@ -691,6 +697,7 @@ export const suppliers = [
     controlConfidence:5},
     {
     id: "7",
+    riskReference: "R007",
     riskName: "Operational Disruptions",
     impact: 2,
     likelihood: 2,
@@ -698,6 +705,7 @@ export const suppliers = [
     controlConfidence:3},
     {
     id: "8",
+    riskReference: "R008",
     riskName: "Operational Disruptions",
     impact: 1,
     likelihood: 3,

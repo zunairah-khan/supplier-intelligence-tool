@@ -33,11 +33,7 @@ const linkData = [
     link: "supplier-tier-map",
     icon: <FaSitemap  />,
   },
-  {
-    label: "Action Tracking Dashboard",
-    link: "actions-dashboard",
-    icon: <IoBarChart />,
-  },
+
   {
     label: "Actions",
     link: "actions",

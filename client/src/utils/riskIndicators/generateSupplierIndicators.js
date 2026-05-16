@@ -28,6 +28,12 @@ const sortIndicators = (indicators) =>
 export const generateSupplierIndicators = (supplier, suppliers) => {
   const supplierSubtree = buildSupplierHierarchy(suppliers, supplier._id);
 
+  // checkSharedDependency needs the full array to detect shared dependencies,
+  // but we filter results to only surface indicators for the current supplier
+  const sharedDependencyIndicators = checkSharedDependency(suppliers).filter(
+    (indicator) => indicator.supplierId === supplier._id
+  );
+
   const indicators = [
     checkTier1HighRisk(supplier),
     checkCapacity(supplier),
@@ -35,7 +41,7 @@ export const generateSupplierIndicators = (supplier, suppliers) => {
     ...checkDownstreamCount(supplier, supplierSubtree),
     ...checkRiskToleranceBreached(supplier),
     ...checkRisksToImprove(supplier),
-    ...checkSharedDependency(suppliers.filter(s => s._id === supplier._id)), // Check if this supplier is a shared dependency
+    ...sharedDependencyIndicators,
   ].filter(Boolean);
 
   return sortIndicators(indicators);

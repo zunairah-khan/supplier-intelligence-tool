@@ -9,7 +9,6 @@ export const getSupplierActions = (actions, suppliers) => {
   });
 };
 
-// Gets actions for a single supplier
 export const getActionsForSupplier = (actions, supplierId) => {
   return actions.filter((a) => a.FK_supplier_id === supplierId);
 };

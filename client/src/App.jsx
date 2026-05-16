@@ -115,8 +115,7 @@ function App() {
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />
           <Route path="/todo/:status" element={<Tasks />} />
-          <Route path="/team" element={<Users />} />
-          <Route path="/trashed" element={<Trash />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/actions/:id" element={<TaskDetails />} />
           <Route path="/suppliers/:id" element={<SupplierDetails />} />
         </Route>

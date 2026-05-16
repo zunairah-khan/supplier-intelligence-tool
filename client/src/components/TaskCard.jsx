@@ -107,6 +107,7 @@ const TaskCard = ({ task }) => {
 
           {/* Divider */}
           <div className="border-t border-gray-100" />
+          
 
            {/* Team avatars beside title */}
             <div className="flex -space-x-2 shrink-0 justify-end">

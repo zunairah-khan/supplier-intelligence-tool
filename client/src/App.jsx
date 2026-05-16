@@ -26,7 +26,7 @@ function Layout() {
   return user ? (
     <div className="w-full h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
-      <div className="w-1/6 l:w-1/7 h-screen bg-white sticky top-0 hidden md:block">
+      <div className="w-1/8 l:w-1/8 h-screen bg-white sticky top-0 hidden md:block">
         <Sidebar />
       </div>
 
@@ -111,7 +111,6 @@ function App() {
           <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />
           <Route path="/supplier-tier-map" element={<SupplierTierMap />} />
           <Route path="/suppliers" element={<Suppliers />} />
-          <Route path="/actions-dashboard" element={<Dashboard />} />
           <Route path="/actions" element={<Tasks />} />
           <Route path="/completed/:status" element={<Tasks />} />
           <Route path="/in-progress/:status" element={<Tasks />} />

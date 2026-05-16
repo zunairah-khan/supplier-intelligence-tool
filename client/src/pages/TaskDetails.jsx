@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import moment from "moment";
-import { FaBug, FaTasks, FaThumbsUp, FaUser } from "react-icons/fa";
+import { FaBug, FaThumbsUp, FaUser, FaList } from "react-icons/fa";
 import { GrInProgress } from "react-icons/gr";
 import {
   MdKeyboardArrowDown,
@@ -10,33 +10,35 @@ import {
   MdOutlineDoneAll,
   MdOutlineMessage,
   MdTaskAlt,
+  MdAttachFile,
+  MdOpenInNew,
 } from "react-icons/md";
-import { RxActivityLog } from "react-icons/rx";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { IoChevronBackCircle } from "react-icons/io5";
+import { BiMessageAltDetail } from "react-icons/bi";
 import Button from "../components/Button";
-import Tabs from "../components/Tabs";
-import { PRIORITYSTYLES, TASK_TYPE, getInitials } from "../utils";
+import { TASK_TYPE, getInitials, BGS } from "../utils";
 import { suppliers } from "../assets/data";
 import { actions } from "../assets/data";
 import { getSupplierActions } from "../utils/getSupplierActions";
 
-const ICONS = {
-  high: <MdKeyboardDoubleArrowUp />,
-  medium: <MdKeyboardArrowUp />,
-  low: <MdKeyboardArrowDown />,
+const PRIORITY_COLOUR = {
+  High: "bg-red-600",
+  Medium: "bg-yellow-600",
+  Low: "bg-blue-400",
 };
 
-const bgColor = {
-  high: "bg-red-200",
-  medium: "bg-yellow-200",
-  low: "bg-blue-200",
+const PRIORITY_ICONS = {
+  High: <MdKeyboardDoubleArrowUp size={14} />,
+  Medium: <MdKeyboardArrowUp size={14} />,
+  Low: <MdKeyboardArrowDown size={14} />,
 };
 
-const TABS = [
-  { title: "Action Detail", icon: <FaTasks /> },
-  { title: "Activity Timeline", icon: <RxActivityLog /> },
-];
+const STAGE_LABEL = {
+  todo: "To Do",
+  "in progress": "In Progress",
+  completed: "Completed",
+};
 
 const TASKTYPEICON = {
   commented: (
@@ -75,10 +77,8 @@ const act_types = ["Started", "Completed", "In Progress", "Commented", "Bug", "A
 
 const TaskDetails = () => {
   const { id } = useParams();
-  const [selected, setSelected] = useState(0);
   const navigate = useNavigate();
 
-  // Find action and attach supplier name
   const allActions = getSupplierActions(actions, suppliers);
   const task = allActions.find((t) => t._id === id);
 
@@ -86,14 +86,13 @@ const TaskDetails = () => {
     return <div className="text-red-600">Error: Action not found</div>;
   }
 
-  // Find linked supplier
   const linkedSupplier = suppliers.find((s) => s._id === task.FK_supplier_id);
 
   return (
-    <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
+    <div className="w-full flex flex-col gap-3 h-full overflow-hidden">
 
       {/* Header */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <Button
           onClick={() => navigate(-1)}
           label=""
@@ -101,141 +100,140 @@ const TaskDetails = () => {
           className="flex rounded-full items-center text-white"
         />
         <div>
-          <h1 className="text-2xl text-gray-600 font-semibold">{task?.title}</h1>
-          {linkedSupplier && (
-            <Link
-              to={`/suppliers/${linkedSupplier._id}`}
-              className="text-sm text-blue-600 hover:underline"
-            >
-              {linkedSupplier.name}
-            </Link>
-          )}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-2xl text-gray-600 font-semibold">{task?.title}</h1>
+            
+          </div>
         </div>
       </div>
 
-      <Tabs tabs={TABS} setSelected={setSelected}>
-        {selected === 0 ? (
-          <div className="w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow rounded-md px-8 py-8 overflow-y-auto">
+      {/* Scrollable content */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="w-full flex flex-col xl:flex-row gap-5 bg-white shadow rounded-md p-6">
 
-            {/* LEFT */}
-            <div className="w-full md:w-1/2 space-y-8">
+          {/* LEFT */}
+          <div className="w-full xl:w-2/3 flex flex-col gap-5">
 
-              {/* Priority + Stage */}
-              <div className="flex items-center gap-5">
-                <div className={clsx(
-                  "flex gap-1 items-center text-base font-semibold px-3 py-1 rounded-full",
-                  PRIORITYSTYLES[task?.priority],
-                  bgColor[task?.priority]
-                )}>
-                  <span className="text-lg">{ICONS[task?.priority]}</span>
-                  <span className="uppercase">{task?.priority} Priority</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className={clsx("w-4 h-4 rounded-full", TASK_TYPE[task?.stage])} />
-                  <span className="text-black uppercase">{task?.stage}</span>
-                </div>
-              </div>
+            {/* Tags row */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className={clsx(
+                "flex items-center gap-1 text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap",
+                PRIORITY_COLOUR[task?.priority]
+              )}>
+                {PRIORITY_ICONS[task?.priority]}
+                {task?.priority?.charAt(0).toUpperCase() + task?.priority?.slice(1)} Priority
+              </span>
 
-              {/* Linked Supplier */}
               {linkedSupplier && (
-                <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
-                  <span className="text-sm font-semibold text-gray-600">Linked Supplier:</span>
-                  <Link
-                    to={`/suppliers/${linkedSupplier._id}`}
-                    className="text-sm text-blue-600 hover:underline font-medium"
-                  >
-                    {linkedSupplier.name}
-                  </Link>
-                  <span className="text-xs text-gray-400">
-                    — Tier {linkedSupplier.tier}
-                  </span>
-                </div>
+                <span className="text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
+                  {linkedSupplier.name}
+                </span>
               )}
 
-              <p className="text-gray-500">
-                Created: {new Date(task?.date).toDateString()}
-              </p>
-
-              <div className="flex items-center gap-8 p-4 border-y border-gray-200">
-                <div className="space-x-2">
-                  <span className="font-semibold">Assets:</span>
-                  <span>{task?.assets?.length}</span>
-                </div>
-                <span className="text-gray-400">|</span>
-                <div className="space-x-2">
-                  <span className="font-semibold">Sub-Tasks:</span>
-                  <span>{task?.subTasks?.length}</span>
-                </div>
+              <div className="flex items-center gap-1.5">
+                <div className={clsx("w-2.5 h-2.5 rounded-full shrink-0", TASK_TYPE[task?.stage])} />
+                <span className="text-xs font-semibold text-gray-600 uppercase">
+                  {STAGE_LABEL[task?.stage] || task?.stage}
+                </span>
               </div>
-
-              {/* Team */}
-              <div className="space-y-4 py-6">
-                <p className="text-gray-500 font-semibold text-sm">ACTION TEAM</p>
-                <div className="space-y-3">
-                  {task?.team?.map((m, index) => (
-                    <div
-                      key={index + m?._id}
-                      className="flex gap-4 py-2 items-center border-t border-gray-200"
-                    >
-                      <div className="w-10 h-10 rounded-full text-white flex items-center justify-center text-sm bg-blue-600">
-                        <span>{getInitials(m?.name)}</span>
-                      </div>
-                      <div>
-                        <p className="text-lg font-semibold">{m?.name}</p>
-                        <span className="text-gray-500">{m?.title}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sub Tasks */}
-              {task?.subTasks?.length > 0 && (
-                <div className="space-y-4 py-6">
-                  <p className="text-gray-500 font-semibold text-sm">SUB-TASKS</p>
-                  <div className="space-y-8">
-                    {task?.subTasks?.map((el, index) => (
-                      <div key={index} className="flex gap-3">
-                        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-violet-200">
-                          <MdTaskAlt className="text-violet-600" size={26} />
-                        </div>
-                        <div className="space-y-1">
-                          <div className="flex gap-2 items-center">
-                            <span className="text-sm text-gray-500">
-                              {new Date(el?.date).toDateString()}
-                            </span>
-                            <span className="px-2 py-0.5 text-sm rounded-full bg-violet-100 text-violet-700 font-semibold lowercase">
-                              {el?.tag}
-                            </span>
-                          </div>
-                          <p className="text-gray-700 pb-2">{el?.title}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
 
-            {/* RIGHT — Assets */}
-            <div className="w-full md:w-1/2 space-y-8">
-              <p className="text-lg font-semibold">ASSETS</p>
-              <div className="w-full grid grid-cols-2 gap-4">
-                {task?.assets?.map((el, index) => (
-                  <img
-                    key={index}
-                    src={el}
-                    alt={task?.title}
-                    className="w-full rounded h-28 md:h-36 2xl:h-52 cursor-pointer transition-all duration-700 hover:scale-125 hover:z-50"
-                  />
+            {/* Meta */}
+            <div className="flex items-center gap-6 text-sm text-gray-500">
+              <span>{new Date(task?.date).toDateString()}</span>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <BiMessageAltDetail size={14} />
+                  <span>{task?.activities?.length}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <MdAttachFile size={14} />
+                  <span>{task?.assets?.length}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Description */}
+            {task?.description && (
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">
+                  Description
+                </p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {task.description}
+                </p>
+              </div>
+            )}
+
+            {/* Team */}
+            <div>
+              <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-3">
+                Assignees
+              </p>
+              <div className="flex flex-col gap-2">
+                {task?.team?.map((m, index) => (
+                  <div key={index + m?._id} className="flex items-center gap-3">
+                    <div className={clsx(
+                      "w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-semibold shrink-0",
+                      BGS[index % BGS?.length]
+                    )}>
+                      {getInitials(m?.name)}
+                    </div>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <p className="text-sm font-semibold text-gray-800 truncate">
+                        {m?.name}
+                      </p>
+                      <span className="text-gray-300">·</span>
+                      <p className="text-xs text-gray-500 truncate">{m?.title}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
+
+            {/* Assets */}
+            <div>
+              <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-3">
+                Assets
+              </p>
+              {task?.assets?.length > 0 ? (
+                <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 mr-1 justify-items-start">
+                  {task?.assets?.map((el, index) => (
+                    <a
+                      key={index}
+                      href={el}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex w-full max-w-[20rem] items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 hover:bg-blue-50 hover:border-blue-200 transition-colors group min-h-[72px]"
+                    >
+                      <MdAttachFile
+                        size={16}
+                        className="text-gray-400 group-hover:text-blue-500 shrink-0"
+                      />
+                      <span className="text-sm text-gray-700 font-medium truncate">
+                        Asset {index + 1}
+                      </span>
+                      <MdOpenInNew
+                        size={14}
+                        className="text-gray-400 group-hover:text-blue-500 shrink-0"
+                      />
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-400 italic">No assets attached.</p>
+              )}
+            </div>
+
+            
           </div>
-        ) : (
-          <Activities activity={task?.activities} id={id} />
-        )}
-      </Tabs>
+
+          {/* RIGHT — Activities */}
+          <div className="w-full xl:w-1/2 flex flex-col gap-4">
+            <Activities activity={task?.activities} id={id} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -253,59 +251,64 @@ const Activities = ({ activity, id }) => {
           {TASKTYPEICON[item?.type]}
         </div>
         <div className="w-full flex items-center h-20">
-          <div className="w-0.5 bg-gray-300 h-full ml-5" />
+          <div className="w-0.5 bg-gray-200 h-full ml-5" />
         </div>
       </div>
-      <div className="flex flex-col gap-y-1 mb-8">
-        <p className="font-semibold">{item?.by?.name}</p>
-        <div className="text-gray-500 space-y-2">
-          <span className="capitalize mr-1">{item?.type}</span>
-          <span className="text-sm">{moment(item?.date).fromNow()}</span>
+      <div className="flex flex-col gap-1 mb-8">
+        <p className="font-semibold text-gray-800">{item?.by?.name}</p>
+        <div className="flex items-center gap-2 text-gray-500 text-xs">
+          <span className="capitalize">{item?.type}</span>
+          <span>·</span>
+          <span>{moment(item?.date).fromNow()}</span>
         </div>
-        <div className="text-gray-700">{item?.activity}</div>
+        <p className="text-sm text-gray-700 mt-1">{item?.activity}</p>
       </div>
     </div>
   );
 
   return (
-    <div className="w-full md:flex gap-10 2xl:gap-20 min-h-screen px-10 py-8 bg-white shadow rounded-md justify-between overflow-auto">
+    <div className="w-full md:flex gap-10 px-6 py-6 bg-white shadow rounded-md justify-between">
       <div className="w-full md:w-2/3">
-        <h4 className="text-gray-600 font-semibold text-lg mb-5">Activities</h4>
+        <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-5">
+          Narrative
+        </p>
         <div className="w-full">
           {activity?.length > 0 ? (
             activity.map((el, index) => <Card key={index} item={el} />)
           ) : (
-            <p className="text-gray-500 italic">No activities logged yet.</p>
+            <p className="text-gray-500 italic text-sm">No comments logged yet.</p>
           )}
         </div>
       </div>
 
       <div className="w-full md:w-1/3">
-        <h4 className="text-gray-600 font-semibold text-lg mb-5">Add Activity</h4>
-        <div className="w-full flex flex-wrap gap-5">
+        <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-5">
+          Add Activity
+        </p>
+        <div className="w-full flex flex-wrap gap-4">
           {act_types.map((item) => (
             <div key={item} className="flex gap-2 items-center">
               <input
                 type="checkbox"
-                className="w-4 h-4"
+                className="w-4 h-4 accent-blue-600"
                 checked={selected === item}
                 onChange={() => setSelected(item)}
               />
-              <p>{item}</p>
+              <p className="text-sm text-gray-700">{item}</p>
             </div>
           ))}
           <textarea
-            rows={10}
+            rows={8}
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Type......"
-            className="bg-white w-full mt-10 border border-gray-300 outline-none p-4 rounded-md focus:ring-2 ring-blue-500"
+            placeholder="Add a note..."
+            className="bg-white w-full mt-4 border border-gray-200 outline-none p-4 rounded-lg text-sm focus:ring-2 ring-blue-500 resize-none"
           />
           <Button
             type="button"
             label="Submit"
             onClick={handleSubmit}
-            className="bg-blue-600 text-white rounded"
+            className="bg-blue-600 text-white rounded-md px-4 py-2 text-sm font-semibold hover:bg-blue-700 transition-colors"
           />
         </div>
       </div>

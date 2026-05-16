@@ -36,7 +36,7 @@ const SupplierCard = ({ supplier }) => {
         <SupplierDialog supplier={supplier} />
       </div>
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-white text-xs font-bold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
+        <span className="text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
           Tier {supplier.tier}
         </span>
         <span

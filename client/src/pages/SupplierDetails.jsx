@@ -86,7 +86,7 @@ const SupplierDetails = () => {
     : rawIndicators;
 
   return (
-    <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
+    <div className="w-full flex flex-col gap-3 mb-4 h-full overflow-y-hidden">
       {/* Page Header */}
       <div className="flex items-center">
         <Button
@@ -103,7 +103,7 @@ const SupplierDetails = () => {
       </div>
 
       {/* Main Layout — tabs on left, risk signals pinned on right */}
-      <div className="flex gap-5 min-h-0 flex-1">
+      <div className="flex gap-5 min-h-0 flex-1 ">
 
         {/* Left — Tabs and tab content */}
         <div className="flex-1 min-w-0">
@@ -263,8 +263,8 @@ const SupplierDetails = () => {
                 </div>
               </div>
             ) : (
-              <div className="shadow rounded-lg p-2 bg-white h-150 overflow-y-auto flex flex-col">
-                <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2">
+              <div className="shadow rounded-lg p-2 bg-white h-full flex flex-col min-h-0 ">
+                <div className="flex justify-between items-center border-b border-gray-200 p-2 mb-2 shrink-0">
                   <p className="font-semibold text-lg">Supplier Dependencies</p>
                   <div className="flex gap-2">
                     <div className="bg-blue-50 px-3 py-1 rounded-md text-center">
@@ -279,11 +279,11 @@ const SupplierDetails = () => {
                 </div>
 
                 {!supplierHasDependencies ? (
-                  <p className="text-gray-500 italic justify-center items-center flex grow">
+                  <p className="text-gray-500 italic justify-center items-center flex grow ">
                     {supplier?.name} has no dependencies
                   </p>
                 ) : (
-                  <div className="w-full grow h-full">
+                  <div className="flex-1 min-h-0">
                     <TierMap data={hierarchyData} />
                   </div>
                 )}
@@ -293,8 +293,8 @@ const SupplierDetails = () => {
         </div>
 
         {/* Right — Risk Signals Panel, persistent across both tabs */}
-        <div className="w-100 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col min-h-0">
-          <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Signals</h2>
+        <div className="w-100 shrink-0 bg-white shadow rounded-lg p-4 flex flex-col self-stretch">
+          <h2 className="text-lg font-semibold mb-1 shrink-0">Risk Indicators</h2>
 
           <RiskIndicatorFilterBar
             activeFilter={activeFilter}

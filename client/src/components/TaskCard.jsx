@@ -70,7 +70,7 @@ const TaskCard = ({ task }) => {
               <div className="flex items-center gap-3 text-gray-400">
                 <div className="flex items-center gap-1 text-xs">
                   <BiMessageAltDetail size={13} />
-                  <span>{task?.activities?.length}</span>
+                  <span>{task?.comments?.length}</span>
                 </div>
                 <div className="flex items-center gap-1 text-xs">
                   <MdAttachFile size={13} />

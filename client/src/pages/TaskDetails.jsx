@@ -125,17 +125,15 @@ const TaskDetails = () => {
               </span>
 
               {linkedSupplier && (
-                <span className="text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600">
+                <Link
+                  to={`/suppliers/${linkedSupplier._id}`}
+                  className="text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap bg-blue-600 hover:bg-blue-700 transition-colors"
+                >
                   {linkedSupplier.name}
-                </span>
+                </Link>
               )}
 
-              <div className="flex items-center gap-1.5">
-                <div className={clsx("w-2.5 h-2.5 rounded-full shrink-0", TASK_TYPE[task?.stage])} />
-                <span className="text-xs font-semibold text-gray-600 uppercase">
-                  {STAGE_LABEL[task?.stage] || task?.stage}
-                </span>
-              </div>
+             
             </div>
 
             {/* Meta */}
@@ -204,7 +202,7 @@ const TaskDetails = () => {
                       href={el}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex w-full max-w-[20rem] items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 hover:bg-blue-50 hover:border-blue-200 transition-colors group min-h-[72px]"
+                      className="flex w-full max-w-[20rem] items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 hover:bg-blue-50 hover:border-blue-200 transition-colors group min-h-18"
                     >
                       <MdAttachFile
                         size={16}

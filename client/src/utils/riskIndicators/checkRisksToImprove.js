@@ -6,7 +6,7 @@ import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
 export const checkRisksToImprove = (supplier) => {
   if (!supplier.risks) return [];
 
-  const HIGH_RATING_THRESHOLD = 15; // impact * likelihood >= 15 out of 25
+  const HIGH_RATING_THRESHOLD = 12; // impact * likelihood >= 12 out of 25
   const LOW_CONTROL_THRESHOLD = 3;  // controlConfidence <= 3 out of 5
 
   return supplier.risks
@@ -20,7 +20,7 @@ export const checkRisksToImprove = (supplier) => {
         supplier.name,
         SEVERITY.CRITICAL,
         CATEGORY.RISK,
-        `"${risk.riskReference}": ${risk.riskName}": high risk rating (${risk.impact * risk.likelihood}/25) with low control confidence (${risk.controlConfidence}/5) — immediate attention required.`
+        `${risk.riskReference}: ${risk.riskName}: high risk rating (${risk.impact * risk.likelihood}/25) with low control confidence (${risk.controlConfidence}/5) — improvement required.`
       )
     );
 };

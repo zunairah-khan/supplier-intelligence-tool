@@ -109,7 +109,7 @@ const TaskDetails = () => {
 
       {/* Scrollable content */}
       <div className="flex-1 min-h-0 overflow-y-auto">
-        <div className="w-full flex flex-col xl:flex-row gap-5 bg-white shadow rounded-md p-6">
+        <div className="w-full flex flex-col xl:flex-row gap-5 bg-white shadow rounded-md p-6 h-full shrink-0">
 
           {/* LEFT */}
           <div className="w-full xl:w-2/3 flex flex-col gap-5">
@@ -142,7 +142,7 @@ const TaskDetails = () => {
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <BiMessageAltDetail size={14} />
-                  <span>{task?.activities?.length}</span>
+                  <span>{task?.comments?.length}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <MdAttachFile size={14} />
@@ -195,14 +195,14 @@ const TaskDetails = () => {
                 Assets
               </p>
               {task?.assets?.length > 0 ? (
-                <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 mr-1 justify-items-start">
+                <div className="flex flex-wrap gap-3">
                   {task?.assets?.map((el, index) => (
                     <a
                       key={index}
                       href={el}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex w-full max-w-[20rem] items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 hover:bg-blue-50 hover:border-blue-200 transition-colors group min-h-18"
+                      className="flex w-auto max-w-[18rem] min-w-48 items-center gap-3 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 hover:bg-blue-50 hover:border-blue-200 transition-colors group min-h-18"
                     >
                       <MdAttachFile
                         size={16}
@@ -227,8 +227,8 @@ const TaskDetails = () => {
           </div>
 
           {/* RIGHT — Activities */}
-          <div className="w-full xl:w-1/2 flex flex-col gap-4">
-            <Activities activity={task?.activities} id={id} />
+          <div className="w-full xl:w-1/2 flex flex-col gap-4 ">
+            <Comments comment={task?.comments} id={id} />
           </div>
         </div>
       </div>
@@ -236,7 +236,8 @@ const TaskDetails = () => {
   );
 };
 
-const Activities = ({ activity, id }) => {
+const Comments = ({ comment, id }) => {
+
   const [selected, setSelected] = useState(act_types[0]);
   const [text, setText] = useState("");
 
@@ -253,13 +254,13 @@ const Activities = ({ activity, id }) => {
         </div>
       </div>
       <div className="flex flex-col gap-1 mb-8">
-        <p className="font-semibold text-gray-800">{item?.by?.name}</p>
+        <p className="font-semibold text-gray-800">{item?.FK_user_id?.name}</p>
         <div className="flex items-center gap-2 text-gray-500 text-xs">
           <span className="capitalize">{item?.type}</span>
           <span>·</span>
           <span>{moment(item?.date).fromNow()}</span>
         </div>
-        <p className="text-sm text-gray-700 mt-1">{item?.activity}</p>
+        <p className="text-sm text-gray-700 mt-1">{item?.comment}</p>
       </div>
     </div>
   );
@@ -271,8 +272,8 @@ const Activities = ({ activity, id }) => {
           Narrative
         </p>
         <div className="w-full">
-          {activity?.length > 0 ? (
-            activity.map((el, index) => <Card key={index} item={el} />)
+          {comment?.length > 0 ? (
+            comment.map((el, index) => <Card key={index} item={el} />)
           ) : (
             <p className="text-gray-500 italic text-sm">No comments logged yet.</p>
           )}
@@ -281,7 +282,7 @@ const Activities = ({ activity, id }) => {
 
       <div className="w-full md:w-1/3">
         <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-5">
-          Add Activity
+          Add Comment
         </p>
         <div className="w-full flex flex-wrap gap-4">
           {act_types.map((item) => (

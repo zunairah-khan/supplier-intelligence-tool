@@ -76,10 +76,6 @@ const TaskCard = ({ task }) => {
                   <MdAttachFile size={13} />
                   <span>{task?.assets?.length}</span>
                 </div>
-                <div className="flex items-center gap-1 text-xs">
-                  <FaList size={11} />
-                  <span>0/{task?.subTasks?.length}</span>
-                </div>
               </div>
 
               <div onClick={(e) => e.stopPropagation()} className="shrink-0">
@@ -99,20 +95,7 @@ const TaskCard = ({ task }) => {
               </p>
             </div>
 
-            {/* Team avatars beside title */}
-            <div className="flex -space-x-2 shrink-0">
-              {task?.team?.map((m, index) => (
-                <div
-                  key={index}
-                  className={clsx(
-                    "w-7 h-7 rounded-full text-white flex items-center justify-center text-xs border-2 border-white font-semibold",
-                    BGS[index % BGS?.length]
-                  )}
-                >
-                  <UserInfo user={m} />
-                </div>
-              ))}
-            </div>
+           
           </div>
 
           {/* Description */}
@@ -125,35 +108,22 @@ const TaskCard = ({ task }) => {
           {/* Divider */}
           <div className="border-t border-gray-100" />
 
-          {/* Sub task preview */}
-          {task?.subTasks?.length > 0 ? (
-            <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
-              <p className="text-xs font-semibold text-gray-700 line-clamp-1">
-                {task?.subTasks[0].title}
-              </p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs text-gray-400">
-                  {formatDate(new Date(task?.subTasks[0]?.date))}
-                </span>
-                <span className="bg-blue-600/10 text-blue-700 text-xs px-1.5 py-0.5 rounded-full font-medium">
-                  {task?.subTasks[0].tag}
-                </span>
-              </div>
+           {/* Team avatars beside title */}
+            <div className="flex -space-x-2 shrink-0 justify-end">
+              {task?.team?.map((m, index) => (
+                <div
+                  key={index}
+                  className={clsx(
+                    "w-7 h-7 rounded-full text-white flex items-center justify-center text-xs border-2 border-white font-semibold",
+                    BGS[index % BGS?.length]
+                  )}
+                >
+                  <UserInfo user={m} />
+                </div>
+              ))}
             </div>
-          ) : (
-            <p className="text-xs text-gray-400 italic">No sub-tasks</p>
-          )}
 
-          {/* Add subtask button */}
-          <div onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() => setOpen(true)}
-              className="w-full flex gap-2 items-center justify-center text-xs text-blue-600 font-semibold hover:text-blue-700 hover:bg-blue-50 py-2 px-2 rounded-lg transition-colors border border-dashed border-blue-200 hover:border-blue-400"
-            >
-              <IoMdAdd className="text-base" />
-              ADD SUBTASK
-            </button>
-          </div>
+          
 
         </div>
       </div>

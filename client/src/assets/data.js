@@ -727,7 +727,7 @@ export const suppliers = [
     likelihood: 3,
     riskTolerance: 2,
     controlConfidence:4},
-    ]
+    ],
   },
   {
     _id: "65c5f27fb5204a81bde86834",
@@ -1184,7 +1184,55 @@ export const suppliers = [
 },
 ];
 
-
+export const actions = [
+  {
+    _id: "65c5f12ab5204a81bde866a9",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    title: "Test task",
+    date: "2024-02-09T00:00:00.000Z",
+    priority: "high",
+    stage: "todo",
+    assets: ["https://images.pexels.com/photos/2418664/pexels-photo-2418664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  "https://images.pexels.com/photos/8797307/pexels-photo-8797307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  "https://images.pexels.com/photos/2534523/pexels-photo-2534523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+  "https://images.pexels.com/photos/804049/pexels-photo-804049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      
+    ],
+    team: [
+      {
+        _id: "65c202d4aa62f32ffd1303cc",
+        name: "Codewave Asante",
+        title: "Administrator",
+        email: "admin@gmail.com",
+      },
+      {
+        _id: "65c30b96e639681a13def0b5",
+        name: "Jane Smith",
+        title: "Product Manager",
+        email: "jane.smith@example.com",
+      },
+      {
+        _id: "65c317360fd860f958baa08e",
+        name: "Alex Johnson",
+        title: "UX Designer",
+        email: "alex.johnson@example.com",
+      },
+    ],
+    isTrashed: false,
+    activities: [],
+    subTasks: [
+      {
+        title: "Task manager youtube tutorial",
+        date: "2024-02-09T00:00:00.000Z",
+        tag: "tutorial",
+        _id: "65c5f153b5204a81bde866c8",
+      },
+    ],
+    createdAt: "2024-02-09T09:32:26.574Z",
+    updatedAt: "2024-02-09T09:36:53.339Z",
+    __v: 1,
+  },
+];
 
 export const tasks = [
   {

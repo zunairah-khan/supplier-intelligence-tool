@@ -8,6 +8,9 @@ import { checkRiskToleranceBreached } from "./checkRiskToleranceBreached";
 import { checkRisksToImprove } from "./checkRisksToImprove";
 import { SEVERITY } from "./createIndicator";
 
+import { risks } from "../../assets/data";
+import { getRisksForSupplier } from "../getRisksForSupplier";
+
 const SEVERITY_WEIGHT = {
   [SEVERITY.CRITICAL]: 3,
   [SEVERITY.WARNING]: 2,
@@ -27,20 +30,19 @@ const sortIndicators = (indicators) =>
 // rules — O(n²) complexity. Acceptable for PoC scale; a production
 // implementation would precompute subtree stats in a single O(n) traversal.
 export const generatePortfolioIndicators = (suppliers) => {
-  // Portfolio-wide structural rules that require the full suppliers array
   const sharedDependencyIndicators = checkSharedDependency(suppliers);
 
-  // Per-supplier rules
   const supplierLevelIndicators = suppliers.flatMap((supplier) => {
     const supplierSubtree = buildSupplierHierarchy(suppliers, supplier._id);
+    const supplierRisks = getRisksForSupplier(risks, supplier._id);
 
     return [
       checkTier1HighRisk(supplier),
       checkCapacity(supplier),
       checkContractExpiry(supplier),
       ...checkDownstreamCount(supplier, supplierSubtree),
-      ...checkRiskToleranceBreached(supplier),
-      ...checkRisksToImprove(supplier),
+      ...checkRiskToleranceBreached(supplier, supplierRisks),
+      ...checkRisksToImprove(supplier, supplierRisks),
     ].filter(Boolean);
   });
 

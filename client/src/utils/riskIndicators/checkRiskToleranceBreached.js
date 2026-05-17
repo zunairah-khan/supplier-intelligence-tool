@@ -3,10 +3,10 @@ import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
 // This operates on each risk object within a supplier's risks array
 // Flags risks where the calculated risk rating (impact * likelihood)
 // exceeds the defined risk tolerance for that risk
-export const checkRiskToleranceBreached = (supplier) => {
-  if (!supplier.risks) return [];
+export const checkRiskToleranceBreached = (supplier, risks) => {
+  if (!risks) return [];
 
-  return supplier.risks
+  return risks
     .filter(risk => (risk.impact * risk.likelihood) > risk.riskTolerance)
     .map(risk =>
       createIndicator(
@@ -14,7 +14,7 @@ export const checkRiskToleranceBreached = (supplier) => {
         supplier.name,
         SEVERITY.CRITICAL,
         CATEGORY.RISK,
-        `${risk.riskReference} - ${risk.riskName}: risk rating of ${risk.impact * risk.likelihood} exceeds tolerance threshold of ${risk.riskTolerance}.`
+        `"${risk.riskName}": risk rating of ${risk.impact * risk.likelihood} exceeds tolerance threshold of ${risk.riskTolerance}.`
       )
     );
 };

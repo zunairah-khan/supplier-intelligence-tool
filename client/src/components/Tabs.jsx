@@ -7,8 +7,8 @@ function classNames(...classes) {
 
 export default function Tabs({ tabs, setSelected, children }) {
   return (
-    <div className='w-full px-1 sm:px-0 flex flex-col min-h-0 h-full'>
-      <TabGroup className="flex flex-col min-h-0 h-full">
+    <div className='w-full px-1 sm:px-0 flex flex-col min-h-0 flex-1'>
+      <TabGroup className="flex flex-col min-h-0 flex-1">
         <TabList className='flex space-x-6 rounded-xl p-1 shrink-0'>
           {tabs.map((tab, index) => (
             <Tab
@@ -29,9 +29,9 @@ export default function Tabs({ tabs, setSelected, children }) {
           ))}
         </TabList>
 
-        {/* flex-1 and min-h-0 allow the panel to fill remaining height
-            after the tab list without overflowing */}
-        <TabPanels className='w-full mt-2 flex-1 min-h-0'>
+        {/* flex-1 min-h-0 allows the panel to fill remaining height
+            and pass it down to whatever page renders inside it */}
+        <TabPanels className='w-full mt-2 flex-1 min-h-0 flex flex-col'>
           {children}
         </TabPanels>
       </TabGroup>

@@ -562,55 +562,9 @@ export const summary = {
   },
 };
 
-export const chartData = [
-  {
-    name: "High",
-    total: 2400,
-  },
-  {
-    name: "Medium",
-    total: 2210,
-  },
-  {
-    name: "Normal",
-    total: 3210,
-  },
-  {
-    name: "Low",
-    total: 2290,
-  },
-];  
 
-export const supplierTierData = {
-  name: "Client Organisation",
-  tier: 0,
-  children: [
-    {
-      name: "Supplier A",
-      tier: 1,
-      children: [
-        {
-          name: "Sub Supplier A1",
-          tier: 2,
-          children: [
-            { name: "Raw Materials Ltd", tier: 3 }
-          ]
-        },
-        {
-          name: "Sub Supplier A2",
-          tier: 2
-        }
-      ]
-    },
-    {
-      name: "Supplier B",
-      tier: 1,
-      children: [
-        { name: "Component Co", tier: 2 }
-      ]
-    }
-  ]
-};
+
+
 
 
 export const suppliers = [
@@ -646,88 +600,7 @@ export const suppliers = [
         email: "jane.smith@example.com",
       },
     ],
-    risks:[
-    { 
-    id: "1",
-    riskReference: "R001",
-    riskName: "Supplier Concentration",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "John Doe",
-    impact: 4,
-    likelihood: 3,
-    riskTolerance: 14,
-    controlConfidence:2},
-    {
-    id: "2",
-    riskReference: "R002",
-    riskName: "Financial Instability",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "John Doe",
-    impact: 3,
-    likelihood: 2,
-    riskTolerance: 4,
-    controlConfidence:5},
-    {
-    id: "3",
-    riskReference: "R003",
-    riskName: "Operational Disruptions",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "John Doe",
-    impact: 4,
-    likelihood: 3,
-    riskTolerance: 11,
-    controlConfidence:4},
-    {
-    id: "4",
-    riskReference: "R004",
-    riskName: "Operational Disruptions",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "John Doe",
-    impact: 1,
-    likelihood: 2,
-    riskTolerance: 2,
-    controlConfidence:3},
-    {
-    id: "5",
-    riskReference: "R005",
-    riskName: "Transportation Delays",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "Jane Smith",
-    impact: 2,
-    likelihood: 3,
-    riskTolerance: 8,
-    controlConfidence:1},
-    {
-    id: "6",
-    riskReference: "R006",
-    riskName: "Contract Non-compliance",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "John Doe",
-    impact: 1,
-    likelihood: 3,
-    riskTolerance: 4,
-    controlConfidence:5},
-    {
-    id: "7",
-    riskReference: "R007",
-    riskName: "Payroll Issues",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "Sarah Williams",
-    impact: 2,
-    likelihood: 2,
-    riskTolerance: 3,
-    controlConfidence:3},
-    {
-    id: "8",
-    riskReference: "R008",
-    riskName: "Order Fulfillment Delays",
-    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    riskOwner: "Robert Johnson",
-    impact: 1,
-    likelihood: 3,
-    riskTolerance: 2,
-    controlConfidence:4},
-    ],
+    
   },
   {
     _id: "65c5f27fb5204a81bde86834",
@@ -1183,6 +1056,184 @@ export const suppliers = [
   ],
 },
 ];
+export const risks=[
+    { 
+    id: "1",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R001",
+    riskName: "Supplier Concentration",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "John Doe",
+    impact: 4,
+    likelihood: 3,
+    riskTolerance: 14,
+    controlConfidence:2},
+    {
+    id: "2",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R002",
+    riskName: "Financial Instability",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "John Doe",
+    impact: 3,
+    likelihood: 2,
+    riskTolerance: 4,
+    controlConfidence:5},
+    {
+    id: "3",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R003",
+    riskName: "Operational Disruptions",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "John Doe",
+    impact: 4,
+    likelihood: 3,
+    riskTolerance: 11,
+    controlConfidence:4},
+    {
+    id: "4",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R004",
+    riskName: "Operational Disruptions",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "John Doe",
+    impact: 1,
+    likelihood: 2,
+    riskTolerance: 2,
+    controlConfidence:3},
+    {
+    id: "5",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R005",
+    riskName: "Transportation Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Jane Smith",
+    impact: 2,
+    likelihood: 3,
+    riskTolerance: 8,
+    controlConfidence:1},
+    {
+    id: "6",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R006",
+    riskName: "Contract Non-compliance",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "John Doe",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 4,
+    controlConfidence:5},
+    {
+    id: "7",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R007",
+    riskName: "Payroll Issues",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Sarah Williams",
+    impact: 2,
+    likelihood: 2,
+    riskTolerance: 3,
+    controlConfidence:3},
+    {
+    id: "8",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "9",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "10",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "11",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "12",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "13",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "14",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "15",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    {
+    id: "16",
+    FK_supplier_id: "65c5f27fb5204a81bde86833",
+    riskReference: "R008",
+    riskName: "Order Fulfillment Delays",
+    riskDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    riskOwner: "Robert Johnson",
+    impact: 1,
+    likelihood: 3,
+    riskTolerance: 2,
+    controlConfidence:4},
+    ];
 
 export const actions = [
   {
@@ -1256,516 +1307,6 @@ export const actions = [
   },
 ];
 
-export const tasks = [
-  {
-    _id: "65c5f12ab5204a81bde866a9",
-    title: "Test task",
-    date: "2024-02-09T00:00:00.000Z",
-    priority: "High",
-    stage: "todo",
-    assets: ["https://images.pexels.com/photos/2418664/pexels-photo-2418664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/8797307/pexels-photo-8797307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/2534523/pexels-photo-2534523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/804049/pexels-photo-804049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      
-    ],
-    team: [
-      {
-        _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
-        title: "Administrator",
-        email: "admin@gmail.com",
-      },
-      {
-        _id: "65c30b96e639681a13def0b5",
-        name: "Jane Smith",
-        title: "Product Manager",
-        email: "jane.smith@example.com",
-      },
-      {
-        _id: "65c317360fd860f958baa08e",
-        name: "Alex Johnson",
-        title: "UX Designer",
-        email: "alex.johnson@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [],
-    subTasks: [
-      {
-        title: "Task manager youtube tutorial",
-        date: "2024-02-09T00:00:00.000Z",
-        tag: "tutorial",
-        _id: "65c5f153b5204a81bde866c8",
-      },
-    ],
-    createdAt: "2024-02-09T09:32:26.574Z",
-    updatedAt: "2024-02-09T09:36:53.339Z",
-    __v: 1,
-  },
-  {
-    _id: "65c5d547660756f6fd453a7a",
-    title: "Duplicate - Duplicate - Review Code Changes",
-    date: "2024-02-09T00:00:00.000Z",
-    priority: "medium",
-    stage: "in progress",
-    assets: [],
-    team: [
-      {
-        _id: "65c317360fd860f958baa08e",
-        name: "Alex Johnson",
-        title: "UX Designer",
-        email: "alex.johnson@example.com",
-      },
-      {
-        _id: "65c3176a0fd860f958baa099",
-        name: "Emily Wilson",
-        title: "Data Analyst",
-        email: "emily.wilson@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [
-      {
-        type: "started",
-        activity: "Project started",
-        date: "2024-02-09T09:16:56.623Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c5f18bb5204a81bde866d1",
-      },
-      {
-        type: "commented",
-        activity: "i like coding!!",
-        date: "2024-02-09T09:16:56.623Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c5f19eb5204a81bde866dd",
-      },
-      {
-        type: "bug",
-        activity: "bug found",
-        date: "2024-02-09T09:16:56.623Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c5f1abb5204a81bde866eb",
-      },
-    ],
-    subTasks: [
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-08T00:00:00.000Z",
-        tag: "Website App",
-        _id: "65c3535476ed5c48f9440973",
-      },
-    ],
-    createdAt: "2024-02-09T07:33:27.590Z",
-    updatedAt: "2024-02-09T09:36:10.386Z",
-    __v: 4,
-  },
-  {
-    _id: "65c46026af6ec0118be9407a",
-    title: "Website Project Proposal Review",
-    date: "2024-02-07T00:00:00.000Z",
-    priority: "high",
-    stage: "todo",
-    assets: [
-     
-    ],
-    team: [
-      {
-        _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
-        title: "Administrator",
-        email: "admin@gmail.com",
-      },
-      {
-        _id: "65c27a0e18c0a1b750ad5cad",
-        name: "John Doe",
-        title: "Software Engineer",
-        email: "john.doe@example.com",
-      },
-      {
-        _id: "65c30b96e639681a13def0b5",
-        name: "Jane Smith",
-        title: "Product Manager",
-        email: "jane.smith@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [
-      {
-        type: "assigned",
-        activity: "Test activity. Let's go!!!",
-        date: "2024-02-08T17:55:34.353Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c5188be1585cfa650b79c4",
-      },
-      {
-        type: "in progress",
-        activity: "Project is progress. Hiope to fin=ish soon!!",
-        date: "2024-02-08T17:55:34.353Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c518dce1585cfa650b79da",
-      },
-      {
-        type: "bug",
-        activity: "Bug found in the code. Kindly check and fixed ASAP!!!",
-        date: "2024-02-08T18:13:14.717Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c51a5e8064df97d208b392",
-      },
-      {
-        type: "commented",
-        activity: "Nice work. Let's finished hard!!!",
-        date: "2024-02-08T18:13:14.717Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c51af08064df97d208b3b0",
-      },
-    ],
-    subTasks: [
-      {
-        title: "Blog App Dashboard",
-        date: "2024-02-06T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c352e776ed5c48f944095c",
-      },
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-07T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c3531476ed5c48f9440965",
-      },
-    ],
-    createdAt: "2024-02-08T05:01:26.983Z",
-    updatedAt: "2024-02-09T06:51:15.005Z",
-    __v: 8,
-  },
-  {
-    _id: "65c45fb6af6ec0118be94052",
-    title: "Task Manager Youtube Video",
-    date: "2024-02-11T00:00:00.000Z",
-    priority: "medium",
-    stage: "completed",
-    assets: ["https://images.pexels.com/photos/2418664/pexels-photo-2418664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/8797307/pexels-photo-8797307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/2534523/pexels-photo-2534523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/804049/pexels-photo-804049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-     
-    ],
-    team: [
-      {
-        _id: "65c317360fd860f958baa08e",
-        name: "Alex Johnson",
-        title: "UX Designer",
-        email: "alex.johnson@example.com",
-      },
-      {
-        _id: "65c3176a0fd860f958baa099",
-        name: "Emily Wilson",
-        title: "Data Analyst",
-        email: "emily.wilson@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [
-      {
-        type: "started",
-        activity: "first video watched",
-        date: "2024-02-08T18:13:14.717Z",
-        by: { _id: "65c202d4aa62f32ffd1303cc", name: "James" },
-        _id: "65c51b998064dfd208b3f9",
-      },
-      {
-        type: "commented",
-        activity: "please attach screenshots of your work from the tutorial",
-        date: "2024-02-08T18:13:14.717Z",
-        by: { _id: "65c202d4aa62f32ffd1303cc", name: "Zunairah" },
-        _id: "65c51b98064df97d208b3f9",
-      },
-      {
-        type: "completed",
-        activity: "Attached now, tutorial is complete!",
-        date: "2024-02-08T18:13:14.717Z",
-        by: { _id: "65c202d4aa62f32ffd1303cc", name: "Stacey" },
-        _id: "65c51b998064df97d208b3f9",
-      },
-    ],
-    subTasks: [
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-08T00:00:00.000Z",
-        tag: "Website App",
-        _id: "65c3535476ed5c48f9440973",
-      },
-    ],
-    createdAt: "2024-02-08T04:59:34.826Z",
-    updatedAt: "2024-02-09T06:51:15.005Z",
-    __v: 3,
-  },
-  {
-    _id: "65c4586f0548279012f8c256",
-    title: "Bug Fixing",
-    date: "2024-02-07T00:00:00.000Z",
-    priority: "high",
-    stage: "todo",
-    assets: ["https://images.pexels.com/photos/2418664/pexels-photo-2418664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/8797307/pexels-photo-8797307.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/2534523/pexels-photo-2534523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  "https://images.pexels.com/photos/804049/pexels-photo-804049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-     
-    ],
-    team: [
-      {
-        _id: "65c30b96e639681a13def0b5",
-        name: "Jane Smith",
-        title: "Product Manager",
-        email: "jane.smith@example.com",
-      },
-      {
-        _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
-        title: "Administrator",
-        email: "admin@gmail.com",
-      },
-      {
-        _id: "65c317360fd860f958baa08e",
-        name: "Alex Johnson",
-        title: "UX Designer",
-        email: "alex.johnson@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [
-      {
-        type: "commented",
-        activity: "Great!!!",
-        date: "2024-02-08T18:13:14.717Z",
-        by: "65c202d4aa62f32ffd1303cc",
-        _id: "65c51b678064df97d208b3d6",
-      },
-    ],
-    subTasks: [
-      {
-        title: "Check Login code and fix bugs asap",
-        date: "2024-02-08T00:00:00.000Z",
-        tag: "Bug Fixing",
-        _id: "65c46074af6ec0118be94094",
-      },
-    ],
-    createdAt: "2024-02-08T04:28:31.966Z",
-    updatedAt: "2024-02-09T06:51:15.005Z",
-    __v: 3,
-  },
-  {
-    _id: "65c3c457fb9c6768ce4bc31a",
-    title: "Duplicate - Website Project Proposal",
-    date: "2024-02-07T17:55:13.218Z",
-    priority: "high",
-    stage: "todo",
-    assets: [],
-    team: [
-      {
-        _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
-        title: "Administrator",
-        email: "admin@gmail.com",
-      },
-      {
-        _id: "65c27a0e18c0a1b750ad5cad",
-        name: "John Doe",
-        title: "Software Engineer",
-        email: "john.doe@example.com",
-      },
-      {
-        _id: "65c30b96e639681a13def0b5",
-        name: "Jane Smith",
-        title: "Product Manager",
-        email: "jane.smith@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [],
-    subTasks: [
-      {
-        title: "Blog App Dashboard",
-        date: "2024-02-06T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c352e776ed5c48f944095c",
-      },
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-07T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c3531476ed5c48f9440965",
-      },
-    ],
-    createdAt: "2024-02-07T17:56:39.969Z",
-    updatedAt: "2024-02-09T06:51:15.005Z",
-    __v: 1,
-  },
-  {
-    _id: "65c3c439fb9c6768ce4bc308",
-    title: "Duplicate - Review Code Changes",
-    date: "2024-02-07T17:55:13.218Z",
-    priority: "medium",
-    stage: "in progress",
-    assets: [],
-    team: [
-      {
-        _id: "65c317360fd860f958baa08e",
-        name: "Alex Johnson",
-        title: "UX Designer",
-        email: "alex.johnson@example.com",
-      },
-      {
-        _id: "65c3176a0fd860f958baa099",
-        name: "Emily Wilson",
-        title: "Data Analyst",
-        email: "emily.wilson@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [],
-    subTasks: [
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-08T00:00:00.000Z",
-        tag: "Website App",
-        _id: "65c3535476ed5c48f9440973",
-      },
-    ],
-    createdAt: "2024-02-07T17:56:09.174Z",
-    updatedAt: "2024-02-07T17:56:09.456Z",
-    __v: 1,
-  },
-  {
-    _id: "65c3c21f55ae9b2f7666e86c",
-    title: "Duplicate - Website Project Proposal",
-    date: "2024-02-07T17:46:56.040Z",
-    priority: "low",
-    stage: "todo",
-    assets: [],
-    team: [
-      {
-        _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
-        title: "Administrator",
-        email: "admin@gmail.com",
-      },
-      {
-        _id: "65c27a0e18c0a1b750ad5cad",
-        name: "John Doe",
-        title: "Software Engineer",
-        email: "john.doe@example.com",
-      },
-      {
-        _id: "65c30b96e639681a13def0b5",
-        name: "Jane Smith",
-        title: "Product Manager",
-        email: "jane.smith@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [],
-    subTasks: [
-      {
-        title: "Blog App Dashboard",
-        date: "2024-02-06T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c352e776ed5c48f944095c",
-      },
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-07T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c3531476ed5c48f9440965",
-      },
-    ],
-    createdAt: "2024-02-07T17:47:11.560Z",
-    updatedAt: "2024-02-07T17:47:11.972Z",
-    __v: 1,
-  },
-  {
-    _id: "65c352b376ed5c48f9440955",
-    title: "Review Code Changes",
-    date: "2024-02-05T00:00:00.000Z",
-    priority: "medium",
-    stage: "in progress",
-    assets: [],
-    team: [
-      {
-        _id: "65c317360fd860f958baa08e",
-        name: "Alex Johnson",
-        title: "UX Designer",
-        email: "alex.johnson@example.com",
-      },
-      {
-        _id: "65c3176a0fd860f958baa099",
-        name: "Emily Wilson",
-        title: "Data Analyst",
-        email: "emily.wilson@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [],
-    subTasks: [
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-08T00:00:00.000Z",
-        tag: "Website App",
-        _id: "65c3535476ed5c48f9440973",
-      },
-    ],
-    createdAt: "2024-02-07T09:51:47.149Z",
-    updatedAt: "2024-02-07T09:54:28.645Z",
-    __v: 1,
-  },
-  {
-    _id: "65c351b976ed5c48f9440947",
-    title: "Website Project Proposal",
-    date: "2024-02-07T00:00:00.000Z",
-    priority: "high",
-    stage: "todo",
-    assets: [],
-    team: [
-      {
-        _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
-        title: "Administrator",
-        email: "admin@gmail.com",
-      },
-      {
-        _id: "65c27a0e18c0a1b750ad5cad",
-        name: "John Doe",
-        title: "Software Engineer",
-        email: "john.doe@example.com",
-      },
-      {
-        _id: "65c30b96e639681a13def0b5",
-        name: "Jane Smith",
-        title: "Product Manager",
-        email: "jane.smith@example.com",
-      },
-    ],
-    isTrashed: false,
-    activities: [],
-    subTasks: [
-      {
-        title: "Blog App Dashboard",
-        date: "2024-02-06T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c352e776ed5c48f944095c",
-      },
-      {
-        title: "Blog App Admin Dashboard",
-        date: "2024-02-07T00:00:00.000Z",
-        tag: "Design",
-        _id: "65c3531476ed5c48f9440965",
-      },
-    ],
-    createdAt: "2024-02-07T09:47:37.337Z",
-    updatedAt: "2024-02-07T09:53:24.079Z",
-    __v: 2,
-  },
-];
 
 export const user = {
   _id: "662f32ffd1303cc",
@@ -1781,50 +1322,3 @@ export const user = {
   isActive: true,
 };
 
-export const activitiesData = [
-  {
-    _id: "0",
-    type: "started",
-    activity: "started this task.",
-    date: new Date("2023-01-15").toISOString(),
-    by: "Akwasi Asante",
-  },
-  {
-    _id: "1",
-    type: "commented",
-    activity:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam.",
-    date: new Date("2023-01-15").toISOString(),
-    by: "Eduardo Benz",
-  },
-  {
-    _id: "2",
-    type: "assigned",
-    activity: "task to Codewave Asante",
-    date: new Date("2023-01-15").toISOString(),
-    by: "Akwasi Asante",
-  },
-
-  {
-    _id: "3",
-    type: "in progress",
-    activity:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum.",
-    date: new Date("2024-01-15").toISOString(),
-    by: "Jason Meyers",
-  },
-  {
-    _id: "5",
-    type: "bug",
-    activity: "bug to Codewave Asante",
-    date: new Date("2023-01-15").toISOString(),
-    by: "Akwasi Asante",
-  },
-  {
-    _id: "4",
-    type: "completed",
-    activity: "Codewave Asante has completed the task assigned",
-    date: new Date("2023-01-15").toISOString(),
-    by: "Akwasi Asante",
-  },
-];

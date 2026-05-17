@@ -8,6 +8,8 @@ import { checkRiskToleranceBreached } from "./checkRiskToleranceBreached";
 import { checkRisksToImprove } from "./checkRisksToImprove";
 import { SEVERITY } from "./createIndicator";
 import { checkSharedDependency } from "./checkSharedDependency";
+import { risks } from "../../assets/data";
+import { getRisksForSupplier } from "../getRisksForSupplier";
 
 // Severity weights for sorting — critical indicators always surface first
 const SEVERITY_WEIGHT = {
@@ -27,9 +29,8 @@ const sortIndicators = (indicators) =>
 // and supplier-level risk rules (tolerance breached, low control confidence).
 export const generateSupplierIndicators = (supplier, suppliers) => {
   const supplierSubtree = buildSupplierHierarchy(suppliers, supplier._id);
+  const supplierRisks = getRisksForSupplier(risks, supplier._id);
 
-  // checkSharedDependency needs the full array to detect shared dependencies,
-  // but we filter results to only surface indicators for the current supplier
   const sharedDependencyIndicators = checkSharedDependency(suppliers).filter(
     (indicator) => indicator.supplierId === supplier._id
   );
@@ -39,8 +40,8 @@ export const generateSupplierIndicators = (supplier, suppliers) => {
     checkCapacity(supplier),
     checkContractExpiry(supplier),
     ...checkDownstreamCount(supplier, supplierSubtree),
-    ...checkRiskToleranceBreached(supplier),
-    ...checkRisksToImprove(supplier),
+    ...checkRiskToleranceBreached(supplier, supplierRisks),
+    ...checkRisksToImprove(supplier, supplierRisks),
     ...sharedDependencyIndicators,
   ].filter(Boolean);
 

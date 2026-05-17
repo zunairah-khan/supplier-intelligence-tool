@@ -1,8 +1,8 @@
 import Login from "./pages/Login.jsx";
-import Dashboard from "./pages/dashboard.jsx";
+
 import Tasks from "./pages/Tasks.jsx";
 import Users from "./pages/Users.jsx";
-import Trash from "./pages/Trash.jsx";
+
 import TaskDetails from "./pages/TaskDetails.jsx";
 import SupplierTierMap from "./pages/SupplierTierMap.jsx";
 import Suppliers from "./pages/Suppliers.jsx";

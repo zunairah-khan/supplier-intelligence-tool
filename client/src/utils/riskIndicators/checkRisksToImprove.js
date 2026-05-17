@@ -3,13 +3,13 @@ import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
 // This operates on each risk object within a supplier's risks array
 // Flags risks with a high risk rating AND low control confidence
 // These are the risks most in need of active management
-export const checkRisksToImprove = (supplier) => {
-  if (!supplier.risks) return [];
+export const checkRisksToImprove = (supplier, risks) => {
+  if (!risks) return [];
 
-  const HIGH_RATING_THRESHOLD = 12; // impact * likelihood >= 12 out of 25
-  const LOW_CONTROL_THRESHOLD = 3;  // controlConfidence <= 3 out of 5
+  const HIGH_RATING_THRESHOLD = 15;
+  const LOW_CONTROL_THRESHOLD = 3;
 
-  return supplier.risks
+  return risks
     .filter(risk =>
       (risk.impact * risk.likelihood) >= HIGH_RATING_THRESHOLD &&
       risk.controlConfidence <= LOW_CONTROL_THRESHOLD
@@ -20,7 +20,7 @@ export const checkRisksToImprove = (supplier) => {
         supplier.name,
         SEVERITY.CRITICAL,
         CATEGORY.RISK,
-        `${risk.riskReference}: ${risk.riskName}: high risk rating (${risk.impact * risk.likelihood}/25) with low control confidence (${risk.controlConfidence}/5) — improvement required.`
+        `"${risk.riskName}": high risk rating (${risk.impact * risk.likelihood}/25) with low control confidence (${risk.controlConfidence}/5) — immediate attention required.`
       )
     );
 };

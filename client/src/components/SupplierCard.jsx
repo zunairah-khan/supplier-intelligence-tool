@@ -8,13 +8,13 @@ import { useSelector } from "react-redux";
 
 const RISK_STYLES = {
   High: "border-l-4 border-red-600",
-  Medium: "border-l-4 border-yellow-600",
+  Medium: "border-l-4 border-yellow-500",
   Low: "border-l-4 border-green-600",
 };
 
 const RISK_BADGES = {
   High: "bg-red-600",
-  Medium: "bg-yellow-600",
+  Medium: "bg-yellow-500",
   Low: "bg-green-600",
 };
 

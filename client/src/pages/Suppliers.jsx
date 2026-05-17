@@ -12,6 +12,7 @@ import { suppliers } from "../assets/data";
 import SupplierTable from "../components/supplier/SupplierTable";
 import AddTask from "../components/task/AddTask";
 import { MdOutlineSearch } from "react-icons/md";
+import FilterBar from "../components/FilterBar";
 const TABS = [
   { title: "Grid View", icon: <MdGridView /> },
   { title: "List View", icon: <FaList /> },
@@ -19,7 +20,7 @@ const TABS = [
 
 const SUPPLIER_TYPE = {
   highRisk: "bg-blue-600",
-  mediumRisk: "bg-yellow-600",
+  mediumRisk: "bg-yellow-500",
   lowRisk: "bg-green-600",
 };
 
@@ -30,33 +31,41 @@ const Suppliers = () => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [tierFilter, setTierFilter] = useState(null);
+  const [riskFilter, setRiskFilter] = useState(null);
+
+  const TIER_FILTERS = [
+    { value: 1, label: "Tier 1", colour: "bg-blue-700" },
+    { value: 2, label: "Tier 2", colour: "bg-blue-700" },
+    { value: 3, label: "Tier 3", colour: "bg-blue-700" },
+    { value: 4, label: "Tier 4", colour: "bg-blue-700" },
+  ];
+
+  const RISK_FILTERS = [
+    { value: "High", label: "High Risk", colour: "bg-red-600" },
+    { value: "Medium", label: "Medium Risk", colour: "bg-yellow-500" },
+    { value: "Low", label: "Low Risk", colour: "bg-green-600" },
+  ];
 
 // returns true for all suppliers if search query empty, else check specified fields for search query 
   const filteredSuppliers = suppliers.filter((supplier) => {
-    const query = searchQuery.trim().toLowerCase();
-    if (!query) return true;
+  const query = searchQuery.trim().toLowerCase();
 
-    const tierValue = supplier?.tier?.toString() || "";
-    const typeValue = supplier?.operation_type || supplier?.type || "";
-    const statusValue = supplier?.status || supplier?.legal_status || "";
-    const contactValues = supplier?.contacts
-      ? supplier.contacts
-          .map((contact) => `${contact.name} ${contact.title} ${contact.email}`)
-          .join(" ")
-      : "";
+  const matchesSearch = !query || [
+    supplier?.name,
+    supplier?.tier?.toString(),
+    supplier?.operation_type,
+    supplier?.legal_status,
+    supplier?.location,
+    supplier?.RiskLevel,
+    supplier?.contacts?.map((c) => `${c.name} ${c.title} ${c.email}`).join(" "),
+  ].filter(Boolean).some((v) => v.toLowerCase().includes(query));
 
-    return [
-      supplier?.name,
-      tierValue,
-      typeValue,
-      statusValue,
-      supplier?.location,
-      supplier?.RiskLevel,
-      contactValues,
-    ]
-      .filter(Boolean)
-      .some((value) => value.toLowerCase().includes(query));
-  });
+  const matchesTier = !tierFilter || supplier.tier === tierFilter;
+  const matchesRisk = !riskFilter || supplier.RiskLevel === riskFilter;
+
+  return matchesSearch && matchesTier && matchesRisk;
+});
 
   return loading ? (
     <div className="py-10">
@@ -67,7 +76,19 @@ const Suppliers = () => {
       <div className="flex items-center justify-between mb-4">
         
         <Title title={"Suppliers"} />
-        {/*Search bar*/}
+        
+          <Button
+            onClick={()=> setOpen(true)}
+            label="Add Supplier"
+            icon={<IoMdAdd className="text-lg" />}
+            className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
+          />
+          
+        
+      </div>
+        {/*Filter bars and search bar*/}
+        <div className="flex items-center gap-6 mb-4">
+{/*Search bar*/}
         <div className='w-64 2xl:w-100 flex items-center py-2 px-3 gap-2 rounded-full bg-[#ffffff]'>
           <MdOutlineSearch className='text-gray-500 text-xl' />
           <input
@@ -78,15 +99,20 @@ const Suppliers = () => {
             className='flex-1 outline-none bg-transparent placeholder:text-gray-500 text-gray-800 '
           />
         </div>
-          <Button
-            onClick={()=> setOpen(true)}
-            label="Add Supplier"
-            icon={<IoMdAdd className="text-lg" />}
-            className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
-          />
-          
-        
-      </div>
+        <div className="w-px h-5 bg-gray-300 shrink-0" />
+  <FilterBar
+    filters={TIER_FILTERS}
+    activeFilter={tierFilter}
+    onToggle={(v) => setTierFilter((prev) => prev === v ? null : v)}
+  />
+  <div className="w-px h-5 bg-gray-300 shrink-0" />
+  <FilterBar
+    filters={RISK_FILTERS}
+    activeFilter={riskFilter}
+    onToggle={(v) => setRiskFilter((prev) => prev === v ? null : v)}
+  />
+
+</div>
       {/*Tabs for grid and list view*/}
       <div>
         <Tabs tabs={TABS} setSelected={setSelected}>

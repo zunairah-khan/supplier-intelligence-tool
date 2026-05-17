@@ -43,7 +43,7 @@ const TaskCard = ({ task }) => {
     <>
       <div
         className="w-full bg-white rounded-lg border border-gray-100 shadow-md hover:shadow-xl flex flex-row cursor-pointer transition-all duration-200"
-        onClick={() => navigate(`/actions/${task._id}`)}
+        
       >
         {/* Left coloured bar */}
         <div className={clsx("w-2 shrink-0 rounded-l-lg", TASK_TYPE[task.stage])} />

@@ -28,6 +28,7 @@ import RiskIndicatorCard from "../components/RiskIndicatorCard";
 import RiskIndicatorFilterBar from "../components/RiskIndicatorFilterBar";
 import { getActionsForSupplier } from "../utils/getSupplierActions";
 import TaskCard from "../components/TaskCard";
+import FilterBar from "../components/FilterBar";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
@@ -53,6 +54,20 @@ const SupplierDetails = () => {
   const [selected, setSelected] = useState(0);
   const [activeFilter, setActiveFilter] = useState(null);
   const navigate = useNavigate();
+  const [actionStageFilter, setActionStageFilter] = useState(null);
+const [actionPriorityFilter, setActionPriorityFilter] = useState(null);
+
+const ACTION_STAGE_FILTERS = [
+  { value: "todo", label: "To Do", colour: "bg-blue-600" },
+  { value: "in progress", label: "In Progress", colour: "bg-yellow-500" },
+  { value: "completed", label: "Completed", colour: "bg-green-600" },
+];
+
+const ACTION_PRIORITY_FILTERS = [
+  { value: "High", label: "High", colour: "bg-red-600" },
+  { value: "Medium", label: "Medium", colour: "bg-yellow-500" },
+  { value: "Low", label: "Low", colour: "bg-green-600" },
+];
 
   const supplier = suppliers.find((s) => s._id === id);
 
@@ -299,31 +314,57 @@ const SupplierDetails = () => {
                 ) : (
                   <div className="bg-white shadow rounded-lg p-4 flex flex-col min-h-full">
 
-                    {/* Actions header */}
-                    <div className="flex justify-between items-center pb-3 mb-4 border-b border-gray-200 shrink-0">
-                      <p className="font-semibold text-lg">Actions</p>
-                      <Button
-                        onClick={() => {}}
-                        label="Add Action"
-                        icon={<IoMdAdd />}
-                        className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-1 px-3 text-sm"
-                      />
-                    </div>
+    {/* Actions header */}
+    <div className="flex justify-between items-center pb-3 mb-3 border-b border-gray-200 shrink-0">
+      <p className="font-semibold text-lg">Actions</p>
+      <Button
+        onClick={() => {}}
+        label="Add Action"
+        icon={<IoMdAdd />}
+        className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md py-1 px-3 text-sm"
+      />
+    </div>
 
-                    {/* Action cards grid */}
-                    {supplierActions.length === 0 ? (
-                      <p className="text-gray-500 italic flex justify-center items-center flex-1">
-                        No actions logged for {supplier?.name}.
-                      </p>
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                        {supplierActions.map((action) => (
-                          <TaskCard key={action._id} task={action} />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
+    {/* Filter bars */}
+    <div className="flex items-center gap-4 mb-4 flex-wrap shrink-0">
+      <FilterBar
+        filters={ACTION_STAGE_FILTERS}
+        activeFilter={actionStageFilter}
+        onToggle={(v) => setActionStageFilter((prev) => prev === v ? null : v)}
+      />
+      <div className="w-px h-5 bg-gray-200 shrink-0" />
+      <FilterBar
+        filters={ACTION_PRIORITY_FILTERS}
+        activeFilter={actionPriorityFilter}
+        onToggle={(v) => setActionPriorityFilter((prev) => prev === v ? null : v)}
+      />
+    </div>
+
+    {/* Filtered action cards */}
+    {(() => {
+      const filtered = supplierActions.filter((a) => {
+        const matchesStage = !actionStageFilter || a.stage === actionStageFilter;
+        const matchesPriority = !actionPriorityFilter || a.priority === actionPriorityFilter;
+        return matchesStage && matchesPriority;
+      });
+
+      return filtered.length === 0 ? (
+        <p className="text-gray-500 italic flex justify-center items-center flex-1">
+          {supplierActions.length === 0
+            ? `No actions logged for ${supplier?.name}.`
+            : "No actions match the selected filters."}
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {filtered.map((action) => (
+            <TaskCard key={action._id} task={action} />
+          ))}
+        </div>
+      );
+    })()}
+  </div>
+)}
+                
               </>
             </Tabs>
           </div>
@@ -341,7 +382,7 @@ const SupplierDetails = () => {
   <div className="flex flex-col gap-3 overflow-y-auto flex-1 min-h-0">
     {filteredIndicators.length === 0 ? (
       <p className="text-gray-500 text-sm italic">
-        No risk signals detected for {supplier?.name}.
+        No risk indicators detected for {supplier?.name}.
       </p>
     ) : (
       filteredIndicators.map((indicator, index) => (

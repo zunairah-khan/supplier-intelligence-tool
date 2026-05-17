@@ -1,5 +1,5 @@
 import React from 'react'
-import {summary} from "../../assets/data"
+import {users} from "../../assets/data"
 import { Listbox,ListboxOptions, ListboxButton,ListboxOption, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { BsChevronExpand } from "react-icons/bs";
@@ -13,7 +13,7 @@ import clsx from 'clsx';
 const UserList = ({setTeam,team}) => {
 
 
-    const data = summary.users
+    const data = users
     const [selectedUsers, setSelectedUsers] = useState([data[0]]);
     const handleChange = (el)=> {
         setSelectedUsers(el)

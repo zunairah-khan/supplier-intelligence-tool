@@ -42,9 +42,9 @@ const STAGE_FILTERS = [
 ];
 
 const PRIORITY_FILTERS = [
-  { value: "High", label: "High", colour: "bg-red-600" },
-  { value: "Medium", label: "Medium", colour: "bg-yellow-500" },
-  { value: "Low", label: "Low", colour: "bg-green-600" },
+  { value: "High", label: "High Priority", colour: "bg-red-600" },
+  { value: "Medium", label: "Medium Priority", colour: "bg-yellow-500" },
+  { value: "Low", label: "Low Priority", colour: "bg-green-600" },
 ];
 
   // Attach supplier names to all actions for display

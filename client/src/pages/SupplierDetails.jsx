@@ -57,9 +57,9 @@ const ACTION_STAGE_FILTERS = [
 ];
 
 const ACTION_PRIORITY_FILTERS = [
-  { value: "High", label: "High", colour: "bg-red-600" },
-  { value: "Medium", label: "Medium", colour: "bg-yellow-500" },
-  { value: "Low", label: "Low", colour: "bg-green-600" },
+  { value: "High", label: "High Priority", colour: "bg-red-600" },
+  { value: "Medium", label: "Medium Priority", colour: "bg-yellow-500" },
+  { value: "Low", label: "Low Priority", colour: "bg-green-600" },
 ];
 
 const SupplierDetails = () => {

@@ -23,7 +23,7 @@ import { TASK_TYPE, getInitials, BGS } from "../utils";
 import { suppliers } from "../assets/data";
 import { actions } from "../assets/data";
 import { getSupplierActions } from "../utils/getSupplierActions";
-
+import { users } from "../assets/data";
 const PRIORITY_COLOUR = {
   High: "bg-red-600",
   Medium: "bg-yellow-600",
@@ -228,9 +228,9 @@ const Narrative = ({ comments, id }) => {
 
   const handleSubmit = () => {};
 
-  // Find user name from team — in production this would come from auth context
-  const getUserName = (userId) => {
-    return "User";
+  // Look up user by FK_user_id from users table
+  const getUserById = (userId) => {
+    return users.find((u) => u._id === userId);
   };
 
   return (
@@ -239,46 +239,60 @@ const Narrative = ({ comments, id }) => {
         Narrative
       </p>
 
-      {/* Comment chain */}
       <div className="flex flex-col flex-1">
         {comments?.length > 0 ? (
-          comments.map((item, index) => (
-            <div key={item._id || index} className="flex gap-3">
+          comments.map((item, index) => {
+            const commentUser = getUserById(item?.FK_user_id);
+            return (
+              <div key={item._id || index} className="flex gap-3">
 
-              {/* Avatar + connector line */}
-              <div className="flex flex-col items-center shrink-0">
-                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-semibold shrink-0">
-                  {getInitials(item?.FK_user_id?.name || "User")}
+                {/* Avatar with initials */}
+                <div className="flex flex-col items-center shrink-0">
+                  <div className={clsx(
+                    "w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-semibold shrink-0",
+                    BGS[index % BGS?.length]
+                  )}>
+                    {getInitials(commentUser?.name || "U")}
+                  </div>
+                  {index < comments.length - 1 && (
+                    <div className="w-0.5 bg-gray-200 flex-1 my-1" />
+                  )}
                 </div>
-                {index < comments.length - 1 && (
-                  <div className="w-0.5 bg-gray-200 flex-1 my-1" />
-                )}
-              </div>
 
-              {/* Comment content */}
-              <div className={clsx("flex flex-col gap-1", index < comments.length - 1 ? "pb-5" : "pb-0")}>
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold text-gray-800">
-                    {item?.FK_user_id?.name || "User"}
+                {/* Comment content */}
+                <div className={clsx(
+                  "flex flex-col gap-1",
+                  index < comments.length - 1 ? "pb-5" : "pb-0"
+                )}>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-semibold text-gray-800">
+                      {commentUser?.name || "Unknown User"}
+                    </p>
+                    <span className="text-xs text-gray-400">
+                      {commentUser?.title && (
+                        <span className="mr-2 text-gray-400">· {commentUser.title}</span>
+                      )}
+                      {moment(item?.date).fromNow()}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {item?.comment}
                   </p>
-                  <span className="text-xs text-gray-400">
-                    {moment(item?.date).fromNow()}
-                  </span>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {item?.comment}
-                </p>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <p className="text-sm text-gray-400 italic mb-4">No comments yet.</p>
         )}
 
-        {/* Add comment — always at bottom of chain */}
+        {/* Add comment */}
         <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
-          <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-xs font-semibold shrink-0">
-            You
+          <div className={clsx(
+            "w-8 h-8 rounded-full text-white flex items-center justify-center text-xs font-semibold shrink-0",
+            BGS[0]
+          )}>
+            {getInitials("Codewave Asante")}
           </div>
           <div className="flex-1 flex flex-col gap-2">
             <textarea

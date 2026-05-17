@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import { IoMdAdd } from "react-icons/io";
-import { summary } from "../assets/data";
+import { users } from "../assets/data";
 import { getInitials } from "../utils";
 import clsx from "clsx";
 import ConfirmationDialog, { UserAction } from "../components/ConfirmationDialog";
@@ -60,7 +60,7 @@ const Users = () => {
           // onClick={() => userStatusClick(user)}
           className={clsx(
             "w-fit px-4 py-1 rounded-full",
-            user?.isActive ? "bg-blue-200" : "bg-yellow-100"
+            user?.isActive ? "bg-green-300" : "bg-gray-100"
           )}
         >
           {user?.isActive ? "Active" : "Disabled"}
@@ -103,9 +103,9 @@ const Users = () => {
             <table className='w-full mb-5'>
               <TableHeader />
               <tbody>
-                {summary.users?.map((user, index) => (
-                  <TableRow key={index} user={user} />
-                ))}
+                {users?.map((user, index) => (
+  <TableRow key={index} user={user} />
+))}
               </tbody>
             </table>
           </div>

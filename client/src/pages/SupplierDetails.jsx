@@ -34,7 +34,7 @@ import { getRisksForSupplier } from "../utils/getRisksForSupplier";
 
 const RISK_BORDER_STYLES = {
   High: "border-red-600",
-  Medium: "border-yellow-600",
+  Medium: "border-yellow-500",
   Low: "border-green-600",
 };
 
@@ -46,7 +46,7 @@ const TABS = [
 
 const RISK_LEVEL_BG = {
   High: "bg-red-600",
-  Medium: "bg-yellow-600",
+  Medium: "bg-yellow-500",
   Low: "bg-green-600",
 };
 

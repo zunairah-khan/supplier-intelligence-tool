@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 const RISK_STYLES = {
   High: "text-red-600",
-  Medium: "text-yellow-600",
+  Medium: "text-yellow-500",
   Low: "text-green-600",
 };
 
 const RISK_BADGES = {
   High: "bg-red-600",
-  Medium: "bg-yellow-600",
+  Medium: "bg-yellow-500",
   Low: "bg-green-600",
 };
 

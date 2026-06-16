@@ -11,7 +11,7 @@ export const checkCapacity = (supplier) => {
       supplier.name,
       SEVERITY.CRITICAL,
       CATEGORY.CAPACITY,
-      `${supplier.name} derives ${Math.round(supplier.capacity * 100)}% of its revenue from this organisation — high dependency presents negotiation leverage but also supply fragility risk.`
+      `${supplier.name} derives ${Math.round(supplier.capacity * 100)}% of its revenue from this organisation. High dependency presents supply fragility risk.`
     );
   }
   if (supplier.capacity >= 0.5) {
@@ -20,7 +20,7 @@ export const checkCapacity = (supplier) => {
       supplier.name,
       SEVERITY.WARNING,
       CATEGORY.CAPACITY,
-      `${supplier.name} derives ${Math.round(supplier.capacity * 100)}% of its revenue from this organisation — monitor for over-dependency.`
+      `${supplier.name} derives ${Math.round(supplier.capacity * 100)}% of its revenue from this organisation. Monitor for over-dependency.`
     );
   }
   return null;

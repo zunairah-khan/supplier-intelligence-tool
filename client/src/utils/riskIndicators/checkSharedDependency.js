@@ -17,7 +17,7 @@ export const checkSharedDependency = (suppliers) => {
         supplier.name,
         SEVERITY.CRITICAL,
         CATEGORY.STRUCTURAL,
-        `${supplier.name} is a shared sub-tier dependency of ${parentNames} — apparent supply diversification may be illusory.`
+        `${supplier.name} is a shared sub-tier dependency of ${parentNames} — monitor for potential supply chain fragility and false double sourcing.`
       ));
     }
   });

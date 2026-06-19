@@ -135,7 +135,7 @@ const SupplierDetails = () => {
           className="flex rounded-full items-center text-white"
         />
         <h1 className="text-2xl font-semibold text-gray-600">
-          Supplier Overview
+          Supplier Details
         </h1>
       </div>
 

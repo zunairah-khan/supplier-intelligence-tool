@@ -24,7 +24,7 @@ const ICONS = {
 
 const PRIORITY_COLOUR = {
   High: "bg-red-600",
-  Medium: "bg-yellow-600",
+  Medium: "bg-yellow-500",
   Low: "bg-blue-400",
 };
 

@@ -39,13 +39,13 @@ export function dateFormatter(dateString) {
 
 export const PRIORITYSTYLES = {
   high: "text-red-600",
-  medium: "text-yellow-600",
+  medium: "text-yellow-500",
   low: "text-blue-600",
 };
 
 export const TASK_TYPE = {
   todo: "bg-blue-600",
-  "in progress": "bg-yellow-600",
+  "in progress": "bg-yellow-500",
   completed: "bg-green-600",
 };
 

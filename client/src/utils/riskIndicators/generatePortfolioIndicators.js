@@ -1,4 +1,6 @@
 import { buildSupplierHierarchy } from "../buildSupplierHierarchy";
+import { findSubtree } from "./findSubtree";
+
 import { checkTier1HighRisk } from "./checkTier1HighRisk";
 import { checkCapacity } from "./checkCapacity";
 import { checkContractExpiry } from "./checkContractExpiry";
@@ -7,7 +9,6 @@ import { checkSharedDependency } from "./checkSharedDependency";
 import { checkRiskToleranceBreached } from "./checkRiskToleranceBreached";
 import { checkRisksToImprove } from "./checkRisksToImprove";
 import { SEVERITY } from "./createIndicator";
-
 import { risks } from "../../assets/data";
 import { getRisksForSupplier } from "../getRisksForSupplier";
 
@@ -22,18 +23,17 @@ const sortIndicators = (indicators) =>
     (a, b) => SEVERITY_WEIGHT[b.severity] - SEVERITY_WEIGHT[a.severity]
   );
 
-// Generates risk indicators across all suppliers in the portfolio.
-// Used by the executive dashboard and tier map indicator panels.
-// Runs all applicable rules per supplier and includes portfolio-wide
-// structural rules such as shared sub-tier dependency detection.
-// Note: calls buildSupplierHierarchy once per supplier for subtree-based
-// rules — O(n²) complexity. Acceptable for PoC scale; a production
-// implementation would precompute subtree stats in a single O(n) traversal.
 export const generatePortfolioIndicators = (suppliers) => {
-  const sharedDependencyIndicators = checkSharedDependency(suppliers);
+  // ✅ BUILD ONCE (fixes O(n²))
+  const hierarchy = buildSupplierHierarchy(suppliers);
+
+  const sharedDependencyIndicators =
+    checkSharedDependency(suppliers);
 
   const supplierLevelIndicators = suppliers.flatMap((supplier) => {
-    const supplierSubtree = buildSupplierHierarchy(suppliers, supplier._id);
+    // ✅ REUSE TREE INSTEAD OF REBUILDING
+    const supplierSubtree = findSubtree(hierarchy, supplier._id);
+
     const supplierRisks = getRisksForSupplier(risks, supplier._id);
 
     return [

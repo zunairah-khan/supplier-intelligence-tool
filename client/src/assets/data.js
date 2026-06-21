@@ -676,8 +676,8 @@ export const actions = [
   {
     _id: "65c5f12ab5204a81bde866a9",
     FK_supplier_id: "65c5f27fb5204a81bde86833",
-    title: "Test task",
-    description: "This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. This is a test task for supplier A. ",
+    title: "Test Action",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "2024-02-09T00:00:00.000Z",
     priority: "Low",
     stage: "in progress",
@@ -690,20 +690,20 @@ export const actions = [
     team: [
       {
         _id: "65c202d4aa62f32ffd1303cc",
-        name: "Codewave Asante",
+        name: "Georgia Smith",
         title: "Administrator",
-        email: "admin@gmail.com",
+        email: "georgia.smith@example.com",
       },
       {
         _id: "65c30b96e639681a13def0b5",
         name: "Jane Smith",
-        title: "Product Manager",
+        title: "Risk Owner",
         email: "jane.smith@example.com",
       },
       {
         _id: "65c317360fd860f958baa08e",
         name: "Alex Johnson",
-        title: "UX Designer",
+        title: "Supply Chain Manager",
         email: "alex.johnson@example.com",
       },
     ],
@@ -896,7 +896,7 @@ export const users = [
   {
     _id: "65c30b96e639681a13def0b5",
     name: "Jane Smith",
-    title: "Product Manager",
+    title: "Risk Owner",
     role: "Risk Owner",
     email: "jane.smith@example.com",
     isAdmin: false,
@@ -905,8 +905,8 @@ export const users = [
   {
     _id: "65c317360fd860f958baa08e",
     name: "Alex Johnson",
-    title: "UX Designer",
-    role: "Supplier Risk Partner",
+    title: "Supply Chain Manager",
+    role: "Supply Chain Manager",
     email: "alex.johnson@example.com",
     isAdmin: false,
     isActive: false

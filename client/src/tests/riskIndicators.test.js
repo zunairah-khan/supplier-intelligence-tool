@@ -6,6 +6,14 @@ import { checkRiskToleranceBreached } from '../utils/riskIndicators/checkRiskTol
 import { checkRisksToImprove } from '../utils/riskIndicators/checkRisksToImprove'
 import { checkSharedDependency } from '../utils/riskIndicators/checkSharedDependency'
 
+/**
+ * Unit tests for supplier risk indicator rules.
+ *
+ * These tests verify that individual risk detection functions correctly
+ * classify supplier conditions according to their defined thresholds and
+ * return the expected indicator severity, category, and output behaviour.
+ */
+
 const mockSupplier = {
   _id: "s1",
   name: "Supplier A",

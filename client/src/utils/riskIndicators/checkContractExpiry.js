@@ -1,11 +1,13 @@
 import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
-// --- CONTRACT EXPIRY ---
-// Requires contract_expiry_date field on supplier object (ISO date string)
+
+//Evaluates supplier contract expiry dates to identify upcoming or expired contractual risks.
+
 export const checkContractExpiry = (supplier) => {
   if (!supplier.contract_expiry_date) return null;
 
   const daysUntilExpiry = Math.ceil(
-    (new Date(supplier.contract_expiry_date) - new Date()) / (1000 * 60 * 60 * 24)
+    (new Date(supplier.contract_expiry_date) - new Date()) /
+      (1000 * 60 * 60 * 24)
   );
 
   if (daysUntilExpiry < 0) {
@@ -17,6 +19,7 @@ export const checkContractExpiry = (supplier) => {
       `Contract with ${supplier.name} has expired.`
     );
   }
+
   if (daysUntilExpiry <= 90) {
     return createIndicator(
       supplier._id,
@@ -26,5 +29,6 @@ export const checkContractExpiry = (supplier) => {
       `Contract with ${supplier.name} expires in ${daysUntilExpiry} days.`
     );
   }
+
   return null;
 };

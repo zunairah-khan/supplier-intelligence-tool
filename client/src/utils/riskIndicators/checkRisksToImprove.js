@@ -1,20 +1,21 @@
 import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
-// --- INDIVIDUAL RISK RULE ---
-// This operates on each risk object within a supplier's risks array
-// Flags risks with a high risk rating AND low control confidence
-// These are the risks most in need of active management
+
+//This operates on each risk object within a supplier's risks array
+// Identifies supplier risks requiring improvement based on risk severity and control effectiveness.
+
 export const checkRisksToImprove = (supplier, risks) => {
   if (!risks) return [];
 
   const HIGH_RATING_THRESHOLD = 15;
   const LOW_CONTROL_THRESHOLD = 3;
-
+// returns an array of risk indicators for risks that are high severity and have low control confidence
   return risks
-    .filter(risk =>
-      (risk.impact * risk.likelihood) >= HIGH_RATING_THRESHOLD &&
-      risk.controlConfidence <= LOW_CONTROL_THRESHOLD
+    .filter(
+      (risk) =>
+        risk.impact * risk.likelihood >= HIGH_RATING_THRESHOLD &&
+        risk.controlConfidence <= LOW_CONTROL_THRESHOLD
     )
-    .map(risk =>
+    .map((risk) =>
       createIndicator(
         supplier._id,
         supplier.name,

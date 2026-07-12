@@ -12,7 +12,7 @@ export const CATEGORY = {
   ROUTE: "route",
 };
 
-// Factory function — all indicators created through this
+// Factory function for creating consistent supplier indicator objects.
 export const createIndicator = (supplierId, supplierName, severity, category, message) => ({
   supplierId,
   supplierName,

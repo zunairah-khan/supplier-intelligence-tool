@@ -1,10 +1,9 @@
 import { createIndicator, SEVERITY, CATEGORY } from "./createIndicator";
-// --- SHARED SUB-TIER DEPENDENCY (false double sourcing) ---
-// Detects suppliers with more than one parent — indicating a shared
-// dependency that may undermine perceived supply chain diversification
+
+// Detects suppliers with more than one parent — indicating a shared dependency 
 export const checkSharedDependency = (suppliers) => {
   const indicators = [];
-
+// for each supplier, check if it has more than one parent supplier
   suppliers.forEach(supplier => {
     if (supplier.parentSuppliers && supplier.parentSuppliers.length > 1) {
       const parentNames = supplier.parentSuppliers

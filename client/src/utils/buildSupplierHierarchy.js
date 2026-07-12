@@ -1,43 +1,43 @@
-
-// Builds a hierarchical tree of suppliers for mapping.
-// Can either build the full org tree or start from a specific supplier.
+// Constructs a hierarchical supplier tree from a flat supplier dataset.
+// If rootSupplierId is omitted, the complete organisational hierarchy is returned.
+// Otherwise, a subtree rooted at the specified supplier is generated.
 export function buildSupplierHierarchy(suppliers, rootSupplierId = null) {
 
-// O(n + e) complexity:
-// n = number of suppliers
-// e = number of parent relationships (supply routes)
-// suppliers and relationships are iterated but never nested
+  /*
+   * Time Complexity: O(n + e)
+   * n = number of suppliers
+   * e = number of parent-child relationships
+   *
+   * Lookup maps eliminate repeated searches, ensuring suppliers and
+   * relationships are traversed only once during construction.
+   */
 
-  // Map: supplierId -> supplier object
+  // Maps supplier identifiers to supplier objects.
   const supplierMap = new Map();
 
-  // Map: parentSupplierId -> array of child supplierIds
+  // Maps parent supplier identifiers to their immediate child relationships.
   const childrenMap = new Map();
 
 
-  // First pass: build lookup maps
+  // First pass: construct lookup maps for suppliers and parent-child relationships.
   suppliers.forEach((supplier) => {
 
-    // Store supplier and initialise children array
+    // Store supplier object and initialise its children collection.
     supplierMap.set(supplier._id, { ...supplier, children: [] });
 
-  
-    // iterate over each parent relationship in the parent suppliers array
-
+    // Record each upstream supplier relationship.
     if (supplier.parentSuppliers && supplier.parentSuppliers.length > 0) {
 
       supplier.parentSuppliers.forEach((parent) => {
 
         const parentId = parent._id;
 
-        // Ensure parent key exists in childrenMap
+        // Initialise relationship collection for the parent if required.
         if (!childrenMap.has(parentId)) {
           childrenMap.set(parentId, []);
         }
 
-
- //storing the child supplierId and route criticality for the link
-
+        // Store child reference together with route criticality metadata.
         childrenMap.get(parentId).push({
           childId: supplier._id,
           routeCriticality: parent.routeCriticality
@@ -47,7 +47,7 @@ export function buildSupplierHierarchy(suppliers, rootSupplierId = null) {
 
     } else {
 
-      // Suppliers with NO parents are treated as root nodes
+      // Suppliers without parents are treated as organisational root nodes.
       if (!childrenMap.has(null)) {
         childrenMap.set(null, []);
       }
@@ -61,24 +61,20 @@ export function buildSupplierHierarchy(suppliers, rootSupplierId = null) {
   });
 
 
-  // Recursive function to build a node and all its descendants
+  // Recursively constructs a supplier node and all downstream descendants.
   function buildNode(supplierId) {
 
     const supplier = supplierMap.get(supplierId);
 
-  
-    // childrenMap stores objects so we retrieve childId + routeCriticality.
-  
+    // Retrieve immediate child relationships for the current supplier.
     const childrenLinks = childrenMap.get(supplierId) || [];
 
-    // Recursively build child nodes
+    // Construct child nodes recursively.
     supplier.children = childrenLinks.map((link) => {
 
       const childNode = buildNode(link.childId);
 
-
-      // Attach route criticality to the child node so the TierMap component can colour the connection.
-
+      // Preserve route metadata for visualisation within the Tier Map.
       childNode.routeCriticality = link.routeCriticality;
 
       return childNode;
@@ -89,7 +85,7 @@ export function buildSupplierHierarchy(suppliers, rootSupplierId = null) {
   }
 
 
-  // Case 1: Build full hierarchy from organisation root
+  // Build the complete organisational hierarchy.
   if (!rootSupplierId) {
     return {
       name: "org",
@@ -97,6 +93,6 @@ export function buildSupplierHierarchy(suppliers, rootSupplierId = null) {
     };
   }
 
-  // Case 2: Build subtree starting from a specific supplier
+  // Build a hierarchy rooted at the specified supplier.
   return buildNode(rootSupplierId);
 }

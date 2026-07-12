@@ -1,7 +1,63 @@
 
 
 
+export const mocksuppliers = [
+  // --- Tier 1 (10 suppliers) ---
+  { _id: "s1", name: "Supplier 1", tier: 1, RiskLevel: "High", parentSuppliers: [] },
+  { _id: "s2", name: "Supplier 2", tier: 1, RiskLevel: "Medium", parentSuppliers: [] },
+  { _id: "s3", name: "Supplier 3", tier: 1, RiskLevel: "Low", parentSuppliers: [] },
+  { _id: "s4", name: "Supplier 4", tier: 1, RiskLevel: "High", parentSuppliers: [] },
+  { _id: "s5", name: "Supplier 5", tier: 1, RiskLevel: "Medium", parentSuppliers: [] },
+  { _id: "s6", name: "Supplier 6", tier: 1, RiskLevel: "Low", parentSuppliers: [] },
+  { _id: "s7", name: "Supplier 7", tier: 1, RiskLevel: "High", parentSuppliers: [] },
+  { _id: "s8", name: "Supplier 8", tier: 1, RiskLevel: "Medium", parentSuppliers: [] },
+  { _id: "s9", name: "Supplier 9", tier: 1, RiskLevel: "Low", parentSuppliers: [] },
+  { _id: "s10", name: "Supplier 10", tier: 1, RiskLevel: "High", parentSuppliers: [] },
 
+  // --- Tier 2 (20 suppliers) ---
+  { _id: "s11", name: "Supplier 11", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s1" }] },
+  { _id: "s12", name: "Supplier 12", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s1" }] },
+  { _id: "s13", name: "Supplier 13", tier: 2, RiskLevel: "High", parentSuppliers: [{ _id: "s2" }] },
+  { _id: "s14", name: "Supplier 14", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s2" }] },
+  { _id: "s15", name: "Supplier 15", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s3" }] },
+  { _id: "s16", name: "Supplier 16", tier: 2, RiskLevel: "High", parentSuppliers: [{ _id: "s3" }] },
+  { _id: "s17", name: "Supplier 17", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s4" }] },
+  { _id: "s18", name: "Supplier 18", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s4" }] },
+  { _id: "s19", name: "Supplier 19", tier: 2, RiskLevel: "High", parentSuppliers: [{ _id: "s5" }] },
+  { _id: "s20", name: "Supplier 20", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s5" }] },
+  { _id: "s21", name: "Supplier 21", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s6" }] },
+  { _id: "s22", name: "Supplier 22", tier: 2, RiskLevel: "High", parentSuppliers: [{ _id: "s6" }] },
+  { _id: "s23", name: "Supplier 23", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s7" }] },
+  { _id: "s24", name: "Supplier 24", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s7" }] },
+  { _id: "s25", name: "Supplier 25", tier: 2, RiskLevel: "High", parentSuppliers: [{ _id: "s8" }] },
+  { _id: "s26", name: "Supplier 26", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s8" }] },
+  { _id: "s27", name: "Supplier 27", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s9" }] },
+  { _id: "s28", name: "Supplier 28", tier: 2, RiskLevel: "High", parentSuppliers: [{ _id: "s9" }] },
+  { _id: "s29", name: "Supplier 29", tier: 2, RiskLevel: "Medium", parentSuppliers: [{ _id: "s10" }] },
+  { _id: "s30", name: "Supplier 30", tier: 2, RiskLevel: "Low", parentSuppliers: [{ _id: "s10" }] },
+
+  // --- Tier 3 (20 suppliers) ---
+  { _id: "s31", name: "Supplier 31", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s11" }] },
+  { _id: "s32", name: "Supplier 32", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s11" }] },
+  { _id: "s33", name: "Supplier 33", tier: 3, RiskLevel: "High", parentSuppliers: [{ _id: "s12" }] },
+  { _id: "s34", name: "Supplier 34", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s13" }] },
+  { _id: "s35", name: "Supplier 35", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s14" }] },
+  { _id: "s36", name: "Supplier 36", tier: 3, RiskLevel: "High", parentSuppliers: [{ _id: "s15" }] },
+  { _id: "s37", name: "Supplier 37", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s16" }] },
+  { _id: "s38", name: "Supplier 38", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s17" }] },
+  { _id: "s39", name: "Supplier 39", tier: 3, RiskLevel: "High", parentSuppliers: [{ _id: "s18" }] },
+  { _id: "s40", name: "Supplier 40", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s19" }] },
+  { _id: "s41", name: "Supplier 41", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s20" }] },
+  { _id: "s42", name: "Supplier 42", tier: 3, RiskLevel: "High", parentSuppliers: [{ _id: "s21" }] },
+  { _id: "s43", name: "Supplier 43", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s22" }] },
+  { _id: "s44", name: "Supplier 44", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s23" }] },
+  { _id: "s45", name: "Supplier 45", tier: 3, RiskLevel: "High", parentSuppliers: [{ _id: "s24" }] },
+  { _id: "s46", name: "Supplier 46", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s25" }] },
+  { _id: "s47", name: "Supplier 47", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s26" }] },
+  { _id: "s48", name: "Supplier 48", tier: 3, RiskLevel: "High", parentSuppliers: [{ _id: "s27" }] },
+  { _id: "s49", name: "Supplier 49", tier: 3, RiskLevel: "Low", parentSuppliers: [{ _id: "s28" }] },
+  { _id: "s50", name: "Supplier 50", tier: 3, RiskLevel: "Medium", parentSuppliers: [{ _id: "s29" }] },
+];
 
 
 export const suppliers = [ 

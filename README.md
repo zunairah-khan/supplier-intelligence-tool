@@ -15,29 +15,29 @@ Run `npm install`, then `npm run dev`. Run tests with `npm test`.
 
 ## Application Screenshots
 
-![Screenshot 1](src/assets/Picture1.png)
+![Screenshot 1](assets/Picture1.png)
 
 ---
 
-![Screenshot 2](src/assets/Picture2.png)
+![Screenshot 2](assets/Picture2.png)
 
 ---
 
-![Screenshot 3](src/assets/Picture3.png)
+![Screenshot 3](assets/Picture3.png)
 
 ---
 
-![Screenshot 4](src/assets/Picture4.png)
+![Screenshot 4](assets/Picture4.png)
 
 ---
 
-![Screenshot 5](src/assets/Picture5.png)
+![Screenshot 5](assets/Picture5.png)
 
 ---
 
-![Screenshot 6](src/assets/Picture6.png)
+![Screenshot 6](assets/Picture6.png)
 
 ---
 
-![Screenshot 7](src/assets/Picture7.png)
+![Screenshot 7](assets/Picture7.png)
 

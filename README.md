@@ -9,10 +9,6 @@ A React web application that helps organisations with complex supply chains unde
 - D3.js (supplier tier map visualisation)
 - Vitest (unit testing)
 
-## Run Locally
-
-Run `npm install`, then `npm run dev`. Run tests with `npm test`.
-
 ## Application Screenshots
 
 ![Screenshot 1](client/src/assets/Picture1.png)

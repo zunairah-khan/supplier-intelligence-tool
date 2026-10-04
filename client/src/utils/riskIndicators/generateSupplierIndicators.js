@@ -28,9 +28,6 @@ const sortIndicators = (indicators) =>
  * Generates all risk indicators for a single supplier.
  * Used by the supplier details page indicator panel.
  *
- * Hierarchy is built once and traversed via findSubtree — O(n + e) build,
- * O(n) traversal — avoiding the O(n²) cost of rebuilding per supplier.
- *
  */
 export const generateSupplierIndicators = (supplier, suppliers) => {
   const hierarchy = buildSupplierHierarchy(suppliers);

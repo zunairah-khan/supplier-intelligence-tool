@@ -1,3 +1,5 @@
+// Utility function to calculate supplier statistics from a hierarchical supplier tree structure.
+
 export const calculateSupplierStats = (node) => {
   const stats = {
     totalSuppliers: 0,

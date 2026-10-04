@@ -94,11 +94,12 @@ executive dashboard
 
 adding supplier- calculate tier automatically
 
-todo:
-exec dashboard
-view risks
-update supplier info 
-add supplier form  
+---todo:----
+
+format add action, supplier and risk forms
+------------------------------------
+
+
 
 report write up:
 
